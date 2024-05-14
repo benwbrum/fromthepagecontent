@@ -1,0 +1,47 @@
+---
+layout: post
+title: 'Review: USGS North American Bird Phenology Program'
+date: 2009-05-17 22:46:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- similar projects
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/05/review-usgs-north-american-bird.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4470841472464496466"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/review-usgs-north-american-bird-phenology-program/"
+---
+<p>Who knew you could track climate change through crowdsourced transcription?  The smart folks at the U. S. Geological Survey, that's who!</p>
+<p>The USGS North American Bird Phenology program encouraged volunteers to submit bird sightings across North America from the 1880s through the 1970s.  These cards are now being transcribed into a database for analysis of migratory pattern changes and what they imply about climate change.</p>
+<p>There's a really nice <a href="http://www.desertusa.com/desertblog/?p=5518">DesertUSA NewsBlog article</a> that covers the background of the project:</p>
+<blockquote><p>The cards record more than a century of information about bird migration, a veritable treasure trove for climate-change researchers because they will help them unravel the effects of climate change on bird behavior, said Jessica Zelt, coordinator of the North American Bird Phenology Program at the USGS Patuxent Wildlife Research Center.</p>
+<p>That is — once the cards are transcribed and put into a scientific database.</p>
+<p>And that’s where citizens across the country come in - the program needs help from birders and others across the nation to transcribe those cards into usable scientific information.</p></blockquote>
+<p>CNN also <a href="http://www.cnn.com/2009/TECH/science/03/26/pp.bird.usgs/index.html">interviewed a few of the volunteers</a>:</p>
+<blockquote><p>Bird enthusiast and star volunteer Stella Walsh, a 62-year-old retiree, pecks away at her keyboard for about four hours each day. She has already transcribed more than 2,000 entries from her apartment in Yarmouth, Maine.</p>
+<p>"It's a lot more fun fondling feathers, but, the whole point is to learn about the data and be able to do something with it that is going to have an impact," Walsh said.</p></blockquote>
+<p>Let's talk about the software behind this effort.</p>
+<p>The NABPP is fortunate to have a limited problem domain.  A great deal of standardization was imposed on the manuscript sources themselves by the original organizers, so that for example, each card describes only a single species and location.  In addition, the questions the modern researchers are asking of the corpus also limits the problem domain: nobody's going to be doing analysis of spelling variations between the cards.    It's important to point out that this narrow scope exists in spite of wide variation in format between the index cards.  Some are handwritten on pre-printed cards, some are type-written on blank cards, and some are entirely freeform.  Nevertheless, they all describe species sightings in a regular format.</p>
+<p>Because of this limited scope, the developers were (probably) able to build a traditional database and data-entry form, with specialized attributes for species, location, date, or other common fields that could be generalized from the corpus and the needs of the project.  That meant custom-building an application specifically for the NABPP, which seems like a lot of work, but it does not require building the kind of Swiss Army Knife that medieval manuscript transcription requires.  This presents an interesting parallel with other semi-standardized, hand-written historical documents like military muster rolls or pension applications.</p>
+<p>One of the really neat possibilities of subject-specific transcription software is that you can combine training users on the software with training them on difficult handwriting, or variations in the text. NABPP has put together <a href="http://www.pwrc.usgs.gov/bpp/training/Phenology_controller.swf">a screencast</a> for this, which walks users through transcribing a few cards from different periods, written in different formats.  This screencast explains how to use the software, but it also explains more traditional editorial issues like what the transcription conventions are, or how to process different formats of manuscript material.</p>
+<p>This is only one of the innovative ways the NABPP deals with its volunteers.  I received a newsletter by email shortly after volunteering, announcing their progress to date (70K cards transcribed) and some changes in the most recent version of the software.  This included some potentially-embarrassing details that a less confident organization might not have mentioned, but which really do a lot.  Users may get used to workarounds to annoying bugs, but in my experience they still remember them and are thrilled when those bugs are finally fixed.   So when the newsletter announces that "The Backspace key no longer causes the previous page to be loaded", I know that they're making some of their volunteers very happy.</p>
+<p>In addition to the newletter, the project also posts <a href="http://www.pwrc.usgs.gov/bpp/DataAndStats.cfm">statistics on the transcription</a> project, broken down both by volunteer and by bird.  The top-ten list gives the game-like feedback you'd want in a project like this, although I'd be hesitant to foster competition in a less individually-oriented project.  They're also posting preliminary analyses of the data, including the <a href="http://www.pwrc.usgs.gov/bpp/JFMaps/bars_1920s.jpg">phenology of barn swallows</a>, mapped by location and date of first sighting, and broken down by decade.</p>
+<p>Congratulations to the North American Bird Phenology Program for making crowdsourced transcription a reality!</p>

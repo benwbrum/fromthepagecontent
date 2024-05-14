@@ -1,0 +1,48 @@
+---
+layout: post
+title: 'Feature: Sensitive Tags'
+date: 2007-06-07 10:46:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- requirements
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/06/feature-sensitive-tags.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3978423841867228370"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-sensitive-tags/"
+---
+<p><span style="font-weight: bold;">Sensitive</span> tags allow passsages within a transcription to be removed from public view — visible to scribes and work owners, but suppressed in printouts or display to viewers.  Why on earth is this desirable?</p>
+<p>At some level, collaborative software is about <span style="font-style: italic;">persuasion</span>.   If the mid-term goal of this project is to get the people with old letters and diaries stashed in their filing cabinets to make those documents accessible, I have to overcome their objections.</p>
+<p>Informal archivists have the same concerns institutional archivists do.  In many cases their records are recent enough to have an impact on living people.  Julia Brumfield may have died seventy years ago, but her diaries record the childhood and teen-aged years of people still living today.  Would you want the comings and goings of your fifteen-year-old self published?  I thought not.</p>
+<p>The approach many family archivists take to this responsibility is to guard access to their data.  My father, for example, is notably unenthusiastic about making Julia Brumfield's diaries visible to the public.  If you force a family archivist to expose works they upload to everyone in their entirity, they simply won't share their works.</p>
+<p>This is where <code>sensitive</code> tags come in.  At any point, a <a href="http://manuscripttranscription.blogspot.com/2007/06/feaure-user-roles.html">scribe</a> may surround a passage of transcription with <code>&lt;sensitive&gt;</code>.  When the display code renders a page of transcription, it replaces the text within the <code>sensitive</code> tags with a symbol or note indicating that material has been elided.  (This symbol should probably be set when the work is configured, and default to some editorial convention.)</p>
+<p><span style="font-weight: bold;"><code>condition</code></span><br />
+The <code>sensitive</code> tag has one plaintext attribute: <code>condition</code>.  This represents a condition to be satisfied for the tag's contents to be made visible to the public.  Thus<br />
+<code>&lt;sensitive condition="Uncle Jed has given permission for this to be printed"&gt; I don't like that girl Jed's seeing.&lt;/sensitive&gt;</code><br />
+would be rendered in display and print as<br />
+<span style="font-style: italic;">[elided]</span><br />
+and would add a new option to the owner's work configuration page:<br />
+Has 'Uncle Jed has given permission for this to be printed' occurred yet?<br />
+Checking this box would either remove the markup around the sensitive text or cause the text to be rendered normally when viewers see or print the transcription.</p>
+<p><span style="font-weight: bold;"><code>until</code></span><br />
+An alternative to the <code>condition</code> attribute is a date attribute named something like <code>until</code>.  This wouldn't require additional intervention by the work owner to lift the suppression of sensitive text: upon rendering, compare the current date to the <code>until</code> date and decide whether to render the text.</p>
+<p>It strikes me that archivists have probably developed guidlines for this problem, but I've had a lot of problems finding the kind of resources on archival practices that exist online for digitization and transcription.  Any pointers would be welcome.</p>

@@ -1,0 +1,36 @@
+---
+layout: post
+title: 'Progress Report: Auto-titling'
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: private
+categories: []
+tags:
+- history
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/04/progress-report-auto-titling.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4952943513546187948"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+  _yoast_wpseo_primary_category: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-auto-titling/"
+---
+<p>One of the first things I discovered when I started work on this project is that it's a lot of effort just to get the page images ready to transcribe. In my case, this means rotating each image (either 90 or 270 degrees, depending on recto or verso), shrinking the rotated images by 1/4 to get to the minimum legible size, shrinking the originals again by 1/2 to get to a zoom size, and then attaching titles to them.</p>
+<p>This titling is itself quite difficult. While it's trivial to generate consistently-formatted dates to apply to carefully reviewed, consistently named page images, the results of scanning real-world manuscripts are much messier. In my case, I'm taking pictures of the odd numbered pages in order, then following with the even numbered pages. The resulting lists of files have duplicate images of the same pages, are missing pages, or have re-do image pairs in which I discovered my camera was on the wrong setting and had to re-shoot a series of pages. In one diary the titles in the original aren't even sequential, since every two months includes a "Memoranda" page. In another, a separate sheet has been glued in over an earlier diary entry.</p>
+<p>The only solution I've come up with is a titling feature, which I completed this month. I upload a set of pictures I believe to be a reasonably-coherent series of pages, choose the proper orientation, and point to the spot on a sample image where the page number is located. This launches a series of background jobs that shrink each image to the minimum legible size, rotate the images correctly, and crops the part of the image that contains the page number. It then automatically generates titles for the images based on user-entered data, then presents the tops of each page along with the generated title for review. The user can delete pages, bump titles into synch with their images, or override titles for cases like my "Memoranda" pages.</p>
+<p>The next step is a feature to collate recto and verso image sets, as well as one to fill in skipped page images. The UI for collation is going to be difficult.</p>

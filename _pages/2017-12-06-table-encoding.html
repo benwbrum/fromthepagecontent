@@ -1,0 +1,60 @@
+---
+layout: page
+title: Table Encoding
+date: 2017-12-06 11:39:10.000000000 -06:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '3'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/project-owner-documentation/table-encoding/"
+---
+<div>
+<p>This describes support for encoding, display, and export of tabular data appearing within documents (requested &amp; funded by <span class="il">Anna</span> <span class="il">Agbe</span>-<span class="il">Davies</span> and the UNC-Chapel Hill Anthropology Department). This feature allows Markdown encoding of tables appearing within documents, and enhances the semantic division of texts into sections.</p>
+</div>
+<div>
+<p>Example from <a href="http://fromthepage.com/display/display_page?page_id=6374#page/n0/mode/1up" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://fromthepage.com/display/display_page?page_id%3D6374%23page/n0/mode/1up&amp;source=gmail&amp;ust=1512666577987000&amp;usg=AFQjCNHIHdXIrp5NNTmG7kuNNwsuMLDccw">Volume 2, Notebook 2, Page 45</a> of the Jeremiah White Graves accounts, bottom:</p>
+<pre>==Mrs Hendricks Abram==
+Date | Note | Amount
+----| -------| ----
+Nov 13th 1845 | Cr by 179lb Hay @ 2/3 | 0.65
+" " | 53lb fodder @ 3/- | 0.26
+" | 1/2 bbl corn @ $3/- | 1.50
+</pre>
+<p>A table consists of an optional section title, a table header, a separator line, and table data.  These are encoded as follows:</p>
+</div>
+<div><b>Section titles</b> are surrounded by equals signs, increasing in length (minimum 2, maximum of 6) to indicate greater importance:</div>
+<p><code>==section title==</code><br />
+<code>===more important title===</code><br />
+<code>====even more important title====</code></p>
+<div></div>
+<div><b>Table headings</b> are words or phrases separated by a pipe ("<b>|</b>")sign.  Headings live on a single line, and are followed by heading separators:</div>
+<p><code>| First Column | Second Column | Third Column |</code></p>
+<p><code></code>or</p>
+<p><code>Lazy First Column | Second Column | Lazy Third Column</code></p>
+<div></div>
+<div></div>
+<div>Table heading <b>separators</b> are three or more dashes.  Good form suggests that they also use pipe signs, mirroring the table headers and cells:</div>
+<p><code>-------- | -------------- | -------------</code></p>
+<div>
+<p>The function of the table heading separators is to differentiate a heading from a data row, and to give an additional hint to the parser that it is processing a table.</p>
+<p>Do not leave empty lines between the heading, separator, and data rows.  Leaving empty lines between the heading, separator, and data rows will result in the cell sizes not matching the rest of the table.</p>
+</div>
+<div>
+<p><b>Table data rows</b> are separated by pipes, just as table headings are.  They differ from headings only by occurring after a separator:</p>
+</div>
+<p><code>A particular date | Some stuff I sold | A subtotal<br />
+A later date | Some other stuff | A different subtotal</code></p>
+<div>If there is no data in a cell, put the table separators with spaces in between. If the last cell in a row does not have data, make sure to put an ending separator after the placeholder spaces.</div>
+<div></div>
+<div>When a page transcript is saved including tabular encoding, the sections, headings, and data cells are recorded in the database, and the internal encoding used for transcript mark-up is updated with tabular mark-up.  The page should then be displayed to researchers with tables appearing in the transcriptions as HTML tables.  The Export feature has also been modified to extract all tables from a work into a single CSV file, containing the contents of all tables within a work.  This is a "sparse" table, so that spreadsheet columns will exist for each heading within the work, while those table rows which do not contain an entry for a particular heading will display a blank cell.  If many different tables in a text include an "Amount" cell, and if that Amount cell is labeled as "Amount" in the table heading, all of those tables will have the appropriate value for Amount in the exported spreadsheet.</div>

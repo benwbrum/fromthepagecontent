@@ -1,0 +1,106 @@
+---
+layout: post
+title: Wikilinks in FromThePage
+date: 2014-03-14 18:47:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+- presentations
+- subject links
+- videos
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2014/03/wiki-links-in-fromthepage.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5863935840957861546"
+  _thumbnail_id: '245'
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_primary_category: '46'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '9'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/wikilinks-in-fromthepage/"
+---
+<p>From March 10-12, I got to participate in the <a href="https://www.idigbio.org/wiki/index.php/Digitizing-From-Source-Materials">iDigBio Original Sources Digitization Workshop</a>, a gathering of natural history collections managers, archivists, and technologists. Although the focus of digitization within natural history has been on specimens or specimen labels, this workshop sought to address the challenges and opportunities involved in digitizing ledgers, field notes, and other non-specimen data. As usual for iDigBio events, the workshop was spectacular.</p>
+<p>Carolyn Sheffield chaired a panel (<a href="http://idigbio.adobeconnect.com/p6quzlukazv/">video recording</a>) on crowdsourcing which included Rob Guralnik discussing Notes From Nature, Christina Fidler talking about the Grinnell field notes on FromThePage, my talk, and a long, valuable discussion among all participants. My presentation covered the data model and uses of wiki links as I'm using them in FromThePage.</p>
+<p>Video, slides, and transcript are below:<br />
+<iframe src="//player.vimeo.com/video/89112381" width="500" height="281" frameborder="0" allowfullscreen="allowfullscreen"></iframe><br />
+<a href="http://vimeo.com/89112381">"From The Page" - Ben Brumfield</a> from <a href="http://vimeo.com/idigbio">iDigBio</a> on <a href="https://vimeo.com/">Vimeo</a>.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-01.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-01.png" width="320" height="240" border="0" /></a></div>
+<p>I'm Ben Brumfield.&nbsp; You saw a little bit about FromThePage in Christina Fidler's presentation, so I wanted to talk about the internals -- the design and the datastructures behind some of the things that make this a little bit different from NotesFromNature or the NARA Transcribr Drupal module.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-02.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-02.png" width="320" height="240" border="0" /></a></div>
+<p>This is the transcription screen.&nbsp; You've seen this with Christina, so I'll probably go over this pretty quickly.&nbsp; This is a full-text transcription, not individual records like you get with Notes From Nature.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-03.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-03.png" width="320" height="240" border="0" /></a></div>
+<p>The reason for that is that FromThePage was built to be a wiki-like tool, purpose-built for creating amateur editions.&nbsp; So we've got a text and we want to create an edition from the text that can then be re-used, printed, and analyzed.</p>
+<p>I say "amateur" editions because we're not dealing with the kinds of things that textual scholars in the humanities are dealing with, where they're trying to compare different variant manuscript versions of Chaucer.&nbsp; [By contrast, we] have something that's very straightforward, and we're interested in some fairly simple annotations.</p>
+<p>It's purpose-built -- free-standing on MySQL and Ruby on Rails, so it's not integrated with MediaWiki or anything like that.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-04.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-04.png" width="320" height="240" border="0" /></a></div>
+<p>So who's using it?</p>
+<p>[FromThePage] was built originally for a set of my great-great grandmother's diaries.</p>
+<p>Since then it's been used for military diaries by libraries and history departments.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-05.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-05.png" width="320" height="240" border="0" /></a></div>
+<p>It's been used for literary diaries--in this case for Shelby Foote's diaries--for literary drafts, and for punk rock fanzines.&nbsp; (Which is kind of awesome!)</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-06.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-06.png" width="320" height="240" border="0" /></a></div>
+<p>So what does that have to do with the people in this room and the kind of material [we're working with]?</p>
+<p>Here's an example:&nbsp; This is an 1859 journal from an expedition in which someone went out and made a number of observations and collected some things to bring back with them.&nbsp; There are scholars interested in mining those.</p>
+<p>But it's not a naturalist expedition.&nbsp; This is Viscountess Emily Anne Smyth Strangford, who in this case is touring the Mediterranean and visiting a lot of classical monuments.&nbsp; The folks at the Duke Computational Classics Collaboratory are interested in finding all the places in which she recorded Latin and Greek inscriptions, coming up with her itenerary, and figuring out how [that data] connects to the objects her father-in-law had collected for the British Museum twenty years earlier.</p>
+<p>So there's a lot of correspondence, I tend to think, with field notes.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-07.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-07.png" width="320" height="240" border="0" /></a></div>
+<p>The San Diego Natural History Museum started using FromThePage for field books in 2010.&nbsp; They're still working on the project.</p>
+<ul>
+<li>They've identified ten thousand subjects worth classifying in their system.</li>
+<li>Individual pages have been edited twenty-four thousand times.&nbsp; And this goes back to the wiki-like approach -- people transcribe a page, and then they revisit it. They make a number of edits to a page as they get comfortable with the handwriting.</li>
+<li>And then they've linked individual observations, species mentioned, and people in the field notes to those subjects forty-two thousand times.</li>
+</ul>
+<p>Then there are a couple of other projects working with field notes.&nbsp; [Museum of Vertebrate Zoology] obviously is in trial, and [the Museum of Comparative Zoology] and Missouri Botanical Gardens are just evaluating the software right now.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-08.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-08.png" width="320" height="240" border="0" /></a></div>
+<p>So, what is a wiki link?</p>
+<p>Any of us who've edited Wikipedia may be used to this.&nbsp; I followed the same syntax [in FromThePage].</p>
+<p>What we have here is a set of double square braces with the canonical name of the subject--this could be a formatted date, this could be a full name that's spelled out--and then the text that's actually used within the verbatim transcript.</p>
+<p>So our example here -- this is when Grinnell meets Klauber.&nbsp; The field note actually says "L. M. Klauber", so the person transcribing has expanded this out to "Laurence M. Klauber".&nbsp; So we have the ability to handle variance in references to Klauber, but still identify them as Klauber.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-09.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-09.png" width="320" height="240" border="0" /></a></div>
+<p>Technically speaking, what's behind one of these wiki links?</p>
+<p>There are a lot of tables in this database.</p>
+<ul>
+<li>We know that there's this <b>page</b> that Klauber is mentioned on.&nbsp; It's S1 Page 3 in the Grinnell field notes that MVZ has online.</li>
+<li>We've got a <b>subject</b> which is Laurence M. Klauber.</li>
+<li>The subject is <b>categorized</b> as a person, which can be used for analysis and filtering, like Christina showed you.</li>
+<li>And then the individual <b>link</b> between the page and the subject, that contains the variation, is also stored.</li>
+</ul>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-10.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-10.png" width="320" height="240" border="0" /></a></div>
+<p>So there are a lot of things you can do with that.</p>
+<ul>
+<li>You can show all the pages that mention Laurence M. Klauber, and read the pages in context or just get a listing of them.</li>
+<li>More helpfully, as you're transcribing we can mine those links to automatically suggest mark-up.&nbsp; So the next time we encounter "L. M. Klauber", we can push a button and that will automatically expand the mark-up of "L. M. Klauber" to "[[Laurence M. Klauber|L. M. Klauber]]".</li>
+<li>You can also feed this to full-text searches.&nbsp; So if you've got a lot of plain-text transcripts which contain Laurence M. Klauber, we can automatically populate the search with those variations, creating an OR query with "Klauber", "L. M. Klauber"</li>
+<li>And then we can mine the mark-up for correspondences [between subjects] as Christina showed.</li>
+</ul>
+<p>&nbsp;</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-11.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-11.png" width="320" height="240" border="0" /></a></div>
+<p>The last thing you can do with it is export.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-12.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-12.png" width="320" height="240" border="0" /></a></div>
+<p>Here is a TEI-XML export of the Joseph Grinnell notes.&nbsp; This is useful for interchange, but the most important thing this does is that it allows amateurs to create well-formatted, TEI P5-compliant XML.&nbsp; And it will handle one of the things that's very hard about creating TEI in an XML editor, which is associating reference string to their entries over in the TEI header which describes who the people are outside the text.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-13.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-13.png" width="320" height="240" border="0" /></a></div>
+<p>This is a CSV export of the Grinnell field notes.&nbsp; Basically this is every observation and every person who's mentioned, exported as a CSV file with links back to the pages and URLs at which those pages can be found.&nbsp; This is the kind of thing that perhaps could be ingested into [museum collection management database] Arctos.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://fromthepage.wpengine.com/wp-content/uploads/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-14.png"><img src="{{ site.baseurl }}/assets/2014/03/iDigBio_Crowdsourcing_FromThePage_2014-14.png" width="320" height="240" border="0" /></a></div>
+<p>Future plans:</p>
+<p>We're going to be doing more CMS integrations.&nbsp; We're working on Omeka.&nbsp; The Internet Archive is done.&nbsp; There are a couple of grant applications that involve hooking FromThePage up to Fedora Commons.</p>
+<p>We also really want to contextualize links in time and place.&nbsp; We want the ability for people to define where the person writing the journal is where they're writing, and then to apply those geotags and chronotags to the references.&nbsp; So you could map when species were mentioned.&nbsp; You could extract a visual itenerary.</p>
+<p>We need more formatting options.&nbsp; One of our volunteers has found all kinds of crazy editorial issues for handling strike-outs and things like that.</p>
+<p>And the last thing that we're looking for is more projects.</p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer;">Save</span></p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c  no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer;">Save</span></p>

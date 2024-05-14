@@ -1,0 +1,56 @@
+---
+layout: post
+title: 'Feature: Subject Indexes'
+date: 2007-04-30 14:54:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- subject links
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/04/feature-subject-indexes.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4804181208665791877"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-subject-indexes/"
+---
+<p>One of the main goals of the diary digitization project is to create printed versions of Julia Brumfield's diaries to distribute to family with little internet access.  The links between manuscript pages and articles described below provide the raw material for a print index.  Reading storing page-to-article links in RDBMS record makes indexing almost, but not quite trivial.</p>
+<p>The "not quite" part comes from possible need for index sub-topics.  Linking every instance of "tobacco" is not terribly useful in a diary of life on a tobacco farm.  It would still be nice to group planting, stripping, or barn-building under "Tobacco" in a printed index, however.</p>
+<p>One way to accomplish this is to categorize articles by topic.  This would provide an optional overlay to the article-based indexing, so that the printed index could list all references to each article, plus references to articles for all topics.  If  Feb 15th's "planting tobacco" was linked to an article on "Planting", but that Planting article was categorized under "Tobacco", the algorithm to generate a printed index could list the link in both places:<br />
+Planting: Feb. 15<br />
+Tobacco: <i>Planting</i>: Feb 15.</p>
+<p>Pseudocode to do this:<br />
+<code><br />
+indexable_subjects = merge all category titles with all article titles<br />
+for each subject in indexable_subjects {<br />
+print the subject title<br />
+find any article with title == subject<br />
+for each link from a page to that article {<br />
+print the page in a reference format<br />
+}<br />
+find any category with title == subject<br />
+for each article in that category<br />
+print the article title<br />
+for each link from a page to that article {<br />
+print the page in a reference format<br />
+}<br />
+}<br />
+}<br />
+</code></p>
+<p>Using an N:N categorization scheme would make this very flexible, indeed.  I'd probably still want to present the auto-generated index to the user for review and cleanup before printing.  Since this is my only mechanism for classification, some categories ("Personal Names", "Places") could be broken out into their own separate indexes.</p>

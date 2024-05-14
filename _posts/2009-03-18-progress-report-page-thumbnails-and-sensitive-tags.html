@@ -1,0 +1,37 @@
+---
+layout: post
+title: 'Progress Report: Page Thumbnails and Sensitive Tags'
+date: 2009-03-18 17:21:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+- progress
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/03/progress-report-page-thumbnails-and.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/1602213974288520772"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-page-thumbnails-and-sensitive-tags/"
+---
+<p>As anyone reading this blog through <a href="http://manuscripttranscription.blogspot.com/">the Blogspot website</a> knows, visual design is not one of my strengths.  One of the challenges that users have with FromThePage is navigation.  It's not apparent from the <a href="http://beta.fromthepage.com/display/display_page?page_id=859&amp;ol=blog">single-page screen</a> that clicking on a work title will show you a list of pages.  It's even less obvious from the multi-page work reading screen that the page images are accessible at all on the website.</p>
+<p>Last week, I implemented a suggestion I'd received from my friend <a href="http://www.dmdesigninc.com/">Dave McClinton</a>.  The <a href="http://beta.fromthepage.com/display/read_work?ol=blog&amp;page=22&amp;work_id=3">work reading screen</a> now includes a thumbnail image of each manuscript page beside the transcription of that page.  The thumbnail is a clickable link to the full screen view of the page and its transcription.  This should certainly improve the site's navigability, and I think it also increases FromThePage's visual appeal.</p>
+<p>I tried a different approach to processing the images from the one I'd used before.  For transcribable page images, I modified the images offline <a href="http://manuscripttranscription.blogspot.com/2007/05/progress-zoom.html">through a batch process</a>, then transferred them to the application, which serves them statically.  The only dynamic image processing the FromThePage software did for end-users was involved in <a href="http://manuscripttranscription.blogspot.com/2007/05/feature-zoom.html">zoom</a>.  This time, I added a hook to the image link code, so that if a thumbnail was requested by the browser, the application would generate it on the fly.  This turned out to be no harder to code than a batch process, and the deployment was far easier.  I haven't seen a single broken thumbnail image yet, so it looks like it's fairly robust, too.</p>
+<p>The other new feature I added last week was support for <a href="http://manuscripttranscription.blogspot.com/2007/06/feature-sensitive-tags.html">sensitive tags</a>.  The support is still fairly primitive -- enclose text with <sensitive> and it will only be desplayed to users authorized to transcribe the work -- but it gets the job done and solves some issues that had come up with Julia Brumfield's 1919 diary.  Happily, this took less than 10 minutes to implement.</sensitive></p>

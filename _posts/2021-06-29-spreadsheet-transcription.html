@@ -1,0 +1,57 @@
+---
+layout: post
+title: What We Learned Building Spreadsheet Transcription
+date: 2021-06-29 21:24:34.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- development
+- FromThePage
+- structured transcription
+tags:
+- crowdsourcing
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _thumbnail_id: '1026'
+  _wp_old_slug: building-spreadsheet-transcription
+  _genesis_title: Spreadsheet Transcription
+  _yoast_wpseo_primary_category: '1'
+  _yoast_wpseo_metadesc: As we worked with these documents, we improved project configuration
+    which was simple with our field based transcription, but got substantially more
+    complicated with up to 20 fields of structured data. 
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '5'
+  _yoast_wpseo_schema_article_type: BlogPosting
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/spreadsheet-transcription/"
+---
+<p><span style="font-weight: 400;">We recently released our new spreadsheet transcription feature, and we're excited about how it can unlock structured data in your collections -- everything from scientific observations to census data.&nbsp; We're already seeing successful &amp; diverse projects like <a href="https://www.google.com/url?q=https://fromthepage.com/slaveryproject/convict-leasing-project-good-time-releases/tracy-city-good-time-releases&amp;sa=D&amp;source=editors&amp;ust=1624033958020000&amp;usg=AOvVaw1bqY48P3N_PHqA5uCmWD3Q" target="_blank" rel="noopener">Sewanee's Convict Leasing Transcription Project</a> (part of their Roberson Project on Slavery, Race, and Reconciliation) the<a href="https://fromthepage.com/indianaarchives/jeffersonville-land-office-receipts" target="_blank" rel="noopener"> Indiana State Archives Jeffersonville Land Office Receipt Books</a> and the <a href="https://fromthepage.com/missouristatearchives/missouri-slave-schedules" target="_blank" rel="noopener">Missouri State Archives 1850 Census Slave Schedules</a>.&nbsp; This new development involved a lot of collaboration and testing, and we wanted to share both the challenges we encountered and what we learned along the way.</span></p>
+<p><span style="font-weight: 400;">We asked our steering committee -- members of the state archives who funded the feature -- to provide example documents.&nbsp; They provided us with some amazing material to work with, ranging from colonial tax records to escaped convict logs.&nbsp; Testing with real-world documents -- and many of them -- was a great way to make sure what we were building actually worked with the reality of historic documents.</span></p>
+<p><span style="font-weight: 400;">We also chatted with Evan Roberts, a demographer, about challenges transcribing tabular data.&nbsp; From him, we learned the term “screen ruler”.&nbsp; We had known that “eye-skip” was a problem with dense ledgers and lists, but that was a new word, and the most mathematically complicated programming we’ve done in a while.&nbsp; </span></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2021/06/Screenshot-from-2021-06-29-16-21-47.png"><img class="alignnone size-large wp-image-1144" title="" src="{{ site.baseurl }}/assets/2021/06/Screenshot-from-2021-06-29-16-21-47-1024x497.png" alt="" width="1024" height="497" /></a><br />
+<em>A green screen ruler tracks the part of the image a user is transcribing.</em></p>
+<p><span style="font-weight: 400;">Evan also taught us some neat tricks like encouraging transcribers to go down columns instead of across rows.</span></p>
+<p><span style="font-weight: 400;">During testing, we learned:&nbsp;</span></p>
+<ul>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">“Age” can be listed as “6 mos” instead of a number like “12”.&nbsp;&nbsp;</span></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">A field can be configured as a number, but needs to accept other types of data too</span></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">If we highlight format mismatches (like text instead of a number), red is not the best color because it makes transcribers feel they’ve done something wrong.</span></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Some documents include conceptual lines, but are&nbsp; not a pre-printed form.&nbsp; The handwritten lines may tend to slope downward as you go down the page.&nbsp; This meant projects needed to be able to disable the screen ruler.&nbsp;&nbsp;</span></li>
+</ul>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2021/06/Screenshot-from-2021-06-29-16-49-17.png"><img class="alignnone size-large wp-image-1146" src="{{ site.baseurl }}/assets/2021/06/Screenshot-from-2021-06-29-16-49-17-1024x606.png" alt="" width="1024" height="606" /></a><br />
+<em>Papers of Ernest Henry Wilson, 1896-1952. Account book, 1906-1909, Arnold Arboretum Horticultural Library, Harvard University</em></p>
+<p><span style="font-weight: 400;">As we worked with these documents, we improved project configuration which was simple with our field based transcription, but got substantially more complicated with up to 20 fields of structured data.&nbsp; Drag and drop to rearrange field order; automatic sizing of columns; and “add row” menus for transcribers to add unexpected rows at the end of a document made configuring spreadsheets (and other projects) easier.</span></p>
+<p><span style="font-weight: 400;">The biggest bug we discovered with our beta testers was a doozy -- the lines of a spreadsheet would become garbled as they were saved.&nbsp; After some very tough digging through logs, we discovered that saving a page of this dense data was taking so long that the transcriber had time to hit the save button again before the previous version was completely saved.&nbsp; This conflicting save -- what’s called a “race condition” -- resulted in mixed up lines of the spreadsheet.&nbsp; Compared to figuring out the problem, fixing it was easy: we improved performance thirty-fold, which improved all transcriber experiences, not to mention no more garbled lines.</span></p>
+<p><span style="font-weight: 400;">We had always struggled to determine if a page was completely transcribed or not. Our approach had been to assume if a page had transcription text it was transcribed, and to use the “needs review” checkbox to indicate if more work was needed.&nbsp; Materials transcribed using the spreadsheet feature though, were so *dense* that assuming a transcriber could get through the whole page in one sitting was unrealistic.&nbsp; To address this, we introduced a new “done” button in addition to our “save” button.&nbsp; The “save” button saves a version of the page, but the “done” both saves and marks it as complete.&nbsp; (We were fans of the digital humanities philosophy “no final version”, but archivists and librarians actually need to know that something is “done” so it can be ingested into downstream systems.)&nbsp; This then led to clearer page statuses -- “untranscribed”, “incomplete”, “transcribed” and “needs review” that we used to improve the user interface for all types of documents so transcribers have an easier time finding pages to work on, and project owners have a better sense of what is complete</span></p>
+<h2><span style="font-weight: 400;">Export</span></h2>
+<p>[caption id="attachment_1147" align="aligncenter" width="1024"]<a href="http://content.fromthepage.com/wp-content/uploads/2021/06/MarkdownTables.png"><img class="size-large wp-image-1147" src="{{ site.baseurl }}/assets/2021/06/MarkdownTables-1024x641.png" alt="markdown tables" width="1024" height="641" /></a> Plaintext export of the Missouri Slave Schedules, Missouri State Archives[/caption]</p>
+<p><span style="font-weight: 400;">Another issue we encountered was handling dense structured data in a text export.&nbsp; A lot of our project owners use CONTENTdm, which we push plaintext transcripts to, but what does a plaintext transcript of a spreadsheet look like?&nbsp; We eventually settled on markdown tables, which are human readable, but still structured and easy to turn back into a spreadsheet in the future.</span></p>

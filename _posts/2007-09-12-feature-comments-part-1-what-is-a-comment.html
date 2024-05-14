@@ -1,0 +1,38 @@
+---
+layout: post
+title: 'Feature: Comments (Part 1: What is a comment?)'
+date: 2007-09-12 02:18:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/09/feature-comments-part-1-what-are-they.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5602906284634468434"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-comments-part-1-what-is-a-comment/"
+---
+<p>Back in June, <a href="http://www.investigations.4-lom.com/">Gavin Robinson</a> and I had a <a href="https://www.blogger.com/comment.g?blogID=5730930067468816440&amp;postID=5960322794275217583">conversation about comments</a>.  The problem with comments is figuring out whom they're directed to.  Annotations like those  in <a href="http://www.pepysdiary.com/archive/1664/09/11/#annotations">Pepys' Diary Online</a> are directed towards both the general public and the community of Pepys "regulars".   Sites built on user-generated content (like Flickr, or Yahoo Groups) necessitate "flag as inappropriate" functionality, in which the general public alerts an administrator of a problem.  And Wikipedia overloads both their categorization function and their talk pages to flag articles as "needing attention", "needing peer-review", or simply "candidates for deletion".</p>
+<p>If you expand the definition of "comments" to encompass all of these — and that's an appropriate expansion in this case, since I expect to use the same code behind the scenes — I see the following general types of comments as applicable to FromThePage documents:</p>
+<ol>
+<li><span style="font-weight: bold;">Annotations:</span>  Pure annotations are comments left by users for the community of scribes and the general public.  They don't have "state", and they don't disappear unless they're removed by their author or a work owner.  Depending on configuration, they might appear in printed copies.</li>
+<li><span style="font-weight: bold;">Review Requests:</span> These are requests from one scribe to another to proofread, double-check transcriptions, review illegible tags, or identify subjects.  Unlike annotations, these have state, in that another scribe can mark a request as completed.</li>
+<li><span style="font-weight: bold;">Problem Reports: </span>These range from scribes reporting out-of-focus images to readers reporting profane content and vandalism.  These also have state, much like review requests.  Unlike review requests, they have a more specific target — only the work owner can correct an image, and only an admin can ban a vandal.</li>
+</ol>

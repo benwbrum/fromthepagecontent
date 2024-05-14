@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Podcast Review: Matt Mullenweg at 2006 SF FOWA'
+date: 2007-11-13 22:38:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/11/podcast-review-matt-mullenweg-at-2006.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5750451090462919981"
+  enclosure: |
+    http://media.libsyn.com/media/carsonsystems/Matt_Mullenweg.mp3
+    0
+    audio/mpeg
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/podcast-review-matt-mullenweg-at-2006-sf-fowa/"
+---
+<p><a href="http://photomatt.net/about/">Matt Mullenweg</a> is an incredible speaker -- I've started going through the audio of every talk of his I can find online.  His presentation at the 2006 Future of Web Apps (<a href="http://media.libsyn.com/media/carsonsystems/Matt_Mullenweg.mp3">mp3</a>, <a href="http://photomatt.net/dropbox/2006/09/future-of-web-apps.pdf">slides</a>) is a review of the four projects he's worked on, and the lessons he's learned from them.  It's a fantastic pep talk, and it's so meaty that I sometimes thought editing glitches had chopped out the transitions from one topic to another.</p>
+<p>I see five take-aways for my project:</p>
+<ol>
+<li>Don't think you aren't building an API.  If things go well, other developers will be integrating your product into other systems, re-skinning it, writing plug-ins, or all of these.  You'll be exposing internals of your app in ways you'll never imagine.  If your functions are named poorly, if your database columns are inconsistently titled, they'll annoy you forever.</li>
+<li>While you shouldn't optimize prematurely, try to get your architecture to "two"  as soon as you can.  What does "two" mean?  Two databases, two appservers, two fileservers, and so on.  Once that works, it's really easy to scale each of those to <i>n</i> as needed.</li>
+<li>Present a "Contact Us" form somewhere the public can access it.  Feedback from users who aren't logged in exposes a wide range of problems you don't get through integrated feedback tools.</li>
+<li>Avoid options wherever possible.Presenting a site admin with an option to do X or Y is a sort of easy way out -- the developer gets to avoid hard decisions, the team gets to avoid conflict.  But options slow down the user, and most users never use a fraction of the optional features an app presents.  Worse, the development effort is diffused forever forward -- an enhancement to X requires the same effort to be spent on Y for consistency's sake.
+<p>Plugins are the solution for user customization.  Third-party plugins don't diffuse the development effort, since the people who really care about the feature spend their time on the plugin, while the core app team spend their efforts on the app.</li>
+<li>The downside of plugins and themes is that you need to provide a way for users to find them.  If you create a plugin system, you need to create some sort of plugin directory to support it.</li>
+</ol>

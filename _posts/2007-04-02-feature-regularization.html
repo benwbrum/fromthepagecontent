@@ -1,0 +1,41 @@
+---
+layout: post
+title: 'Feature: Regularization'
+date: 2007-04-02 16:48:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/04/feature-regularization.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3059937123253047501"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-regularization/"
+---
+<p>One of the many editorial decisions that must be made while transcribing a manuscript is whether or not to preserve the document's original spellling and punctuation.  Happily, <a href="http://www.tei-c.org/release/doc/tei-p5-doc/html/CO.html#COEDREG">TEI has a mechanism for preserving</a> preserve both versions while typing the transcript, so the choice of which one to display is delegated to the reader/printer.  Unhappily, the <i>eierlegende wollmilchsau</i> approach of TEI means their mechanism is pretty hokey:</p>
+<blockquote>
+<ul>
+<li><b>&lt;reg&gt;</b> (regularization) contains a reading which has been regularized or normalized in some sense.</li>
+<li><b>&lt;orig&gt;</b> (original form) contains  a reading which is marked as following the original, rather than being normalized or corrected.</li>
+<li><b>&lt;choice&gt;</b> groups a number of alternative encodings for the same point in a text.</li>
+</ul>
+</blockquote>
+<p>The reason they've made &lt;reg&gt; and &lt;orig&gt; freestanding elements is that they want to be able to show a word as having been corrected without providing an alternative, the same way that one uses <i>sic</i>.  This is perfectly reasonable, though I do not think it applies to my application.  Less defensible is their choice of &lt;choice&gt; to enclose orig/reg elements.  &lt;choice&gt; is used elsewhere to encode variant readings encoded with the &lt;unclear&gt; tag.  As a result, any XSL transform attempting to normalize (or originalize) a TEI-encoded document is stuck peeking within every &lt;choice&gt; element it encounters to search for the &lt;reg&gt;/&lt;orig&gt; pair.</p>
+<p>Since my transcription source will have to use a different, per-page DTD, I'll probably create an <b>&lt;irreg&gt;</b> tag to use instead of &lt;choice&gt; here.</p>

@@ -1,0 +1,89 @@
+---
+layout: post
+title: 'Rails: A Short Introduction to before_filter'
+date: 2007-06-19 01:18:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- rails
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/06/rails-short-introduction-to.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3873480747797504093"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/rails-a-short-introduction-to-before_filter/"
+---
+<p>I just tried out some simple filters in Rails, and am blown away.  Up until now, I'd only embraced those features of Rails (like ActiveRecord) that allowed me to omit steps in the application without actually adding any code on my part.  Filters are a bit different — you have to identify patterns in your data flow and abstract them out into steps that will be called before (or after) each action.  These calls are defined within class definitions, rather than called explicitly by the action methods themselves.</p>
+<p><b>Using Filters to Authenticate</b><br />
+<strike>Filters are called filters because they return a Boolean, and if that return value is <code>false</code>, the action is never called.  You can use the the <code>logged_in?</code> method of <a href="http://technoweenie.stikipad.com/plugins/show/Acts+as+Authenticated"><code>:acts_as_authenticated</code></a> to prohibit access to <a href="http://manuscripttranscription.blogspot.com/2007/06/feaure-user-roles.html">non-users</a> — just add <code>before_filter :logged_in?</code> to your controller class and you're set!</strike>  (<b>Updated 2010: see <a href="http://manuscripttranscription.blogspot.com/2010/12/errata.html">Errata</a>!</b>)</p>
+<p><b>Using Filters to Load Data</b><br />
+Today I refactored all my controllers to depend on a <code>before_filter</code> to load their objects.  Beforehand, each action followed a predictable pattern:</p>
+<ol>
+<li>Read an ID from the parameters</li>
+<li>Load the object for that ID from the database</li>
+<li>If that object was the child of an object I also needed, load the parent object as well</li>
+</ol>
+<p>In some cases, loading the relevant objects was the only work a controller action did.</p>
+<p>To eliminate this, I added a very simple method to my <code>ApplicationController</code> class:</p>
+<pre><code>def load_objects_from_params
+ if params[:work_id]
+   @work = Work.find(params[:work_id])
+ end
+ if params[:page_id]
+   @page = Page.find(params[:page_id])
+   @work = @page.work
+ end
+end
+</code></pre>
+<p>I then added <code>before_filter :load_objects_from_params</code> to the class definition and removed all the places in my subclasses where I was calling <code>find</code> on either <code>params[:work_id]</code> or <code>params[:page_id]</code>.</p>
+<p>The result was an overall 7% reduction in lines of code -- redundant, error-prone lines of code, at that!<br />
+Line counts before the refactoring:</p>
+<pre>7 app/controllers/application.rb
+19 app/controllers/dashboard_controller.rb
+10 app/controllers/display_controller.rb
+138 app/controllers/page_controller.rb
+87 app/controllers/transcribe_controller.rb
+47 app/controllers/work_controller.rb
+[...]
+1006 total
+</pre>
+<p>And after:</p>
+<pre>28 app/controllers/application.rb
+19 app/controllers/dashboard_controller.rb
+2 app/controllers/display_controller.rb
+108 app/controllers/page_controller.rb
+69 app/controllers/transcribe_controller.rb
+34 app/controllers/work_controller.rb
+[...]
+937 total
+</pre>
+<p>In the case of my (rather bare-bones) <code>DisplayController</code>, the entire contents of the class has been eliminated!</p>
+<p>Perhaps best of all is the effect this has on my authentication code.  Since I track object-level permissions, I have to read the object the user is acting upon, check whether or not they're the owner, then decide whether to reject the attempt.  When the objects may be of different types in the same controller, this can get a bit hairy:</p>
+<pre><code>if ['new', 'create'].include? action_name
+ # test if the work is owned by the current user
+ work = Work.find(params[:work_id])
+ return work.owner == current_user
+else
+ # is the page owned by the current user
+ page = Page.find(params[:page_id])
+ return page.work.owner == current_user
+</code></pre>
+<p>After refactoring my <code>ApplicationController</code> to call my <code>load_objects_from_params</code> method, this becomes:</p>
+<pre><code>return @work.owner == current_user
+</code></pre>

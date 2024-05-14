@@ -1,0 +1,36 @@
+---
+layout: page
+title: Review Workflows and Quality Control
+date: 2020-12-08 08:07:42.000000000 -06:00
+type: page
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+  _wp_page_template: default
+  _genesis_scripts_body_position: bottom
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/review-workflows-and-quality-control/"
+---
+<p>Review and quality control are complex topics, and the methods of handling them are still controversial in the crowdsourcing community. FromThePage projects also differ quite a bit in their approaches to the topic, even though they are using the same platform. Perhaps it would be best to describe the building blocks within the software, then talk about how different projects assemble them for their own quality control process.</p>
+<h2>The Building Blocks (software features)</h2>
+<p>(The words "project" and "collection" are interchangeable below.)</p>
+<p>FromThePage offers controls over people who can manage a project, people who can see a project, people who can edit a work, as well as a mechanism for flagging pages as needing review and a way to aggregate some works from a collection into a document set with its own visibility rules.</p>
+<p>Collection Owners can add works to a collection, export the collection, manage its settings or those of any of its works, and edit anything in a collection, regardless of whether it's restricted to other users. These are generally staff members; people who are managing or monitoring work on the project. Multiple people can be designated collection owners for a project.</p>
+<p>Collections are public or private. All works in public collections can be seen by any user. Private collections are invisible to anyone except for project owners and project collaborators. These authorized collaborators are added to the project by project owners--manually, though we can import a spreadsheet if really needed--and are generally members of a research group, junior staff members, or students. Collaborators are able to read and edit, review or request review, or leave notes, but cannot upload new content or change settings.</p>
+<p>Individual works within a collection may be editable by any user who has visibility into the work, or can be restricted. Restricted works are readable by anyone who can see it, but is only editable by project owners or certain collaborators manually authorized to edit the work.</p>
+<p>Each page has its own status; pages start as untranscribed, then users either mark them as blank or transcribe them. Once a page is (at least partially transcribed), it can be marked as "needs review". Collection owners can configure their project to flag each page as needing review automatically when it is transcribed, in order to force a second pass through the pages. Any user who can edit a page can change its review state. When we display percentages and progress bars for works, we consider pages that are marked blank or transcribed (but not marked as needing review) as completed. Pages marked as "needs review" are not considered complete.</p>
+<p>Several works within a collection can be aggregated into a document set. Document sets are like a window into part of a collection; a work can belong to multiple sets or none, but most projects place each of their works in a single set. A document set can be public or private, and individual collaborators can be added to a private document set. A public document set for a private collection appears to users as if it were a public collection.</p>
+<h2>Assembling the Blocks (what projects have built)</h2>
+<p>Most projects have simple workflow and control configurations: either their collections are public and users use the "needs review" flag to ask for help, collections are public with pages set to require review, or collections are private with only a limited number of trusted collaborators working on them. However, there are a couple of interesting configurations for enforcing different work-flows and user roles.</p>
+<p>Two research libraries are using student workers to perform initial transcription, but would like to restrict any later review and editing to more senior staff members. In this case, the projects are using different private collections to organize related material (like the papers of a particular author), and adding students to a new collection when the initial transcription work on the previous one is complete, thus focusing student effort on a single project and avoiding scatter-shot transcription. Once every week or so, a project owner marks all completed works as restricted (using a button in the collection settings), preventing students from editing those works, so that staff can review and edit the student work, but students will still be able to read the transcripts for reference.</p>
+<p>By contrast, the Civil War and Reconstruction Governors of Mississippi project wants to follow traditional documentary editing work-flows, but start with crowd-sourced transcription. They've configured the collection (representing the whole project) to be private, and created several document sets within the collection to represent different stages of the edition. The only public document set is configured with untranscribed documents for the public to transcribe. Once these are completed, they are moved to the a private, "revision" document set, which the project owners have authorized research assistants to access. These documents are then moved to a "second revision" document set, again with limited access. Finally, documents are moved to a last, 'ready to publish' document set, which is the one polled by the developer building the publication platform.</p>

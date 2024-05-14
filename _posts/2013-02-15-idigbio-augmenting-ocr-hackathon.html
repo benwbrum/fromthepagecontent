@@ -1,0 +1,37 @@
+---
+layout: post
+title: iDigBio Augmenting OCR Hackathon
+date: 2013-02-15 22:00:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- hackathon
+tags:
+- ocr
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2013/02/idigbio-augmenting-ocr-hackathon.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5982152672460529955"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/idigbio-augmenting-ocr-hackathon/"
+---
+<p>I spent the last three days at the <a href="https://www.idigbio.org/wiki/index.php/2013_AOCR_Hackathon_Wiki">iDigBio Augmenting OCR Hackathon</a> working alongside mycologists, botanists, entomologists, herbarium managers, and bioinformaticians to explore ways to improve parsing of digitized specimen labels.&nbsp; While I'm pleased with the results of my own contribution, I'd like to take a minute to talk about the hackathon process itself before I post them.</p>
+<p>This was my first hackathon--a condition which seemed to be the rule among the participants--and I was really impressed with it.&nbsp; The iDigBio folks defined a clear set of goals (improve OCR parsing of specimen labels) with clear metrics (these datasets, these output formats, this scoring algorithm) a couple of months beforehand, and organized five weekly videoconferences before the event.&nbsp; Most important of all, the participants were encouraged to prepare a 10-minute lightning talk on their efforts and preliminary results.&nbsp; (See below for the <a href="http://manuscripttranscription.blogspot.com/2013/02/improving-ocr-inputs-from-ocr-outputs.html">transcript of my talk</a>, see the <a href="https://docs.google.com/document/d/1rH5a8Qee2hwzlGZPisEr5-tV8nmDa50j1dxyUu0pY84/edit">notes document</a> for descriptions of all talks.)</p>
+<p>In my opinion, these preliminary talks were critical to the success of the project.&nbsp; The preliminary nature relaxed pressure on participants, so we were able to experiment beyond the target of the hackathon (as I did with my handwriting detection digression, a related, but un-scorable effort).&nbsp; On the other hand, they did provide enough impetus to get many of us looking at the data, working with the tools, and thinking about approaches.&nbsp; This meant that even before the hackathon started, many of us were familiar enough with the materials to have a real 'meeting of the minds' experience during the pre-event supper:&nbsp; <i>"Did you just say 'the contrast difference between the print and the label is higher than the difference between the label and the background'?&nbsp; We ran into that too, and here's what we did..."</i></p>
+<p>The experience was a real education in OCR for me, and I feel like I picked up techniques I can apply directly to projects I've discussed with clients and potential clients.&nbsp; In particular, I got a real appreciation for how interrelated image preparation, OCR, and parsing are to each other.&nbsp; One participant had created separate libraries of regular expressions to clean up each kind of field, having discovered that latitude/longitude coordinates require different error correction than personal names or herbarium catalog numbers do.&nbsp; Another group had built a touch-screen tool for classifying segments of the image before submitting them to OCR.&nbsp; My own project required a first pass of OCR to clean images before sending them to a second, 'real' pass of OCR.&nbsp; A simple 1,2,3 workflow just isn't sufficient!</p>
+<p><a href="https://www.idigbio.org/content/about-idigbio">iDigBio</a> itself is an NSF-funded attempt to advance digitization practices on natural history collections, combining disciplinary "thematic collection networks" and methodologically focused working groups on topics like georeferencing, crowdsourcing, and OCR.&nbsp; Aware that they're not the only people digitizing things, they have been reaching out beyond the natural sciences to the library and information science community at the <a href="https://www.idigbio.org/wiki/index.php/Five_iConference2013_Talks">iConference</a> this year.&nbsp; This rejection of "not invented here" siloing was a big part of the hackathon, and I hope that more people from outside the natural sciences will get involved.</p>

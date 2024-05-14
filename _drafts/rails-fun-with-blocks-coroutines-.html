@@ -1,0 +1,25 @@
+---
+layout: post
+title: 'Rails: Fun with Blocks (coroutines)'
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_internal: "/feeds/5730930067468816440/posts/default/359650214514706440"
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/"
+---
+<pre><br /><%= display_categories(@collection.categories, nil) do |category|<br />     check_box_tag("#{article.id}_#{category.id}",<br />                   "1",<br />                   my_categories.include?(category),<br />                   { :id => "#{article.id}_#{category.id}" }) +<br />     observe_field("#{article.id}_#{category.id}",<br />                   { :url => url_for({ :controller => 'article',<br />                                       :action => 'article_category',<br />                                       :category_id => category.id,<br />                                       :article_id => article.id }),<br />                     :with => "'status='+element.checked"<br />                   }) +<br />     category.title<br />   end %><br /></pre>
+<pre><br />&lt;%= display_categories(@collection.categories, nil) do |category|<br />              category.title +<br />              " " +<br />              link_to('delete', <br />                     { :action => 'delete',<br />                       :category_id => category.id,<br />                       :collection_id => @collection.id },<br />                     { :confirm => "Are you sure you want to delete #{category.title} and all its subcategories?"}) +<br />             " " +<br />              link_to_function('add child', <br />                               "add_child_prompt('#{category.id}', '#{category.title}')", <br />                               { :title => "Add a subcategory underneath #{category.title}"} )<br />   end %&gt;<br /></pre>

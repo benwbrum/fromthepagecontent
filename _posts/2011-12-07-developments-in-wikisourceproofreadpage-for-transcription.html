@@ -1,0 +1,38 @@
+---
+layout: post
+title: Developments in Wikisource/ProofreadPage for Transcription
+date: 2011-12-07 11:52:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2011/12/developments-in-wikisourceproofreadpage.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/1608346670982498746"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/developments-in-wikisourceproofreadpage-for-transcription/"
+---
+<p>Last year I <a href="http://manuscripttranscription.blogspot.com/2009/07/wikisource-for-manuscript-transcription.html">reviewed</a> Wikisource as a platform for manuscript transcription projects, concluding that the ProofreadPage plug-in was quite versatile, but that unfortunately the en.wikisource.org policy prohibiting any text not already published on paper ruled out its use for manuscripts.</p>
+<p>I'm pleased to report that this policy has been softened.  About a month ago, NARA started to <a href="http://outreach.wikimedia.org/wiki/GLAM/Model_projects/Improving_the_quality_of_OCR">partner</a> with the Wikimedia Foundation to to host material—including manuscripts—on Wikisource.&nbsp; While I was at MCN, I discussed this with <a href="http://twitter.com/#%21/filbertkm">Katie Filbert</a>, the president of Wikimedia DC, who set me straight.&nbsp; Wikisouce is now very interested in partnering with institutions to host manuscripts of importance, but it is still not a place for ordinary people to upload great-grandpa's journal from World War I.</p>
+<p>Once you host a project on Wikisource, what do you do with it?&nbsp; Andie, Rob and Gaurav over at the blog <a href="http://soyouthinkyoucandigitize.wordpress.com/">So You Think You Can Digitize?</a>—and it's worth your time to read at least the last six posts—have been writing on exactly that subject.&nbsp; Their <a href="http://soyouthinkyoucandigitize.wordpress.com/2011/12/05/field-note-challenge-part-2-veni-vidi-wiki/">most recent post</a> describes their experience with <a href="http://en.wikisource.org/wiki/Field_Notes_of_Junius_Henderson/Notebook_1">Junius Henderson's Field Notes</a>, and although it concentrates on their success flushing out more Henderson material and recounts how they dealt with the wikisource software, I'd like to concentrate on a detail:</p>
+<blockquote><p>What we currently want is a no-cost, minimal effort system that will  make scans AND transcriptions AND annotations available, and that can  facilitate text mining of the transcriptions. &nbsp;Do we have that in  WikiSource? &nbsp;We will see. &nbsp;More on annotations to follow in our next  post but some <a href="http://en.wikipedia.org/wiki/Father_to_a_Sister_of_Thought">father to a sister of some thoughts</a> are already percolating and <a href="http://en.wikisource.org/wiki/Page%3AField_Notes_of_Junius_Henderson%2C_Notebook_1.djvu/7">we have even implemented some rudimentary examples</a>.</p></blockquote>
+<p>This is really exciting stuff.&nbsp; They're experimenting with wiki mark-up of the transcriptions&nbsp; with the goal of annotation and text-mining.&nbsp; I tried to do this back in 2005, but abandoned the effort because I never could figure out how to clearly differentiate MediaWiki articles about subjects (i.e. annotations) from articles that presented manuscript pages and their transcribed text. &nbsp; The lack of wiki-linking was also the one of my criticisms <a href="http://de.wikisource.org/wiki/Wikisource:Skriptorium/Archiv/2010/Oktober#Feedback_aus_Texas">most taken to heart</a> by the German Wikisource community last October.</p>
+<p>So how is the mark-up working out?&nbsp; Gaurav and the team have addressed the differentiation issue by using cross-wiki links, a standard way of linking from an article on one Wikimedia project to another.&nbsp; So the text "English sparrows" in the transcription is annotated <code>[[:w:Passer domesticus|English sparrows]]</code>, which is wiki-speak for <i>Link the text "English sparrows" to the Wikipedia article "Passer domesticus"</i>. Wikipedia's redirects then send the browser off to the article "<a href="http://en.wikipedia.org/wiki/Passer_domesticus">House Sparrow</a>".</p>
+<p>So far so good.&nbsp; The only complaint I can make is that—so far as I can tell—cross-wiki links don't appear in the "What links here" screen tool on Wikipedia, neither for <a href="http://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/Passer_domesticus&amp;limit=500">Passer domesticus</a>, nor for <a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/House_Sparrow">House Sparrow</a>.&nbsp; This means that the annotation can't provide an indexing function, so that users can't see all the <a href="http://beta.fromthepage.com/article/show?article_id=8273&amp;ol=blog">pages that reference possums</a>, nor <a href="http://beta.fromthepage.com/display/read_all_works?article_id=8273">read a selection of those pages</a>.&nbsp; I'm not sure that the cross-wiki link data isn't tracked, however — just that I can't see it in the UI.&nbsp; Tantalizingly, cross-wiki links are tracked when images or other files are included in multiple locations: see the <a href="http://en.wikipedia.org/wiki/File:House_Sparrow_mar08.jpg#globalusage">"Global file usage" section of the sparrow image</a>, for example.&nbsp; Perhaps there is an API somewhere that the Henderson Field Note project could use to mine this data, or perhaps they could move their links targets from Wikipedia articles to some intermediary in a different Wikisource namespace.</p>
+<p>Regardless, the direction Wikisource is moving should make it an excellent option for institutions looking to host documentary transcription projects and experiment with crowdsourcing without running their own servers.&nbsp; I can't wait to see what happens once Andie, Rob, and Gaurav start experimenting with PediaPress!</p>

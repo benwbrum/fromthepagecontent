@@ -1,0 +1,42 @@
+---
+layout: post
+title: 'Progress Report: One Month of Alpha Testing'
+date: 2008-04-08 00:25:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- history
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/04/progress-report-one-month-of-alpha.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/7943364079304059240"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-one-month-of-alpha-testing/"
+---
+<p>FromThePage has been on a production server for about a month now, and the results have been fascinating. The first few days' testing revealed some shocking usability problems. In some places (transcription and login most notoriously) the code was swallowing error messages instead of displaying them to the user. Zoom didn't work in Internet Explorer. And there were no guardrails that kept the user from losing a transcription-in-progress.</p>
+<p>After fixing these problems, the family and friends who'd volunteered to try out the software started making more progress. The next requests that came in were for transcription conventions. After about three requests for these, I started displaying the conventions on the transcription screen itself. This seems to have been very successful, and is something I'd never have come up with on my own.</p>
+<p>The past couple of weeks have been exciting. My <a href="http://iestynlewis.blogspot.com/">old college roommate</a> started transcribing entries from the 1919 diary, and entered about 15 days in January -- all in two days work. In addition to his technical feedback, two things I'd hoped for happened:</p>
+<ul>
+<li>We started collaborating. My roommate had transcribed the entries on a day when he'd had lots of time. I reviewed his transcriptions and edited the linking syntax. Then my father edited the resulting pages, correcting names of people, events, and animals based on his knowledge of the diaries' context.</li>
+<li>My roommate got engaged. His technical suggestions were peppered with comments on the entries themselves and the lives of the people in the diaries. I've seen this phenomenon at Pepys Diary Online, but it's really heartening to get a glimpse of that kind of engagement with a manuscript.</li>
+</ul>
+<p>I've also had some disappointments. It looks like I'll have to discard my zoom feature and replace it with something using the Google Maps API. People now expect to pan by dragging the image, and I my home-rolled system simply can't support that.</p>
+<p>I really planned on moving developing printing and analytical tools next, but we're finding that the social software features are becoming essential. The bare-bones "Recent Activity" panel I slapped together one night has become the most popular feature. We need to know who edited what, what pages remain to be transcribed, and which transcriptions need review. I've resuscitated this winter's comment feature, polished the "Recent Activity" panel, and am working on a system for displaying a page's transcription status in the work's table of contents.</p>
+<p>All of these developments are the results of several hours of careful, thoughtful review by volunteers like my father and my roommate. There is simply no way I could have invited the public in to the site as it stood a month ago, which I did not know at the time. There's still a lot to be done before FromThePage is "ready for company", but I think it's on track.</p>
+<p><span style="font-style: italic;">If you'd like to try the software out, leave me a comment or send mail to alpha.info@fromthepage.com.</span></p>

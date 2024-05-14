@@ -1,0 +1,77 @@
+---
+layout: post
+title: 'Rails: Logging User Activity for Usability'
+date: 2008-03-28 03:23:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- rails
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/03/rails-logging-user-activity-for.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/6812473250416907331"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/rails-logging-user-activity-for-usability/"
+---
+<p>At the beginning of the month, I started usability testing for FromThePage.  Due to my limited resources, I'm not able to perform usability testing in control rooms, or (better yet) hire a disinterested expert with a background in the natural sciences to conduct usability tests for me.  I'm pretty much limited to sending people the URL for the app with a pleading e-mail, then waiting with fingers crossed for a reply.</p>
+<p>For anyone who finds themselves in the same situation, I recommend adding some logging code to your app.  We tried this last year with Sara's project, discovering that only 5% of site visitors were even getting to the features we'd spent most of our time on.  It was also invaluable resolving bugs reports.  When a user complains they got logged off the system, we could track their clicks and see exactly what they were doing that killed their session.</p>
+<p>Here's how I've done this for FromThePage in Rails:</p>
+<p>First, you need a place to store each user action.  You'll want to store information about who was performing the action, and what they were doing.  I was willing to violate my sense of data model aesthetics for performance reasons, and abandon third normal form by combining these two distinct concepts into the same table.</p>
+<p><code></code></p>
+<p><code></p>
+<pre># who's doing the clicking?
+browser
+session_id
+ip_address
+user_id #null if they're not logged in</pre>
+<p></code><code></code></p>
+<p>Tracking the browser lets you figure out whether your code doesn't work in IE (it doesn't) and whether Google is scraping your site before it's ready (it is).  The session ID is the key used to aggregate all these actions -- one of these corresponds to several clicks that make up a user session.  Finally, the IP address give you a bit of a clue as to where the user is coming from.</p>
+<p>Next, you need to store what's actually being done, and on what objects in your system.  Again, this goes within the same table.</p>
+<p><code></code></p>
+<p><code></p>
+<pre># what happened on this click?
+:action
+:params
+:collection_id #null if inapplicable
+:work_id #null if inapplicable
+:page_id #null if inapplicable</pre>
+<p></code><code></code></p>
+<p>In this case, every click will record the action and the associated HTTP parameters.  If one of those parameters was collection_id, work_id, or page_id (the three most important objects within FromThePage), we'll store that too.  Put all this in a migration script and create a model that refers to it.  In this case, we'll call that model "activity".</p>
+<p>Now we need to actually record the action.  This is a good job for a before_filter.  Since I've got a <a href="http://manuscripttranscription.blogspot.com/2007/06/rails-short-introduction-to.html">before_filter in ApplicationController</a> that set up important variables like the page, work, or collection, I'll place my before_filter in the same spot and call it after that one.</p>
+<p><code>before_filter :record_activity</code></p>
+<p>But what does it do?</p>
+<p><code></code></p>
+<p><code></p>
+<pre>def record_activity
+    @activity = Activity.new
+    # who is doing the activity?
+    @activity.session_id = session.session_id #record the session
+    @activity.browser = request.env['HTTP_USER_AGENT']
+    @activity.ip_address = request.env['REMOTE_ADDR']
+    # what are they doing?
+    @activity.action = action_name # grab this from the controller
+    @activity.params = params.inspect # wrap this in an unless block if it might contain a password
+    if @collection
+       @activity.collection_id = @collection.id
+    end
+    # ditto for work, page, and user IDs
+end</pre>
+<p></code><code></code></p>
+<p>For extra credit, add a status field set to 'incomplete' in your <code>record_activity</code> method, then update it to 'complete' in an <code>after_filter</code>.  This is a great way for catching activity that throws exceptions for users and presents error pages you might not know about otherwise.</p>
+<p><i>P.S. Let me know if you'd like to try out the software.</i></p>

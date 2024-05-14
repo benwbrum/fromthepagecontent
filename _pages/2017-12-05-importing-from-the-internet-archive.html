@@ -1,0 +1,39 @@
+---
+layout: page
+title: Importing from the Internet Archive
+date: 2017-12-05 10:02:24.000000000 -06:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/project-owner-documentation/importing-from-the-internet-archive/"
+---
+<p><em>FromThePage supports transcribing books hosted on the Internet Archive. This is a great way to explore documents that have already been digitized, and it's actually easier to set up than uploading scans directly to FromThePage.</em></p>
+<h2><a id="user-content-option-1-url-based-imports" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#option-1-url-based-imports" aria-hidden="true"></a>Option 1: URL-based Imports</h2>
+<p>1. Log in as a user who is authorized to own works. 1. Click the Dashboard link (located next to the login link) 1. On the left side of the screen, you'll see an area called "Owner Actions". 1. Click on "Import a Book from the Internet Archive" 1. Cut-and-paste the URL of the Internet Archive page for the book you want to import, then press "next" 1. See the section "Import an Internet Archive Book" below</p>
+<h2><a id="user-content-option-2-navigate-the-internet-archive-through-fromthepage" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#option-2-navigate-the-internet-archive-through-fromthepage" aria-hidden="true"></a>Option 2: Navigate the Internet Archive through FromThePage</h2>
+<h3><a id="user-content-find-your-institutions-collection-in-archiveorgs-oai-repository" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#find-your-institutions-collection-in-archiveorgs-oai-repository" aria-hidden="true"></a>Find your institution's collection in Archive.org's OAI repository.</h3>
+<p>1. Log in as a user who is authorized to own works. 1. Click the Dashboard link (located next to the login link) 1. On the left side of the screen, you'll see an area called "Owner Actions". 1. Click Explore OAI Repositories 1. Click "Show All Sets" next to the Archive.org link *Wait a very long time (possibly several minutes) for FromThePage to query Archive.org for all its OAI sets. This is a very long list indeed.* 1. Search the page for your institution. 1. Click "Save for future use" next to the spec. 1. This should redirect you to the dashboard again. There should now be a link in the owner's section saying "List works to import from *your collection*".</p>
+<h3><a id="user-content-find-your-work-in-the-archiveorg-collection" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#find-your-work-in-the-archiveorg-collection" aria-hidden="true"></a>Find your work in the Archive.org collection.</h3>
+<p>1. Click the "List works to import" link. This will query Archive.org for the works it has in that OAI set. 1. Click the Import button beside one of the field notes.</p>
+<h2><a id="user-content-import-the-internet-archive-book" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#import-the-internet-archive-book" aria-hidden="true"></a>Import the Internet Archive Book</h2>
+<p>Clicking "Import" on either of the above options will imports all the relevant Archive.org information about the book, as well as information for each scanned leaf into FromThePage. This process may take a couple of minutes, depending on how many leaves are in the scan. The import process adds this IA book to the user's staging area (accessible via the dashboard), and redirects straight to the Manage Import screen.</p>
+<h3><a id="user-content-review-and-convert-the-archiveorg-book" class="anchor" href="https://github.com/benwbrum/fromthepage/wiki/Importing-Works-from-the-Internet-Archive#review-and-convert-the-archiveorg-book" aria-hidden="true"></a>Review and convert the Archive.org book</h3>
+<p>The Manage Import screen shows all the pages imported from Archive.org and provides the following three features:</p>
+<ul>
+<li>Purge Delete Scans: Some leaves that Archive.org scans are classified as of type="Delete". These are apparently things like color calibration cards and such, and are never displayed by Archive.org. These should be purged, so press this button.</li>
+<li>Retitle from OCR: this is unique to pre-printed 20th-century daybooks. For these materials, the OCR has done a pretty good job of parsing the date that's printed at the top of each page. I've written code to re-title the numeric page numbers (which are really leaf titles) based on these parsed OCR entries. Press this button and wait a few minutes for the parsing to happen. The pages will be re-titled from OCR, and while they may need correction, it can save a lot of effort for diaries and journals.</li>
+<li>Convert to FromThePage: This converts an Archive.org-imported book and its leaves into a FromThePage work with corresponding pages. This is the final piece of the IA book importer. It also may take a few minutes to run, so please be patient.</li>
+</ul>
+<p>Once the converter is finished, you can access the work from the dashboard.</p>

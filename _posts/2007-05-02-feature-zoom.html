@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Feature: Zoom'
+date: 2007-05-02 16:59:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/05/feature-zoom.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/998279699752756483"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-zoom/"
+---
+<p>Scanners and modern digital cameras can take photos at mind-bogglingly high resolutions.  The 5 megapixel Canon SD400 I've used to capture the diary pages results in enormous files.  Displaying them at screen resolution, the images are several times the size of the average monitor.</p>
+<p>This kind of resolution is fantastic for resolving illegible words — from my testing, it seems to be as good or better than using a magnifying glass on the original documents.  Unfortunately these original files are unwieldy: it takes a very long time to download the image to the browser, and once downloaded, displaying the files in a UI useful for transcription is basically impossible.</p>
+<p><a href="http://1.bp.blogspot.com/_UZtU3sSV0MY/Rjjd8w5fi3I/AAAAAAAAAAM/jcHhuF2KgXA/s1600-h/standard_size.jpg"><img style="margin: 0pt 0pt 10px 10px; float: left; cursor: pointer;" src="{{ site.baseurl }}/assets/2007/05/standard_size.jpg" alt="" id="BLOGGER_PHOTO_ID_5060038217338686322" border="0" /></a></p>
+<p>As a result, I'm shrinking the page images down by a quarter when they're added to the system.  The resulting image is legible without much squinting.  (See the sample above.)</p>
+<p>These 480x640 images take up about half of the average modern monitor, so they're suited very well for a UI positioning the image on the right half of a webpage, with the textarea for transcriptions on the left half.  They're also reasonably quick to load, even over a slow connection.  They're not quite clear enough to resolve difficult handwriting, however, nor problems with the lighting when I took the original pictures.  For that, we need to zoom.</p>
+<p>In the original mockup created by my friend <a href="http://www.mrdata.com/">Blake Freeburg</a>, as well as in the first prototype I wrote two years ago, a link appeared on the transcription page that reloaded the page with a higher resolution image.   This provided access to the larger image, but had the same disadvantages (long wait time, ungainly UI) that comes along with larger image files.</p>
+<p>The solution I've come up with is to provide a click-to-zoom interface.  If a scribe can't read a part of the original, they click on the part they can't read.  That will fire off an AJAX request including the coordinates they clicked.  The server finds the next-larger-size image, crops out the section around the click target, and returns it to the browser.  That will fire off an onComplete callback function to swap the standard-size image with the cropped version.</p>
+<p><a href="http://4.bp.blogspot.com/_UZtU3sSV0MY/RjjeRg5fi4I/AAAAAAAAAAU/jGYy4zt7d1s/s1600-h/medium.jpg"><img style="margin: 0pt 0pt 10px 10px; float: left; cursor: pointer;" src="{{ site.baseurl }}/assets/2007/05/medium.jpg" alt="" id="BLOGGER_PHOTO_ID_5060038573820971906" border="0" /></a></p>
+<p>So in my example above. clicking the space after "glad." would return second image above.  The user could then click an "unzoom" icon to return to the original low-resolution, full-page image, or click on the zoomed image to zoom again.</p>
+<p><a href="http://1.bp.blogspot.com/_UZtU3sSV0MY/Rjjelw5fi5I/AAAAAAAAAAc/_N3iyIgUU_A/s1600-h/full.jpg"><img style="margin: 0pt 0pt 10px 10px; float: left; cursor: pointer;" src="{{ site.baseurl }}/assets/2007/05/full.jpg" alt="" id="BLOGGER_PHOTO_ID_5060038921713322898" border="0" /></a></p>
+<p>This would be the result of clicking on the zoomed word "glad" in the zoomed (second) image.  This is a cropped version of the original five-megapixel image, and I think it's just as readable as the original document.</p>
+<p>The advantages of this approach are a consistent UI and lower download times.  Since some of my target users are rural or elderly, download time is a big plus.</p>
+<p>The disadvantages come from possible need to pan around the zoomed image.  My old colleague <a href="http://prentissriddle.com/">Prentiss Riddle</a> has suggested using the Google Maps platform to provide tiled panning.  This sounds elegant, but is probably hard enough to postpone until I have actual user feedback to deal with.  There's also the possiblity that the server load for doing all that image manipulation will produce slow response times, but it's hard for me to imagine that the 45 sec needed to crop an image would take longer than downloading 1.5MB over a dialup connection.</p>

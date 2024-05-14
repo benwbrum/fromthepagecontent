@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Feature: Transcription Versions'
+date: 2007-07-13 03:20:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- progress
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/07/feature-transcription-versions.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/7446106222343635782"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-transcription-versions/"
+---
+<p><b>Page/Subject Article Versions</b><br />
+Last week I added versioning to articles and pages.  The goal was to allow access to previous edits via a version page akin to the <a href="http://en.wikipedia.org/w/index.php?title=Software_versioning&amp;action=history">MediaWiki history tab</a>.</p>
+<p>Gavin Robinson <a href="http://manuscripttranscription.blogspot.com/2007/06/feaure-user-roles.html#comment-6051262791550115439">suggested</a> a system of review and approval before transcription changes go live, but I really think that this doesn't fit well with my user model.  For one thing, I don't expect the same kinds of vandalism problems you see in Wikipedia to affect FromThePage works much, since the editors are specifically authorized by the work owner.  For another, I can't imagine the solo-owner/scribe would tolerate having to submit and approve each one of their edits for long.  Finally, since this is designed for a loosely-coupled, non-institutional user community, I simply can't assume that the work owner will check the site each day to review and approve changes.  Projects must be able to keep their momentum without intervention by the work owner for months at a time.</p>
+<p>His concerns are quite valid, however.  Perhaps an alternative approach to transcription quality is to develop a few more owner tools, like a bulk review/revert feature for contributions made since a certain date or by a certain user.</p>
+<p><b>Work Versions</b><br />
+Later, I'll put up a technical post on how I accomplished this with Rails <code>after_save</code> callbacks, but for now I'd like to talk about "versions" of a perpetually-editable work.  What exactly does this mean?  If a user prints out or downloads a transcription between one change and the next, how do you indicate that?</p>
+<p>To address this, I decided to add the concept of a work's "transcription version".  This is an additional attribute of the work itself, and every time an edit is made to any one of the work's pages, the work itself has its transcription version incremented.  By recording the transcription version of the work in the page version record as well, I should be able to reconstruct the exact state of the digital work from a number added to an offline copy of the work.</p>
+<p>I decided on <code>transcription_version</code> as an attribute name because comments and perhaps subject articles may change independently of the work's transcribed text.  A printout that includes commentary needs a <code>comment_version</code> as well as a <code>transcription_version</code>.  The two attributes seem orthogonal, because two transcription-only prints of the same work shouldn't appear different because a user has made an unprinted annotation.</p>

@@ -1,0 +1,64 @@
+---
+layout: post
+title: 'Prosopography Hackathon Project: Using Machine Learning to extract entities
+  from Ancient Greek (and other languages)'
+date: 2019-02-21 11:19:42.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- ai
+- machine learning
+meta:
+  _edit_last: '5'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_primary_category: '1'
+  _yoast_wpseo_metadesc: I've just returned from a Prosopography Hackathon at the
+    University of Vienna, a three day long digital humanities event to "hack" databases
+    of people and biography. After a short brainstorming session, I volunteered for
+    "information extraction" (getting information out of texts), but my three-person
+    team had dissolved by the afternoon of the first day.
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '6'
+  _yoast_wpseo_schema_article_type: BlogPosting
+  _yoast_wpseo_wordproof_timestamp: ''
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/machine-learning-to-extract-entities-from-ancient-greek-and-other-languages/"
+---
+<p>I've just returned from a Prosopography Hackathon at the University of Vienna, a three day long digital humanities event to "hack" databases of people and biography. After a short brainstorming session, I volunteered for "information extraction" (getting information out of texts), but my three-person team had dissolved by the afternoon of the first day. I feared I'd have to spend the rest of the hackathon helping with API specifications. I was rescued by Maxim Romanov, who commented at dinner that night "Do you know why no one wanted to do information extraction?" "No, tell me!" "Because the techniques you referred to work great on English, but look at all the languages represented by the prosopographies at this hackathon -- Chinese, Arabic, Greek, Syriac, Georgian" (and usually old or ancient versions of those languages). There's nothing more fun than a well-formulated problem, so I mulled over my ideas -- applying machine learning techniques -- with Maxim's observation in mind. When we reconvened the next morning, I pitched my new, improved idea: could we build machine learning models for some of these esoteric languages?</p>
+<p>Six people thought this sounded interesting (vindicated!), so I had a group; we spent an hour researching ideas (Spacy? DataTurks? Vector Spaces?) before settling on building named entity recognition using Spacy for first Ancient Greek and then Classical Arabic.</p>
+<p>Working with convolutional neural networks -- what's under the hoold of tools like Spacy and TensorFlow -- requires twisting your brain in some new ways. My team at the hackathon thought "entity first"; we pulled a list of entities from a document and used it on our first try at building a model. Here's the deal: machine learning is not about string matching! It's about statistics -- what is the likelihood that *this word* at *this spot* in *this sentence* is an entity? You can only do this with <strong>context</strong>. Our second try was with context.&nbsp; We were working with an Ancient Greek text provided by Rainer Simon, and the question then was "what context"?&nbsp; The text didn't have punctuation we could use to separate sentences -- what all the Spacy examples were based on -- so we settled on using the "line" in the original text.<br />
+The training data ended up looking like this:</p>
+<pre>['βορρᾶν) οὕτως· ἀπὸ Ἀλεξανδρείας εἰς Λίνδον Ῥόδου στάδια ˏδφ,',
+{'entities': [[37, 43, 'LOC'],
+[37, 49, 'LOC'],
+[44, 49, 'LOC'],
+[19, 31, 'LOC']]}]</pre>
+<p>That is, a full line of the text, followed by a list of the tagged entities in the text and their type. The entities are identified by their character ranges in the text of the line (i.e. character 37-43 is Λίνδον) and the type of entity this is (LOC); in this case the type is location but it could also be person or some other entity types. (Our training data was from Recogito, a part of Pelagios, so it is mostly locations.)</p>
+<p>The training script we put together (in a nice <a href="https://github.com/prosopograthon2019/informationextraction/blob/master/spacy.ipynb">handy Jupyter Notebook</a>) was mostly cobbled together from the Spacy documentation, with enhancements as we thought through things; most of the actual coding was by Miguel Vieira from KCL. Here's a basic outline of what it does:</p>
+<ul>
+<li>loads the data</li>
+<li>randomizes and splits our training data 90%/10% -- the larger set for training and the smaller for testing.</li>
+<li>creates a blank model to start with, with a default language. (In our case "el" for Greek -- it's modern Greek, but seemed to work. There's also a "xx" language for no starting language. We're not sure this was important -- it would be interesting to test the ancient Greek model with "xx" to see if the results differed.)</li>
+<li>labels the data in the way Spacy wants (I think if we had used the command line spacy-train command our JSON data may have "just worked.")</li>
+<li>trains. The comment on the code here is "Loop over the training data and call nlp.update, which steps through the words of the input. At each word, it makes a prediction. It then consults the annotations, to see whether it was right. If it was wrong, it adjusts its weights so that the correct action will score higher next time."</li>
+<li>tests. Take the 10% of the data we held back and see how well the model predicts entities; compare the prediction with the actual answer. There's two ways to measure accuracy of the model: Did it successfully find an entity we knew about? Did it identify a part of a line as an entity and it shouldn't have? (false positives). Our model successfully identified about 60% of the entities we had tagged -- not bad! We calculate "precision" -- the number of correct results divided by the sum of correct results and incorrect results (false positives): 69% and "recall" -- the number of correct results divided by the number of expect results: 75% (more on precision and recall https://en.wikipedia.org/wiki/Precision_and_recall)</li>
+</ul>
+<p>Our next task was to apply the same strategy to classical Arabic texts. Our data set--place names in a classical Arabic biographical dictionary--was provided by Maxim Romanov. In this case, like the previous, we started with a list of entities that had already been pulled ouot of the text. We had to put them back in and decide what context to include. To make things easy (&amp; fast) we decided to grab the context from around each entity (entities were placenames in the biographical entries) -- 5 words before and 5 words after. After training our model we realized this was a bad idea -- our test was 100% accurate. Great, right? Well, remember what I said about machine learning being based on statistic probability? Our model was trained on a set that taught it every 6th word was an entitiy; then tested it on text where every 6th word was a location -- of course it got them all correct!</p>
+<p>We ran out of time to correct the problem, but our next try would have included the entire dictionary entry as the context. Most entries were 5-10 lines long, but some were pages -- would it make sense to keep or throw out the long ones? We don't know. That's just one example of the different possible "levers" that could be adjusted for a better result. Others levers include the amount of training data (the Greek text was only 600 lines long), the number of iterations the model ran -- we experimented with this one with the Greek model and got the same results from 10 iterations as we got from 50. Batching vs not batching. Mattias Schloegl from the first day mentioned "active learning" with spaCy -- training on low certainty input -- if we could get the results that our model testing got right, but wasn't particuarly confident of, and added them to the training set, then our results might improve. We didn't spend any time trying to understand the variables here: ; a deeper understanding might lead us to a better settings.</p>
+<p>Stephan Kurz also found a script by his colleagues at the Austrian Academy of Sciences that<a href="https://github.com/acdh-oeaw/spacyapp/blob/master/enrich/tei.py"> takes TEI with entities marked and produces data in the spaCy training format</a>; we didn't have time to delve into that, but it suggests some very efficient ways to leverage existing projects to build models specific to a given domain.</p>
+<p>But the key take-away for the digital humanities is that we did it -- we trained a named entity recognition model from Ancient Greek texts in less than 2 days. And given another day, we would have had one for classical Arabic. Because spaCy is about the statistics, not the text, it had no problem with ancient Greek or classical Arabic -- and it probably wouldn't with any other UTF-8 language.</p>
+<p>The hackathon team consisted of:<br />
+Miguel Vieira<br />
+Sarah Han<br />
+Sara Brumfield<br />
+Rainer Simon<br />
+Stephan Kurz</p>

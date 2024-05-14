@@ -1,0 +1,50 @@
+---
+layout: post
+title: 'Feature: Editorial Toolkit'
+date: 2009-03-16 02:34:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+- requirements
+- subject links
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/03/feature-editorial-toolkit.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2199732653970825472"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  tptn_post_meta: a:2:{s:12:"disable_here";i:0;s:17:"exclude_this_post";i:1;}
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-editorial-toolkit/"
+---
+<p>I'm pleased to report that my cousin Linda Tucker has finished transcribing <a href="http://beta.fromthepage.com/display/read_work?ol=blog&amp;work_id=3">the 1919 diary</a>. I've been trying my best to keep up with her speed, but she's able to transcribe two pages in the amount of time it takes me to edit and annotate a single, simple page. If the editing work requires more extensive research, or (worse) reveals the need to re-do several previous pages, there is really no contest. In the course of this intensive editing, I've come up with a few ideas for new features, as well as a few observations on existing features.</p>
+<p><span style="font-weight: bold;">Show All Pages Mentioning a Subject</span></p>
+<p>Currently, the <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">article page for each subject</a> shows a list of the pages on which the subject is mentioned. This is pretty useful, but it really doesn't serve the purposes of the reader or editor who wants to read every mention of that subject, in context. In particular, after adding links to 300 diary pages, I realized that "Paul" might be either <a href="http://beta.fromthepage.com/article/show?article_id=246">Paul Bennett</a>, Julia's 20-year-old grandson who is making a crop on the farm, or <a href="http://beta.fromthepage.com/article/show?article_id=325&amp;ol=blog">Paul Smith</a>, Julia's 7-year-old grandson who lives a mile away from her and visits frequently. Determining which Paul was which was pretty easy from the context, but navigating the application to each of those 100-odd pages took several hours.</p>
+<p>Based on this experience, I intend to add a new way of filtering the multi-page view, which would display all the transcriptions of all pages that mention a subject. I've already partially developed this as a way to filter the pages within a work, but I really need to 1) see mentions across works, and 2) make this accessible from the subject article page. I am embarrassed to admit that the <a href="http://beta.fromthepage.com/display/read_work?article_id=246&amp;ol=blog&amp;work_id=2">existing work-filtering feature</a> is so hard to find, that I'd forgotten it even existed.</p>
+<p><span style="font-weight: bold;">Autolink</span></p>
+<p>The <a href="http://manuscripttranscription.blogspot.com/2007/06/progress-report-article-links.html">Autolink feature</a> has proven invaluable. I originally developed it to save myself the bother of typing <code>[[Benjamin Franklin Brumfield, Sr.|Ben]]</code> every time Julia mentioned "Ben". However, it's proven especially useful as a way of maintaining editorial consistency. If I decided that "bathing babies" was worth an index entry on one page, I may not remember that decision 100 pages later. However, if Autolink suggests <code>[[bathing babies]]</code> when it sees the string "bathed the baby", I'll be reminded of that. It doesn't catch every instance , but for subjects that tend to cluster (like occurrences of newborns), it really helps out.</p>
+<p><span style="font-weight: bold;">Full Text Search</span></p>
+<p>Currently there is no text search feature. Implementing one would be pretty straightforward, but in addition to that I'd like to hook in the Autolink suggester. In particular, I'd like to scan through pages I've already edited to see if I missed mentions of indexed subjects. This would be especially helpful when I decide that a subject is noteworthy halfway through editing a work.</p>
+<p><span style="font-weight: bold;">Unannotated Page List</span></p>
+<p>This is more a matter of work flow management, but I really don't have a good way to find out which pages have been transcribed but not edited or linked. It's really hard to figure out where to resume my editing.</p>
+<p><span style="font-style: italic;">[Update: While this blog post was in draft, I added a status indicator to the table of contents screen to flag pages with transcriptions but no subject links.]</span></p>
+<p><span style="font-weight: bold;">Dual Subject Graphs/Searches</span></p>
+<p>Identifying names is especially difficult when the only evidence is the text itself. In some cases I've been able to use <a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html">subject graphs</a> to search for <a href="http://beta.fromthepage.com/article/graph?category_ids%5B%5D=18&amp;min_rank=1&amp;article_id=295">relationships between unknown and identified people</a>. This might be much easier if I could filter either my subject graphs or the page display to see all occurrences of subjects X and Y on the same page.</p>
+<p><span style="font-weight: bold;">Research Credits</span></p>
+<p>Now that the Julia Brumfield Diaries are public, suggestions, corrections, and research is pouring in. My aunt has telephoned old-timers to ask what "rebulking tobacco" refers to. A great-uncle has emailed with definitions of more terms, and I've had other conversations via email and telephone identifying some of the people mentioned in the text. To my horror, I find that I've got no way to attribute any of this information to those sources. At minimum, I need a large, HTML acknowledgments field at the collection level. Ideally, I'd figure out an easy-to-use way to attribute article comments to individual sources.</p>

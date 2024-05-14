@@ -1,0 +1,36 @@
+---
+layout: post
+title: Crowdsourcing OCR Correction vs. Manuscript Transcription
+date: 2018-02-08 09:04:24.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+  _wp_old_slug: ocr-correction-and-manuscript-transcription
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/crowdsourcing-ocr-correction/"
+---
+<p><em>(This is a repost of a reply to a query about crowdsourced OCR correction on the Museums Computer Group list.  You can find the original <a href="https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=ind1802&amp;L=mcg&amp;F=&amp;S=&amp;X=99C0DE6AEFC3EF7169&amp;Y=benwbrum%40gmail.com&amp;P=19942">here</a>.)</em></p>
+<p>Many people have pointed to some excellent crowdsourcing platforms, but I wanted to weigh in on OCR correction as a crowdsourcing task distinct from manuscript transcription.  Some excellent platforms (including ones suggested) won't be able to handle OCR without substantial programming effort.</p>
+<p>I've been adding OCR correction functionality to our own open-source crowdsourcing platform FromThePage over the last three years, and have found that it's best to be very careful about answering "does this platform do OCR correction?" with a simple "yes" or "no".  The problem is that OCR correction has far more complex integration needs than manuscript transcription, and different communities of practice have radically different implicit assumptions about technical formats.</p>
+<p>Any crowdsourcing system will need to ingest not only images and metadata, but also the raw OCR text you hope to correct.  It will also need to associate that text with each page, so that both can be presented to users for correction.  Finally, it will need to export the text in a usable format, and the options for that format may be constrained by the affordances of the crowdsourcing interface.</p>
+<p>Let me give a few examples.  In one case, we were asked to handle crowdsourced OCR correction of books hosted on the Internet Archive for a scholarly editing project.  Until recently, the Internet archive ran a white-label version of ABBYY FineReader against scanned books, and made the .DjVu files of raw OCR text available.  It was straightforward for us to read the .DjVu file, correlate each PAGE element of its XML with the page images we present to users, and convert its text to the wiki-text  format our users edit.  Once corrected, our existing export formats (at the time, TEI and XHTML) were what the editors needed for their publication.</p>
+<p>In another case, we were approached by a project that had page images and raw OCR text in a Word document.  Because the OCR process they'd used had merged the text for all pages into a single file, there was no way to correlate the raw text with the images.  In the end, the project had to run a manuscript transcription project in which staffers cut and pasted the text from their document into each page as the initial transcription.</p>
+<p>In a third case--one I was working on before I started this email--we were asked to support OCR correction for the CONTENTdm digital library system.  The CONTENTdm API supports reading and writing plaintext transcript per page, so we're able to do the integration in a totally automated fashion, reading metadata, images, and OCR text from the institution's CONTENTdm installation, presenting them to users in our interface, and updating the institution's records <i>in situ</i> when the correction is done.</p>
+<p>If we were presented with ALTO files to correct tomorrow, we'd need to write code to ingest them into the platform, even though we already support a couple of other OCR formats.  If we also had to <i>produce</i> ALTO from the corrected text (rather than plaintext, TEI, or HTML) it would be a challenge, since ALTO files have bounding boxes for each word, and these are lost during our page-at-a-time correction process.  (It's not impossible, just difficult.)</p>
+<p>To sum up, you really have to ask of any crowdsourcing platform,</p>
+<ul>
+<li>How does my data (page images, presentational/structural metadata, and raw OCR text) get ingested into the platform, especially given the formats it is currently in?</li>
+<li>How does my data (corrected transcripts) get back out of the platform in a format I can use?</li>
+</ul>
+<p>I'm always happy to chat with people about manuscript transcription or OCR correction projects and platforms.  You can contact me via email at benwbrum@fromthepage.com.</p>

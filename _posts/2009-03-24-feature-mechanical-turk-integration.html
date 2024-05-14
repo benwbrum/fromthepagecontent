@@ -1,0 +1,36 @@
+---
+layout: post
+title: 'Feature: Mechanical Turk Integration'
+date: 2009-03-24 02:34:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/03/feature-mechanical-turk-integration.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5922330684169260923"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-mechanical-turk-integration/"
+---
+<p>At last week's Austin On Rails SXSW party, my friend and compatriot <a href="http://niblets.wordpress.com/">Steve Odom</a> gave me a really neat feature idea.  "Why don't you integrate with <a href="https://www.mturk.com/mturk/welcome">Amazon's Mechanical Turk</a>?" he asked.  This is an intriguing notion, and while it's not on my own road map, it would be pretty easy to modify FromThePage to support that.  Here's what I'd do to use FromThePage on a more traditional transcription project, with an experienced documentary editor at the head and funding for transcription work:</p>
+<p><span style="font-weight: bold;">Page Forks:</span> I assume that the editor using Mechanical Turk would want double keyed transcriptions to maintain quality, so the application needs to present the same, untranscribed page to multiple people. In the software world, when a project splits, we call this <span style="font-style: italic;">forking</span>, and I think that the analogy applies here.  This feature needs to be able to track an entirely separate edit history for the different forks of a page.  This means a new attribute on the master page record describing whether more than one fork exists, and a separate edit history for each fork of a page that's created.  There's no reason to limit these transcriptions to only two forks, even if that's the most common use case, so I'd want to provide a URL that will automatically create a new fork for a new transcriber to work in.  The Amazon HIT (Human Intelligence Task) would have a link to that URL, so the transcriber need never track which fork they're working in, or even be aware of the double keying.</p>
+<p><span style="font-weight: bold;">Reconciling Page Forks:</span> After a page has been transcribed more than one time, the application needs to allow the editor to reconcile the transcriptions.  This would involve a screen displaying the most recent version of two transcriptions alongside the scanned page image. Likely there's a decent Rails plug in already for displaying code diffs, so I could leverage that to highlight differences between the two transcriptions.  A fourth pane would allow the editor to paste in the reconciled transcription into the master page object.</p>
+<p><span style="font-weight: bold;">Publishing MTurk HITs:</span> Since each page is an independent work unit, it should be possible to automatically convert an untranscribed work into MTurk HITs, with a work item for each page.  I don't know enough about how MTurk works, but I assume that the editor would need to enter their Amazon account credentials to have the application create and post the HITs.  The app also needs to prevent the same user from re-transcribing the same page in multiple forks.</p>
+<p>In all, it doesn't sound like more than a month or two worth of work, even performed part-time.  This isn't a need I have for the Julia Brumfield diaries, so I don't anticipate building this any time soon.  Nevertheless, it's fun to speculate.  Thanks, <a href="http://beta.fromthepage.com/collection/show?collection_id=1&amp;ol=blog">Steve</a>!</p>

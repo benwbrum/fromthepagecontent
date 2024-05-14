@@ -1,0 +1,68 @@
+---
+layout: post
+title: 'Rails: acts_as_list Incantations'
+date: 2007-06-02 18:15:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- rails
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/05/rails-actsaslist-incantations.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2808706726117232578"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/rails-acts_as_list-incantations/"
+---
+<p>In my experience, really great software is so consistent that when you're trying to do something you've never done before, you can guess at how it's done and at least half of the time, <span style="font-style: italic;">it just works</span>.  For the most part, Ruby on Rails is like that.  There are best practices baked into the framework for processes I never even realized you could have best practices for, like the unpleasant but necessary task of <a href="http://rails.rubyonrails.com/classes/ActiveRecord/Migration.html">writing upgrade scripts</a>.  Through Rails, I've learned CS concepts like <a href="http://en.wikipedia.org/wiki/Optimistic_locking">optimistic locking</a> that were entirely new to me, and used them effectively after an hour's study and a dozen lines of code.</p>
+<p>So it's disappointing and almost a little surprising when I encounter a feature of the Rails framework that doesn't just work automatically.  <code><a href="http://rails.rubyonrails.com/classes/ActiveRecord/Acts/List/ClassMethods.html#M000667">acts_as_list</a></code> is such a feature, requiring days of reading source files and experimenting with logfile to figure out the series of magical incantations needed to make the darn thing work.</p>
+<p>The theory behind <code>acts_as_list</code> is pretty simple.  You add an integer <code>position</code> column to a database table, and add <code>acts_as_list</code> to the model class it maps to.  At that point, anytime you use the object in a collection, the position column gets set with the sort order of that object relative to everything else in the collection.  List order is even scoped: a child table can be ordered within the context of its parent table by adding <code>:scope =&gt; <span style="font-style: italic;">:parent_model_name</span></code> to the model declaration.</p>
+<p>In practice, however, there are some problems I ran into which I wasn't expecting.  Some of them are well documented in <span style="font-style: italic;">Agile Web Development with Rails</span>, but some of them required a great deal of research to solve.</p>
+<p><span style="font-weight: bold;">List items appear in order of record creation, not in order of <code>:position</code></span></p>
+<p>If an ImageSet has_many TitledImages, and TitledImage acts_as_list over the scope of an ImageSet, you'd expect ImageSet.titled_images to return a collection in the order that's set in the <code>position</code> column, right?  This won't happen unless you modify the parent class definition (<code>ImageSet</code>, in this case) to specify an order column on your <code>has_many</code> declaration:<br />
+<code>  has_many :titled_images, <span style="font-weight: bold;">:order =&gt; :position</span></code><br />
+<span style="font-weight: bold;"><br />
+Pagination loses list order</span></p>
+<p>Having fixed this problem, if you page through a list of items, you'll discover that the items once again appear in order of record creation, ignoring the value set in <code>position</code>.  Fixing this requires you to manually specify the order for paged items using the <code>:order</code> option to <code>paginate</code>:</p>
+<pre>    @image_pages, @titled_images = paginate(:titled_image,
+                                          {:per_page =&gt; 10,
+                                           :conditions =&gt; conditions,
+                                           <span style="font-weight: bold;">:order =&gt; 'position'</span> })
+</pre>
+<p><span style="font-weight: bold;">Adjusting list order doesn't update objects in memory</span></p>
+<p>Okay, this one took me the most time to figure out.  <code>acts_as_list</code> has nothing to do with the order of your collection.  Using array operators to move elements around in  the collection returned by <code>ImageSet.titled_image</code> does absolutely nothing to the <code>position</code> column.</p>
+<p>Worse yet, using the <code>acts_as_list</code> position modifiers like <code>insert_at</code> <span style="font-style: italic;">will not affect the objects in memory</span>.  So if you've been working with a collection, then call an <code>acts_as_list</code> method that affects its position, <span style="font-style: italic;">saving the elements that of collection will overwrite the position with old values.</span>  The position manipulation operators are designed to minimize SQL statements executed: among other side-effects, they circumvent optimistic locking.  You must reload your collections after doing any list manipulation.</p>
+<p><span style="font-weight: bold;">Moving list items from one parent object to another doesn't reorder their positions<br />
+</span><br />
+Because <code>acts_as_list</code> pays little attention to order within a collection, removing an item from one parent and adding it to another requires explicit updates to the <code>position</code> attribute.  You should probably use <code>remove_from_list</code> to zero out the position before you transfer items from one parent to another, but since this reshuffles position columns for all other items in the list, I'd be cautious about doing this within a loop.  Since I was collating items from two different lists into a third, I just manually set the position:<code></code></p>
+<pre>    0.upto(max_size-1) do |i|
+    # append the left element here
+    if i &lt; left_size
+      new_set.titled_images &lt;&lt; left_set.titled_images[i]
+    end
+    # append the right element
+    if i &lt; right_size
+      new_set.titled_images &lt;&lt; right_set.titled_images[i]
+    end
+  end
+  # this has no effect on acts as list unless I do it manually
+  1.upto(new_set.titled_images.size) do |i|
+    new_set.titled_images[i-1].position=i
+  end
+</pre>
+<p>In my opinion, <code>acts_as_list</code> is still worth using — in fact, I'm about to work with its reordering functionality a lot.  But I won't be surprised if I find myself experimenting with logfiles again.</p>

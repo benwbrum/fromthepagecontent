@@ -1,0 +1,45 @@
+---
+layout: post
+title: Textual Corruption is How Our Brains Work
+date: 2021-03-31 05:30:41.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- crowdsourcing
+- features
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _thumbnail_id: '1026'
+  _genesis_title: Textual Corruption is How our Brains Work | FromThePage
+  _genesis_description: Founder Ben Brumfield touches on the subject of Predictive
+    Coding, which is the idea that our brains are constantly making predictions about
+    the world based on insufficient data.
+  _yoast_wpseo_primary_category: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/textual-corruption-is-how-our-brains-work/"
+---
+<p><img class="aligncenter size-full wp-image-1026" src="{{ site.baseurl }}/assets/2021/03/photo_fromthepage-blog.jpg" alt="Predictive Coding &amp; Corruption in Textual Transmission" width="1140" height="540" /></p>
+<p><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">I had a long conversation with my neighbor about theory of mind yesterday, and it's got me thinking about present-day corruption in textual transmission. </span></p>
+<p><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">Cognitive science is not my thing, but he introduced me to <a href="https://en.wikipedia.org/wiki/Predictive_coding" target="_blank" rel="noopener">Predictive Coding</a> </span><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">- the idea that our brains are constantly making predictions about the world based on insufficient data, then (sometimes) correcting course when our sensory input conflicts with what our brain predicts we'll experience. </span></p>
+<p><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">If this theory is valid, it could provide another way of explaining well-studied phenomena in textual scholarship, in which scribes silently (and often accidentally) replace unfamiliar forms in an exemplar with something more familiar in the copy they are making. This could be a replacement of an unfamiliar word with a familiar one, silent normalization of an archaic spelling, or writing a familiar passage down from the scribe's own memory rather than copying it verbatim from the exemplar. There are lots of textual corruptions arising from interference by the scribe's mind during the process of copying.</span></p>
+<p>Textual scholars have studied these phenomena for centuries, and modern documentary editors have rigorous methods, like oral proofing, that attempt to catch these errors as their teams transcribe documents for publication. Those of us making software systems to facilitate human transcription rarely have the kind of control over the process that would enforce these methods, however, and have to rely on other means.</p>
+<p>One of the ways we attempt to avoid corruption is by suppressing the <span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">brain's ability to predict what a text will say. <a href="https://www.ancestry.com/" target="_blank" rel="noopener">Ancestry.com</a></span><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"> relies on <a href="http://www.ancestryinsider.org/2012/07/ancestrycom-laps-familysearch-in.html" target="_blank" rel="noopener">indexing firms in China and Bangladesh</a> whose employees are not familiar with the western names or forms they transcribe. </span><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">I understand that this is partly due to cost of labor, but partly also because of increased accuracy, since their unfamiliarity with the texts forces the indexers to transcribe <i>verbatim et literatim</i> instead of having their brain predict what it will say.</span></p>
+<p>But I'm not sure this is always true. Familiarity with material on hand really does help us decipher difficult words. In the <a href="https://fromthepage.com/benwbrum/jeremiah-white-graves-diaries">Jeremiah White Graves</a> papers, I see volunteers who do not know terms from tobacco agriculture misread those words frequently; sometimes the transcript is marked as tentative, but not always -- the misreading can be hard to catch.</p>
+<p>I suspect that blind n-way keying systems can run into similar problems -- if one user familiar with the material has used an obscure-but-accurate term, but two others have written the easier-but-wrong reading, the <i>lectio difficilior</i> is out-voted.</p>
+<p>The challenge for toolmakers like me is that there are two ways to avoid predictive coding interfering with transcripts: suppressing the prediction altogether by using illiterates, or improving the prediction by training/experience. They are both likely to have benefits (though I find the first abhorrent for several reasons), but the second is what we see in systems that allow transcribers to revise their work -- including traditional editorial projects.</p>
+<p>If prediction-testing-revision is how we learn, then <span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">we can make that testing-revision phase as explicit as possible. </span><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">This is something that </span><span class="r-18u37iz"><a class="css-4rbku5 css-18t94o4 css-901oao css-16my406 r-1n1174f r-1loqt21 r-poiln3 r-bcqeeo r-qvutc0" dir="ltr" role="link" href="https://twitter.com/LauraMorreale" target="_blank" rel="noopener" data-focusable="true">Laura Morreale</a> </span>and <span class="r-18u37iz"><a class="css-4rbku5 css-18t94o4 css-901oao css-16my406 r-1n1174f r-1loqt21 r-poiln3 r-bcqeeo r-1ny4l3l r-1ddef8g r-qvutc0" dir="ltr" role="link" href="https://twitter.com/petermarteau" target="_blank" rel="noopener" data-focusable="true">Peter Marteau </a></span>have suggested in the past: By showing a transcriber how their (current) work matches some gold standard, we have an opportunity to improve their prediction model. I think this could work well for teaching a particular hand, but probably is insufficient for domain knowledge like 19th-century tobacco farming.</p>
+<p>The alternative might be to recognize that there are values to both approaches: one could imagine a review phase in which a transcript produced by a well-trained person is compared with a transcript produced by an "illiterate", who had no predictive model or a radically different one from the trained expert. The two would likely introduce different kinds of errors, and another expert (or even the expert transcriber) could review the differences to produce the result. I find employing "illiterate" transcribers repellant, but perhaps any transcript produced by an agent with a different predictive model might work. And here's where machine learning tools like Handwritten Text Recognition might play a role. So long as the errors introduced by HTR were different from the errors produced by an expert human--and I'm not at all sure there is no intersection--they might be valuable for comparison during review.</p>
+<p>The predictive coding model means that the process that produces scribal corruption may not be an aberration, but a fundamental part of how our brains work. Building software systems incorporating these ideas may take years. In the meanwhile, it may be reassuring to think that making mistakes during transcription doesn't mean there is something wrong with us; it just means we're human.</p>
+<p>- Ben</p>

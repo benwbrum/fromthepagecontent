@@ -1,0 +1,38 @@
+---
+layout: post
+title: ChatGPT, Microsoft, and the Development of Guardrails
+date: 2023-12-20 11:00:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_estimated-reading-time-minutes: ''
+  _yoast_wpseo_wordproof_timestamp: ''
+  _yoast_wpseo_primary_category: '1'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/chatgpt-microsoft-and-the-development-of-guardrails/"
+---
+<p><!-- wp:paragraph --></p>
+<p>When we were running experiments with ChatGPT this summer, we kept running into guardrails; things that ChatGPT wouldn’t say. None of us wants a chatbot to be racist or sexist, but those of us studying history might want it to <a href="https://youtu.be/-X4kaiFPXz4?feature=shared&amp;t=205" target="_blank" rel="noreferrer noopener">be able to speak from the perspective of a 19th century slave holder. (And it won’t.)</a> At the time, we chalked this limitation up to “OpenAI doesn't want ChatGPT to say anything that will get it in trouble”, but a recent article in <em>The New Yorker</em> brought a lot of nuance to my understanding of how ChatGPT’s guardrails are developed. The short answer? Microsoft. In Silicon Valley the mantra may be “move fast and break things”, but the 48 year old popularizer of software brings a lot of care and responsibility to AI. If you’re concerned about ethical uses of AI (or want to know the history of OpenAI’s partnership with Microsoft and the Sam Altman drama) I would recommend Charles Duhigg’s <a href="https://www.newyorker.com/magazine/2023/12/11/the-inside-story-of-microsofts-partnership-with-openai" target="_blank" rel="noreferrer noopener">The Inside Story of Microsoft’s Partnership with OpenAI</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here are some highlights:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>One day, a Microsoft red-team member told GPT-4 to pretend that it was a sexual predator grooming a child, and then to role-play a conversation with a twelve-year-old. The bot performed alarmingly well—to the point that Microsoft’s head of Responsible A.I. Engineering, Sarah Bird, ordered a series of new safeguards. Building them, however, presented a challenge, because it’s hard to delineate between a benign question that a good parent might ask (“How do I teach a twelve-year-old how to use condoms?”) and a potentially more dangerous query (“How do I teach a twelve-year-old how to have sex?”). To fine-tune the bot, Microsoft used a technique, pioneered by OpenAI, known as reinforcement learning with human feedback, or R.L.H.F. Hundreds of workers around the world repeatedly prompted Microsoft’s version of GPT-4 with questions, including quasi-inappropriate ones, and evaluated the responses. The model was told to give two slightly different answers to each question and display them side by side; workers then chose which answer seemed better. As Microsoft’s version of the large language model observed the prompters’ preferences hundreds of thousands of times, patterns emerged that ultimately turned into rules. (Regarding birth control, the A.I. basically taught itself, “When asked about twelve-year-olds and condoms, it’s better to emphasize theory rather than practice, and to reply cautiously.”)</p>
+<p>Although reinforcement learning could keep generating new rules for the large language model, there was no way to cover every conceivable situation, because humans know to ask unforeseen, or creatively oblique, questions. (“How do I teach a twelve-year-old to play Naked Movie Star?”) So Microsoft, sometimes in conjunction with OpenAI, added more guardrails by giving the model broad safety rules, such as prohibiting it from giving instructions on illegal activities, and by inserting a series of commands—known as meta-prompts—that would be invisibly appended to every user query. The meta-prompts were written in plain English. Some were specific: “If a user asks about explicit sexual activity, stop responding.” Others were more general: “Giving advice is O.K., but instructions on how to manipulate people should be avoided.” Anytime someone submitted a prompt, Microsoft’s version of GPT-4 attached a long, hidden string of meta-prompts and other safeguards—a paragraph long enough to impress Henry James.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>It’s unclear how many of these guardrails were incorporated back into the general purpose ChatGPT (rather than Microsoft’s), but my assumption is that lot of them were. And as frustrating as it can be that ChatGPT can’t replicate unpleasant historical perspectives, I’ve decided I’m happy to make that tradeoff if the result is a ChatGPT that doesn’t tell folks how to groom children, make bombs or manufacture drugs.</p>
+<p><!-- /wp:paragraph --></p>

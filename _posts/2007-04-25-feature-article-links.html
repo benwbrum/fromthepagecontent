@@ -1,0 +1,43 @@
+---
+layout: post
+title: 'Feature: Article Links'
+date: 2007-04-25 14:47:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- subject links
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/04/feature-article-links.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3607922905881579369"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-article-links/"
+---
+<p>Both Wikipedia and Pepys Diary Online allow hyperlinks to be embedded into articles.  These links are tracked bi-directionally, so that by viewing an article, you can see all the pages that link to it.  This is an easy enough thing to do, once you allow embedded links:</p>
+<p><span style="font-weight: bold;font-size:130%;">UI</span></p>
+<p>The text markup to insert a link needs to be simple and quick, yet flexible if the scribe has the need and the skills to do complex operations.  The wiki link syntax used in Wikipedia is becoming common, so seems like as good a starting place as any: double braces placed around text makes that text a link, e.g. [[tobacco]] links to an article Tobacco.  In situations where the link target is different from the displayed text, and optional display text value is supplied after a pipe, so that [[Benjamin Franklin Brumfield|Ben]] links "Ben" to the article on Benjamin Franklin Brumfield.  This user-friendly markup can be converted to my intermediate XML markup for processing on save and display.</p>
+<p>Another mechanism for inserting links is a sort of right-click dropdown: select the linked text, right click it (or click some icon), and you see a pop-up single-select of the articles in the system, with additional actions of creating new articles with the selected text as a title, or creating a new article with a different title.  Choosing/creating an article would swap out the selected text with the appropriate markup.  It is debatable whether such a feature would be useful without significant automation (below).</p>
+<p><span style="font-weight: bold;font-size:130%;">Storage</span></p>
+<p>When text is saved, we walk through the markup looking for link tags.  When one is encountered, it's inserted into the RDBMS, recording the page the link is from, the article the link is to, and the actual display text.  Any link target articles that do not already exist will be created with a title, but blank contents.  Reading this RDBMS record makes indexing almost trivial — more on this later.</p>
+<p><span style="font-weight: bold;font-size:130%;">Automated linking</span></p>
+<p>The reason for storing the display text in the link is to automate link creation.  Diaries in particular include a frequently-repeated core of people or places that will be referred to with the same text.  In my great-grandmother's diaries, "Ben" always refers to "Benjamin Frankly Brumfield Sr.", while "Franklin" refers to "Benjamin Franklin 'Pat' Brumfield Jr.".  Offering to replace those words with the linked text could increase the ease of linking and possibly increase the quality of indexes.</p>
+<p>I see three possible UIs for this.  The first one is described above, in which the user selects the transcribed text "Ben", brings up a select list with options, and chooses one.  The record of previous times "Ben" was linked to something can winnow down that list to something useful, a bit like auto-completion.  Another option is to use a Javascript oberserver to suggest linking "Ben" to the appropriate article whenever the scribe types "Ben".  This is an AJAX intensive implementation that would be ungainly under dial-up situations.  Worse, it could be incredibly annoying, and since I'm hoping to minimize user enragement, I don't think it's a good idea unless handled with finesse.  Maybe append suggested links to a sidebar while highlighting the marked text, rather than messing with popups?  I'll have to mull that one over.  The third scenario is to do nothing but server-side processing.  Whenever a page is submitted, direct the user to a workflow in which they approve/deny suggested links.  This could be made optional rather than integrated into the transcription flow, as Wikipedia's "wikify" feature does.</p>
+<p><span style="font-size:130%;"><span style="font-weight: bold;">Questions</span></span></p>
+<p>In my data model and UI, I'm differentiating between manuscript pages and article pages -- the former actually representing a page from the manuscript with its associated image, transcription, markup and annotation, while the latter represents a scribe-created note about a person, place, or event mentioned in one or more manuscript pages.  The main use case of linking is to hotlink page text to articles.  I can imagine linking articles to other articles as well, as when a person has their family listed, but it seems much less useful for manuscript pages to link to each other.  Does the word "yesterday" really need to link March 14 to the page on March 13?</p>

@@ -1,0 +1,55 @@
+---
+layout: post
+title: Crowdsourcing with CONTENTdm and FromThePage
+date: 2018-05-07 13:46:12.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+- how-to
+tags:
+- features
+- iiif
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_metadesc: We are pleased to announce that FromThePage now integrates
+    with CONTENTdm, the digital collections management system created by OCLC.  Through
+    this integration, CONTENTdm users can launch crowdsourcing projects on FromThePage
+    without the need for uploading image files, copying metadata, or cut-and-pasting
+    user contributions into their digital collections.
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_schema_article_type: BlogPosting
+  _yoast_wpseo_primary_category: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/crowdsourcing-with-contentdm-and-fromthepage/"
+---
+<p>We are pleased to announce that FromThePage now integrates with <a href="https://www.oclc.org/en/contentdm.html">CONTENTdm</a>, the digital collections management system created by OCLC.&nbsp; Through this integration, CONTENTdm users can launch crowdsourcing projects on FromThePage without the need for uploading image files, copying metadata, or cut-and-pasting user contributions into their digital collections.</p>
+<h2>How it works</h2>
+<p>FromThePage uses CONTENTdm 5.1's new support for IIIF to import presentational metadata and references to image services.&nbsp; We've added a CONTENTdm import wizard to make the process easier.&nbsp; Simply find a compound object on your CONTENTdm site and paste its URL into the CONTENTdm URL field on FromThePage's <em>Start a Project</em> screen.</p>
+<p>Copy the URL of the compound object.</p>
+<p>[caption id="attachment_681" align="aligncenter" width="529"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_site_url.png"><img class="wp-image-681 size-full" src="{{ site.baseurl }}/assets/2018/05/cdm_site_url.png" alt="" width="529" height="369" /></a> User view of compound object.[/caption]</p>
+<p>Paste the URL into the Start a Project CONTENTdm field.</p>
+<p>[caption id="attachment_682" align="alignnone" width="878"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_import_field.png"><img class="wp-image-682 size-full" src="{{ site.baseurl }}/assets/2018/05/cdm_import_field.png" alt="" width="878" height="162" /></a> Compound object URL pasted into FromThePage CONTENTdm import.[/caption]</p>
+<p>This automatically determines the IIIF manifest for the CONTENTdm compound object and begins the import process</p>
+<p>[caption id="attachment_680" align="alignnone" width="834"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_iiif_import_manifest_full.png"><img class="wp-image-680 size-full" src="{{ site.baseurl }}/assets/2018/05/cdm_iiif_import_manifest_full.png" alt="" width="834" height="655" /></a> IIIF Import Screen[/caption]</p>
+<p>You can import images to be transcribed or images and raw OCR text from ContentDM.&nbsp; For OCR correction projects, check "Import OCR text from ContentDM"</p>
+<p>[caption id="attachment_679" align="alignnone" width="823"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_iiif_manifest_import_detail.png"><img class="wp-image-679 size-full" src="{{ site.baseurl }}/assets/2018/05/cdm_iiif_manifest_import_detail.png" alt="" width="823" height="128" /></a> IIIF import screen for CONTENTdm with "Import OCR" checked.[/caption]</p>
+<p>The project is now ready for volunteers to transcribe, index, annotate or translate!</p>
+<p>[caption id="attachment_678" align="alignnone" width="829"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_read_work_no_ocr.png"><img class="wp-image-678 size-full" src="{{ site.baseurl }}/assets/2018/05/cdm_read_work_no_ocr.png" alt="" width="829" height="528" /></a> FromThePage view of imported documents[/caption]</p>
+<p>Relevant CONTENTdm metadata for the compound object and for each item is exposed in FromThePage's exports and APIs. In addition, OCR correction projects can push the corrected text directly to their CONTENTdm installation by entering their user credentials in a new "Export to CONTENTdm" flow.</p>
+<p>[caption id="attachment_677" align="alignnone" width="604"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_correct_page.png"><img class="wp-image-677 size-large" src="{{ site.baseurl }}/assets/2018/05/cdm_correct_page-1024x448.png" alt="" width="604" height="264" /></a> Correcting OCR text for a page.[/caption]</p>
+<p>OCR correction projects will import the raw text directly from CONTENTdm.</p>
+<p>[caption id="attachment_676" align="alignnone" width="604"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/05/cdm_catcher_sync.png"><img class="wp-image-676 size-large" src="{{ site.baseurl }}/assets/2018/05/cdm_catcher_sync-1024x390.png" alt="" width="604" height="230" /></a> Credentials for direct updates of CONTENTdm text metadata from completed OCR correction works.[/caption]</p>
+<h2>Simple but Flexible</h2>
+<p>Integrating CONTENTdm and FromThePage makes it easy to run crowdsourcing projects from your existing digital collection systems, but it also opens up a world of interoperability through WebAnnotations and IIIF.&nbsp; High-resolution image viewers like Mirador and the Universal Viewer can improve the user experience of your digital collections (see the <a href="http://sites.utexas.edu/ransomcentermagazine/2017/12/05/thousands-of-cultural-heritage-materials-now-instantly-shareable-in-new-online-platform/">Harry Ransom Center's post</a> on their experience). <a href="https://content.fromthepage.com/648-2/">FromThePage's support for IIIF</a> means that researchers can see transcriptions, translations, notes, and other crowdsourced content alongside images and metadata.</p>
+<p><em>CONTENTdm enhancements to FromThePage were funded by the Council of State Archivists led by the Alabama Department of Archives and History, and joined by the Indiana Archives and Records Administrations, the Library of Virginia, and the Missouri State Archives. These enhancements are available to all users of the open-source crowdsourcing platform, whether hosted independently or on <a href="http://fromthepage.com">FromThePage.com</a>.&nbsp; To learn more, contact support@fromthepage.com or <a href="https://fromthepage.com/users/new_trial">sign up for a trial account</a>.</em></p>

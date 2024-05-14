@@ -1,0 +1,42 @@
+---
+layout: page
+title: Enabling GIS (Latitude & Longitude) Features
+date: 2018-07-27 15:46:58.000000000 -05:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '7'
+author:
+  login: fromthepage
+  email: support@fromthepage.com
+  display_name: FromThePage
+  first_name: ''
+  last_name: ''
+permalink: "/project-owner-documentation/enabling-gis-latitude-longitude-features/"
+---
+<h3>Contents</h3>
+<ol>
+<li><a href="#enabling-gis">Enabling GIS for a Category</a></li>
+<li><a href="#child-categories">Dealing with Child Categories</a></li>
+<li><a href="#formatting">Formatting Longitude and Latitude Values</a></li>
+</ol>
+<p>By default GIS features (tagging geographic location by latitude and longitude) are disabled for all subject categories. You may, however, selectively enable them where appropriate. When enabled, subjects in a given category can be tagged by latitude and longitude.</p>
+<h3 id="enabling-gis">Enabling GIS for a Category</h3>
+<p>To enable GIS features for a category:</p>
+<p>1.  Select a category from the Subjects tab of a collection.</p>
+<p>[caption id="attachment_732" align="aligncenter" width="995"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/07/Screenshot-from-2018-05-17-09-30-39-e1532722027784.png"><img class="size-full wp-image-732" src="{{ site.baseurl }}/assets/2018/07/Screenshot-from-2018-05-17-09-30-39-e1532722027784.png" alt="" width="995" height="344" /></a> Collection -&gt; Subjects -&gt; Places[/caption]</p>
+<p>[caption id="attachment_733" align="aligncenter" width="993"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/07/Screenshot-from-2018-05-17-09-30-52-e1532722464795.png"><img class="wp-image-733 size-full" src="{{ site.baseurl }}/assets/2018/07/Screenshot-from-2018-05-17-09-30-52-e1532722464795.png" alt="" width="993" height="420" /></a> Actions -&gt; Enable GIS for Category[/caption]</p>
+<p>2.  From the <strong>Actions</strong> menu in the upper -right corner, select <em>Enable GIS for Category (To <strong>disable</strong> GIS features for a category, select Disable GIS for Category from the <strong>Actions</strong> menu:)</em>.</p>
+<h3 id="child-categories">Dealing with Child Categories</h3>
+<p>When GIS features are enabled for a category that contains child categories (e.g., Places &gt; Cities), any extant child categories likewise will have GIS features enabled. Furthermore, any new Child Categories which are created for a GIS-enabled (parent) category will also have GIS features enabled.</p>
+<p>If GIS features should only apply to certain child categories, you may selectively enable GIS features on each child category, or (having enabled GIS features on the parent category), you may selectively <strong>disable</strong> GIS features as necessary.</p>
+<h3 id="formatting">Formatting Longitude and Latitude</h3>
+<p>Once enabled, Longitude and Latitude fields will appear at the bottom of all GIS-enabled subject attribute pages:</p>
+<p>[caption id="attachment_734" align="aligncenter" width="985"]<a href="http://content.fromthepage.com/wp-content/uploads/2018/07/Screenshot-from-2018-05-17-09-31-56-e1532723243812.png"><img class="wp-image-734 size-full" src="{{ site.baseurl }}/assets/2018/07/Screenshot-from-2018-05-17-09-31-56-e1532723243812.png" alt="" width="985" height="754" /></a> A GIS-enabled Subject[/caption]</p>
+<p>Longitude and Latitude values should be formatted as <a href="https://en.wikipedia.org/wiki/Decimal_degrees">Decimal Degrees</a> rather than the traditional Degree/Minute/Second format. Latitude values must fall between <code>-90</code> and <code>90</code>degrees, while Longitude values must fall between <code>-180</code> and <code>180</code>degrees. FromThePage will prevent you from inputting invalid values.</p>
+<p>Both Latitude and Longitude values are displayed with five decimal places of precision, <a href="https://en.wikipedia.org/wiki/Decimal_degrees#Precision">which is accurate to approximately one meter</a>. Values more specific than five decimal places will be truncated to five decimal places, while values less precise will be padded with zeroes.</p>

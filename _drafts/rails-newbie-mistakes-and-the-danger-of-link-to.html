@@ -1,0 +1,27 @@
+---
+layout: post
+title: 'Rails: Newbie Mistakes and the Danger of link_to'
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3019762372410654595"
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/"
+---
+<p>I'm afraid that I spent most of the month of July dealing with the <a href="http://manuscripttranscription.blogspot.com/2008/05/progress-report-de-duping-catastrophe.html">same data corruption problem</a> that I was fighting before <a href="http://thatcamp.org/">THATCamp</a>.  This was unexpected, as I was pretty sure I'd solved the problem by changing hosts.  In fact, I had solved that problem, but THATCamp highlighted a very similar one.</p>
+<p>After THATCamp, a couple of people posted links to my beta.  (Thanks to <a href="http://www.spellboundblog.com/2008/06/05/crowdsourced-transcription-collaborative-annotation/">Jeanne Kramer-Smythe</a> and <a href="http://digitalscholarship.wordpress.com/2008/06/15/that-camp-takeaways/">Lisa Spiro</a>!)  A side effect of this publicity is that search engines started crawling my beta site.  Now when a spider crawls through a site, it clicks on every link on the pages it's indexing.  There's nothing wrong with this, so long as those links merely load new pages.</p>
+<p>However, what if your links make changes?  What if &mdash; as a short-cut &mdash; you fired an action that changes your data from a hyperlink, rather than constructing some sort of form with a submit button?  Even the basic Rails book warns against this folly, but that doesn't mean seasoned programmers like me think it applies to us.  </p>
+<p>To make a long story short, my code for combinig subjects with other subjects used a hyperlink interface.  It is fortunate for me that clicking this resulted in an easily-correctable error.  Since Google, MSN, and other robots clicked every "combine this entry" link they saw, the corrupted data I knew how to fix was far better than combining each subject in a text with every other subject.</p>

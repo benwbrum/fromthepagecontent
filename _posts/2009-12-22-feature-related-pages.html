@@ -1,0 +1,42 @@
+---
+layout: post
+title: 'Feature: Related Pages'
+date: 2009-12-22 02:50:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/12/feature-related-pages.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/8223375904554374944"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-related-pages/"
+---
+<p>I've been thinking a lot about page-to-subject links lately as I edit and annotate <a href="http://beta.fromthepage.com/display/read_work?ol=blog&amp;work_id=6">Julia <span>Brumfield's</span></a> 1921 diary.  While I've been able to exploit the <a href="http://manuscripttranscription.blogspot.com/2007/06/progress-report-article-links.html">links data structure</a> in <a href="http://manuscripttranscription.blogspot.com/2009/03/feature-editorial-toolkit.html">editing</a>, printing, <a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html">analyzing</a> and <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">displaying </a>the texts, I really haven't viewed it as a way to navigate from one manuscript page to another.  In fact, the linkages I've made between pages have been pretty boring -- next/previous page links and a table of contents are the limit.  I'm using the page-to-subject links to connect subjects to each other, so why not pages?</p>
+<p>The obvious answer is that the subjects which page A would have most in common with page B are the same ones it would have in common with nearly every other page in the collection.  In the corpus I'm working with, the diarist mentions her son and daughter-in-law in 95% of pages, for the simple reason that she lives with them.  If I choose two pages at random, I find that <a href="http://beta.fromthepage.com/display/display_page?ol=blog&amp;page_id=1197">March 12, 1921</a> and <a href="http://beta.fromthepage.com/display/display_page?page_id=977&amp;ol=blog">August 12, 1919</a> both contain <a href="http://beta.fromthepage.com/article/show?article_id=4&amp;ol=blog">Ben</a> and <a href="http://beta.fromthepage.com/article/show?article_id=141&amp;ol=blog">Jim</a> doing agricultural work, <a href="http://beta.fromthepage.com/article/show?article_id=1627&amp;ol=blog">Josie</a> doing domestic work, and Julia's near-daily visit to <a href="http://beta.fromthepage.com/article/show?article_id=5&amp;ol=blog">Marvin's</a>.  The two pages are connected through those four subjects (as well as this similarly-disappointing "<a href="http://beta.fromthepage.com/article/show?article_id=28&amp;ol=blog">dinner</a>"), but not in a way that is at all meaningful.  So I decided that a page-to-page relatedness tool couldn't be built from the page-to-subject link data.</p>
+<p>All that changed two weeks ago, when I was editing the 1921 diary and came across the mention of a "<span>musick</span> box".  In trying to figure out whether or not Julia was referring to a phonograph by the term, I discovered that the string "<span>musick</span> box" <a href="http://beta.fromthepage.com/display/search?search_string=%22musick+box%22&amp;collection_id=1&amp;commit=Search&amp;ol=blog">occurred only two times</a>: when the phonograph was ordered and the first time Julia heard it played.  Each one of these mentions shed so much light on the other that I was forced to re-evaluate how pages are connected through subjects.  In particular, I was reminded of the "you and one other" recommendations that <span>LibraryThing</span> offers.  This is a feature that find other users with whom you share an obscure book.  In this case, obscurity is defined as the book <span>occurring</span> only twice in the system: once in your library, once in the other user's.</p>
+<p>This would be a relatively easy feature to implement in <span>FromThePage</span>.  When displaying a page, perform this algorithm:</p>
+<ul>
+<li>For each subject link in the page, calculate how many times it is referenced within the collection, then</li>
+<li>Sort those subjects by reference count, and</li>
+<li>Take the 3 or 4 subject links with the lowest reference count and,</li>
+<li>Display the pages which link to those subjects.</li>
+</ul>
+<p>For a really useful experience, I'd want to display keyword-in-context, showing a few words to explain the context in which that other occurrence of "<span>musick</span> box" appears.</p>

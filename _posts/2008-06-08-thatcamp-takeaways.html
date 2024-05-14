@@ -1,0 +1,47 @@
+---
+layout: post
+title: THATCamp Takeaways
+date: 2008-06-08 13:45:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/06/thatcamp-takeaways.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2709302886850376744"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/thatcamp-takeaways/"
+---
+<p>I just got back from <a href="http://thatcamp.org/">THATCamp</a>, and man, what a ride!  I've never been to a conference with this level of collaboration before -- neither academic nor technical.  Literally nobody was "audience" -- I don't think a single person emerged from the conference without having presented in at least one session, and pitched in their ideas in half a dozen more.</p>
+<p>To my astonishment, I ended up demoing FromThePage in two different sessions, and presented a custom how-to on <a href="http://www.graphviz.org/">GraphViz </a>in a third.  I was really surprised by the technical savvy of the participants -- just about everyone at the sessions I took part in had done development of one form or another.  The feedback on FromThePage were far more concrete than I was expecting, and got me past several roadblocks.  And since this is a product development blog, here's what they were:</p>
+<ul>
+<li><b>Zoom</b>: I've looked at <a href="http://www.zoomify.com/">Zoomify </a>a few times in the past, but have never been able to get around the fact that their image-preparation software is incompatible with Unix-based server-side processing.  Two different people suggested workarounds for this, which may just solve my <a href="http://manuscripttranscription.blogspot.com/2007/05/feature-zoom.html">zoom</a> <a href="http://manuscripttranscription.blogspot.com/2008/04/progress-report-one-month-of-alpha.html">problems</a> nicely.</li>
+<li><b>WYSIWYG</b>: I'd never heard of the <a href="http://developer.yahoo.com/yui/editor/">Yahoo WYSIWYG</a> before, but a couple of people recommended it as being especially extensible, and appropriate for linking text to subjects.  I've looked over it a bit now, and am really impressed.</li>
+<li><b>Analysis</b>: One of the big problems I've had with my <a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html">graphing algorithm</a> is the noise that comes from members of Julia's household.  Because they appear on 99 of 100 entries, they're more related everything, and (worse) show up on relatedness graphs for other subjects as more related than the subjects that's I'm actually looking for.  Over the course of the weekend, while preparing my <a href="http://thatcamp.org/2008/05/dork-shorts/">DorkShorts </a>presentation, discussing it, and explaining the noise quandary in FromThePage, both problem and solution clarified.<br />
+The noise is due to the unit of analysis being a single diary entry.  The solution is to reduce the unit of analysis.  Many of the THATCampers suggested alternatives: look for related subjects within the same paragraph, or within N words, or even (using natural language toolkits) within the same sentence.<br />
+It might even be possible to do this without requiring markup of each mention of a subject.  One possibility is to automate this by searching the entry text for likely mentions of the same subject that has occurred already.  This search could be informed by previous matches -- the same data I'm using for the autolink feature.  (Inspiration for this comes from <a href="http://thatcamp.org/camper/aeastmanmullins/">Andrea Eastman-Mullins'</a> description of how Alexander Street Press is using well-encoded texts to inform searches of unencoded texts.)</li>
+<li><b>Autolink</b>: <a href="http://thatcamp.org/camper/travis/">Travis Brown</a>, whose background is in computational linguistics, suggested a few basic tools for making <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-subject-indexes.html">autolink </a>smarter.  Namely, permuting the morphology of a word before the autolink feature looks for matches.  This would allow me to clean up the matching algorithm, which currently does some gross things with regular expressions to approach the same goal.</li>
+<li><b>Workflow</b>: The participants at the <a href="http://www.spellboundblog.com/2008/06/05/crowdsourced-transcription-collaborative-annotation/">Crowdsourcing Transcription and Annotation session</a> were deeply sympathetic to the idea that volunteer-driven projects can't use the same kind of double-keyed, centrally organized workflows that institutional transcription projects use.  They suggested a number of ways to use flagging and ratings to accomplish the same goals.  Rather than assigning transcription to A, identification and markup to B, and proofreading to C, they suggested a user-driven rating system.  This would allow scribes or viewers to indicate the quality level of a transcribed entry, marking it with ratings like "unfinished", "needs review", "pretty good", or "excellent".  I'd add tools to the page list interface to show entries needing review, or ones that were nearly done, to allow volunteers to target the kind of contributions they were making.<br />
+Ratings also would provide an non-threatening way for novice users to contribute.</li>
+<li><b>Mapping</b>: Before the map session, I was manually clicking on Google's MyMaps, then embedding a link within subject articles.  Now I expect to attach latitude/longitude coordinates to subjects, then generate maps via KML files.  I'm still just exploring this functionality, but I feel like I've got a clue now.</li>
+<li><b>Presentation</b>: The Crowdsourcing session started brainstorming presentation tools for transcriptions.  I'd seen a couple of these before, but never really considered them for FromThePage.  Since one of my challenges is making the reader experience more visually appealing, it looks like it might be time to explore some of these.</li>
+</ul>
+<p>These are all features I'd considered either out-of-reach, dead-ends, or (in one case) entirely impossible.</p>
+<p>Thanks to my fellow THATCampers for all the suggestions, correction, and enthusiasm.  Thanks also to THATCamp for letting an uncredentialed amateur <a href="http://manuscripttranscription.blogspot.com/2007/06/money-current-situation.html">working out of his garage</a> attend.  I only hope I gave half as much as I got.</p>

@@ -1,0 +1,55 @@
+---
+layout: post
+title: Crowdsourcing and Variant Digital Editions
+date: 2011-07-20 12:05:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- crowdsourcing
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2011/07/crowdsourcing-and-variant-digital.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/893363630030046082"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '5'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/crowdsourcing-and-variant-digital-editions/"
+---
+<p>Writing at the JISC Digitization Blog, Alastair Dunning warns of "<a href="http://digitisation.jiscinvolve.org/wp/2011/07/18/crowdsourcing-and-variant-digital-editions-some-troubles-ahead/">problems with crowdsourcing having the ability to create multiple editions</a>."</p>
+<blockquote><p>For example, the much-lauded Early English Books Online (<strong>EEBO</strong>) and Eighteenth Century Collections Online (<strong>ECCO</strong>) are <strong>now beginning to appear on many different digital platforms</strong>.</p>
+<p>ProQuest currently hold a licence that allows users to search over the <a href="http://eebo.chadwyck.com/">entire EEBO corpus</a>, while <a href="http://gale.cengage.co.uk/product-highlights/history/eighteenth-century-collections-online.aspx">Gale-Cengage own the rights to ECCO</a>.</p>
+<p>Meanwhile, JISC Collections are planning to release a platform entitled <a href="http://www.jisc-collections.ac.uk/jiscecollections/jischistoricbooks/">JISC Historic Books</a>, which makes licenced versions of EEBO and ECCO available to UK Higher Education users.</p>
+<p>And finally, the Universities of Michigan and Oxford are heading the <a href="http://www.lib.umich.edu/tcp/">Text Creation Partnership</a> (TCP), which is methodically working its way through releasing full-text versions of <a href="http://quod.lib.umich.edu/e/eebogroup/">EEBO</a>, <a href="http://quod.lib.umich.edu/e/ecco/">ECCO </a>and other resources. These versions are available online, and are also being harvested out to sites like <a href="http://www.18thconnect.org/">18th Century Connect</a>.</p>
+<p>So this gives us four entry points into ECCO – and it’s not inconceivable that there could be more in the future.</p>
+<p>What’s more, there have been some initial discussions about  introducing crowdsourcing techniques to some of these licensed versions;  allowing permitted users to transcribe and interpret the original  historical documents. But of course this crowdsourcing would happen on  different platforms with different communities, who may interpret and  transcribe the documents in different way. <strong>This could lead to  the tricky problem of different digital versions of the corpus. Rather  than there being one EEBO, several EEBOs exist</strong>.</p></blockquote>
+<p>Variant editions are indeed a worrisome prospect, but I don't think that it's unique to projects created through crowdsourcing.  In fact, I think that the mechanism of producing crowdsourced editions actually reduces the possibility for variants to emerge.  Dunning and I corresponded briefly over Twitter, then I wrote this comment to the JISC Digitization blog.  Since that blog seems to be choking on the mark-up, I'll post my reply here:</p>
+<blockquote><p><i>benwbrum</i> Reading @alastairdunning's post connecting<br />
+crowdsourcing to variant editions: bit.ly/raVuzo Feel like Wikipedia<br />
+solved this years ago.</p>
+<p><i>benwbrum</i> If you don't publish (i.e. copy) a "final" edition of a crowdsourced transcription, you won't have variant "final" versions.</p>
+<p><i>benwbrum</i> The wiki model allows linking to a particular version of an article. I expanded this to the whole work: <a href="http://bit.ly/p7hfWR">link</a></p>
+<p><i>alastairdunning</i> But does that work with multiple providers offering restricted access to the same corpus sitting on different platforms?</p>
+<p><i>alastairdunning</i> ie, Wikipedia can trace variants cause it's all on the same platform; but there are multiple copies of EEBO in different places</p>
+<p><i>benwbrum</i> I'd argue the problem is the multiple platforms, not the crowdsourcing.</p>
+<p><i>alastairdunning</i> Yes, you're right. Tho crowdsourcing considerably amplifies the problem as the versions are likely to diverge more quickly</p>
+<p><i>benwbrum</i> You're assuming multiple platforms for both reading and editing the text? That could happen, akin to a code fork.</p>
+<p><i>benwbrum</i> Also, why would a crowd sourced edition be restricted? I don't think that model would work.</p></blockquote>
+<p>I'd like to explore this a bit more.  I think that variant editions are less likely in a crowdsourced project than in a traditional edition, but efforts to treat crowdsourced editions in a traditional manner can indeed result in the situation you warn against.</p>
+<p>When we're talking about crowdsourced editions, we're usually talking about user-generated content that is produced in collaboration with an editor or community manager.  Without exception, this requires some significant technical infrastructure -- a wiki platform for transcribing free-form text or an even more specialized tool for transcribing structured data like census records or menus.  For most projects, the resulting edition is hosted on that same platform -- the Bentham wiki which displays the transcriptions for scholars to read and analyze is the same tool that volunteers use to create the transcriptions.  This kind of monolithic platform does not lend itself to the kind of divergence you describe: copies of the edition are always dated as soon as they are separated from the production platform, and making a full copy of the production platform requires a major rift among the editors and volunteer community.  These kind of rifts can happen--in my world of software development, the equivalent phenomenon is a code fork--but they're very rare.</p>
+<p>But what about projects which don't run on a monolithic platform? There are a few transcription projects in which editing is done via a wiki (Scripto) or webform (UIowa) but the transcriptions are posted to a content management system.  There is indeed potential for the "published" version on the CMS to drift from the "working" version on the editing platform, but in my opinion the problem lies not in crowdsourcing, but in the attempt to impose a traditional publishing model onto a participatory project by inserting editorial review in the wrong place:</p>
+<p>Imagine a correspondence transcription project in which volunteers make their edits on a wiki but the transcriptions are hosted on a CMS. One model I've seen often involves editors taking the transcriptions from the wiki system, reviewing and editing them, then publishing the final versions on the CMS.  This is a tempting work-flow -- it makes sense to most of us both because the writer/editor/reader roles are clearly defined and because the act of copying the  transcription to the CMS seems analogous to publishing a text.  Unfortunately, this model fosters divergence between the "published" edition and the working copy as voluteers continue to make changes to the transcriptions on the wiki, sometimes ignoring changes made by the reviewer, sometimes correcting text regardless of whether a letter has been pushed to the CMS.  The alternative model has reviewers make their edits within the wiki system itself, with content pushed to the CMS automatically.  In this model, the wiki is the system-of-record; the working copy is the official version.  Since the CMS simply reflects the production platform, it does not diverge from it.  The difficulty lies in abandoning the idea of a final version.</p>
+<p>It's not at all clear to me how EEBO or ECCO are examples of crowdsourcing, rather than traditional restricted-access databases created and distributed through traditional means, so I'm not sure that they're good examples.</p>

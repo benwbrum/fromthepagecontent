@@ -1,0 +1,57 @@
+---
+layout: page
+title: Export Formats
+date: 2021-01-21 10:43:10.000000000 -06:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+  _wp_page_template: default
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/project-owner-documentation/export-formats/"
+---
+<p>FromThePage provides a variety of export formats.  The following list explains what each one is.</p>
+<h3>Verbatim Plaintext</h3>
+<p>This plaintext file will represent line breaks with single newline, paragraph breaks with a double newline, and page breaks with a triple newline. It will contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<h3>TEI-XML</h3>
+<p>This may be useful to editors who plan to do further mark-up within TEI-XML editors like Oxygen.</p>
+<h3>HTML</h3>
+<p>This may be useful for preservation in other systems or as a starting point for display on another website.</p>
+<h3>Emended Plaintext</h3>
+<p>Like the verbatim plaintext, this plaintext file will represent line breaks with single newline, paragraph breaks with a double newline, and page breaks with a triple newline. It differs from the verbatim text, in that normalization will be applied to all subjects mentioned, so that while the verbatim text may read "I greeted Mr. Jones and his wife this morning.", the emended plaintext will read "I greeted James Jones and Elizabeth Smith Jones this morning". This artificial text is useful for programmatic analysis, but is not meant to be read by humans.</p>
+<h3>Verbatim Translation Plaintext</h3>
+<p>Identical to the verbatim plaintext in formatting, but containing the text of the translation (rather than the original language) for works which support translation.</p>
+<h3>Emended Translation Plaintext</h3>
+<p>An emended plaintext version (see above) of the translation of the work will be available at this URL. This element is not included for works that do not have translation enabled.</p>
+<h3>Plaintext for full-text search</h3>
+<p>A plaintext version of the work optimized for full-text search will be available at this URL. This version contains a verbatim plaintext transcript of each page (as described above), except that words broken by hyphenated newlines are joined together, and a list of the canonical names mentioned within each page is appended to the end of the page. The example text would be rendered as</p>
+<p>I greeted Mr. Jones and his wife this morning.</p>
+<p>James Jones<br />
+Elizabeth Smith Jones</p>
+<h3>Text PDF</h3>
+<p class="nomargin">A PDF file containing text transcripts.</p>
+<h3>Text DOCX</h3>
+<p class="nomargin">An MS-Word (.docx) file containing text transcripts.</p>
+<h3>Facing Edition PDF</h3>
+<p class="nomargin">A PDF file containing images and transcripts on facing pages.</p>
+<h3>Table/Field CSV</h3>
+<p class="nomargin">Exports a spreadsheet with field-based or tabular data.</p>
+<h3>Work Metadata CSV</h3>
+<p class="nomargin">A spreadsheet listing each work with page counts and metadata.</p>
+<h3>Static Site</h3>
+<p class="nomargin">A static Jekyll website containing the entire edition</p>
+<h3>Subject CSV</h3>
+<p>The existing CSV export of subjects mentioned within the work.</p>

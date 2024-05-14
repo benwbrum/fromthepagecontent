@@ -1,0 +1,57 @@
+---
+layout: page
+title: Spreadsheet Transcription Feature Walk-through
+date: 
+type: page
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+  _wp_page_template: default
+  _genesis_scripts_body_position: bottom
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/"
+---
+<p>Transcript:</p>
+<p>Hi, this is Ben Brumfield with FromThePage, here to talk about a new feature that just released last week.</p>
+<p>FromThePage lets you transcribe documents like letters,</p>
+<p>or forms like this marriage certificate, transcribed into a field-based form.</p>
+<p>But for a long time we've had people asking the question, what do we do about lists and ledgers? Like this Coast Guard muster roll from World War 2:</p>
+<p>Or this tax list from 1850:</p>
+<p>Or this list of county office-holders:</p>
+<p>These are very different types of documents, and they require a transcription interface that supports multiple records of on the same page.</p>
+<p>Thanks to funding by the Council of State Archivists, the most recent release of FromThePage supports transcribing these ledgers and lists.</p>
+<p>We now embed a spreadsheet in the transcription screen for projects that are configured appropriately.</p>
+<p>We support header and footer fields--in this case, Nassau County is the header on the entire page.  Then transcribers can use a spreadsheet to transcribe the data from the ledger.  Let's go ahead and transcribe one of these lines:</p>
+<p>Mattair, Henry L.  Supt Pub Inst.</p>
+<p>The address is a controlled vocabulary that auto-completes, so when I start to type Bryceville I can choose from a list.</p>
+<p>Term of office is a numeric field.  The page says four years, but if I accidentally type a letter instead, the cell will be highlighted in red, alerting the transcriber that there might be something wrong.  Mind you, I can save the screen with a red cell, since lots of times original documents don't follow modern conventions.</p>
+<p>Ad Interim is not checked, but you can see that this field is configured as a checkbox.</p>
+<p>Then we will skip to Date of Commission.  We've configured this column as a date field following the EDTF standard of four-digit  year, two-digit month, and two-digit day with hyphens between them.  This is a format common among people doing data entry in spreadsheets, but it may not be appropriate for your project, so you might consider breaking dates into three separate fields instead.</p>
+<p>Volume is C6, Page is 225, and Remarks are "Term Expired"</p>
+<p>If I move to the next line, you can see that the green screen ruler highlights the next line on the image.  This is an optional feature designed to help transcribers match look at the of the page with the record they're typing.</p>
+<p>I can save my changes, and here I should mention that there's a distinction between saving incomplete pages and pages which are fully transcribed.  Since this page is still in progress, we're just going to hit "Save".</p>
+<p>Now we have a table containing the information we just transcribed using the spreadsheet interface.</p>
+<p>&nbsp;</p>
+<p>How do you set a project up for spreadsheet transcription?</p>
+<p>First you go into the Settings tab of the collection, and change the transcription type from Document-Based to Field-Based transcription.  In our terminology, a spreadsheet is a kind of field.</p>
+<p>Once you've done that, you can go into the field configuration screen.  Just like before, you can add regular fields, like the county in the header, but there's a new type of field called a spreadsheet.</p>
+<p>Choosing the spreadsheet type and saving the configuration will unlock this spreadsheet configuration button.</p>
+<p>Configuring the spreadsheet gives you a very similar screen to the one we saw before, only this time we're configuring the columns that will be part of this embedded spreadsheet.  The columns can be text-as we saw for most of them--they can be numeric, or checkboxes, or dates.  Or they can be select lists, giving you a place to provide the controlled vocabulary terms which will be filled in for transcribers.</p>
+<p>You can also see a preview of what the spreadsheet will look like once you save the configuration.  This is also where you can configure the screen ruler.</p>
+<p>We know that these documents generally have 28 lines, so we want to start the spreadsheet that's presented to transcribers with 28 rows.  Users can always add rows to a spreadsheet -- as we know many original documents have lines inserted.</p>
+<p>To use the screen ruler, you also need to define the page layout.  to present the ruler, the software needs to know which portion of a page contains a spreadsheet, rather than headers, footers, or margins.</p>
+<p>If I click on Identify Rows, that presents me with an image of the page, and a box that lets me select the portion of the page containing the spreadsheet.  I click OK, then save the page, and we're ready to go.</p>
+<p>So how do you get data back out again?  If a spreadsheet works for data entry, we also want a spreadsheet to export the data.  You can go to the Export screen for your collection and pull out a Table CSV file for a particular work.  This is also available for the whole collection in our zip export.</p>
+<p>That's going to generate a spreadsheet that looks like this.</p>
+<p>The first columns are automatically added by the system, so there is an identifier for the work and the page the table was transcribed in, then you have a row for each row in the transcribed spreadsheets across the work or collection.  You can see columns containing office holder names or offices -- these are all cells I typed in transcribing the spreadsheet.  Any header or footer fields are also promulgated onto the spreadsheet rows for the pages they appeared on.</p>
+<p>That concludes our presentation of the spreadsheet transcription feature in FromThePage.  We'd like to again extend our thanks to the Council of State Archivists for their support of this feature.  Let us know if you have any questions, and best of luck!</p>

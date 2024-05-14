@@ -1,0 +1,38 @@
+---
+layout: post
+title: Three Easy AI tools for Digital Humanities
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories:
+- brumfield labs
+- digital humanities
+tags: []
+meta:
+  _edit_last: '5'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/"
+---
+<p>AI is a buzz laden word these days, and to quote someone at the recent Texas AI Summit I attended "anyone who uses AI is trying to sell you something" (DH consulting services, anyone?), however it's a useful catch phrase for a series of techniques that use computers to do things that resemble human thinking. For Digial Humanities, a lot of useful techniques are ones that work with written language -- text in computer parlance. Taken as a whole, these techniques are called Natural Language Processing, or NLP. The easy in the title? That's really "easy if you're a programmer" -- but if you're a digital humanist who doesn't code it doesn't hurt to get familiar with these tools. After all, you don't have to use a wrench to know that it will loosen the nut holding something together.</p>
+<h2>1) Trigrams (sometimes called n-grams)</h2>
+<p><strong>What it's useful for:</strong> Matching words or phrases to other words or phrases in a dictionary or dataset.</p>
+<p><strong>How it works:</strong></p>
+<p><strong><a href="http://content.fromthepage.com/wp-content/uploads/2019/01/EntityIdentification.png"><img class="aligncenter size-large wp-image-806" src="{{ site.baseurl }}/assets/EntityIdentification-1024x727.png" alt="" width="604" height="429" /></a>What makes it easy:</strong> If you use the Postgres database, there are a number of extensions you can install. One is the Postgres Trigram Library, which lets you query for words that are "close matches" based on the trigram algorithm. We used this as part of the Civil War Governors of Kentucky Digital Documentary Edition's Mashbill tool. After researchers had identified people in the text, they were matched to the emerging dataset of known entities. We listed the potential matches from highest scoring to lowest, and the researcher could pick the actual match from that list, or create a new person. (TODO: screenshot)</p>
+<h2>2) Named Entity Recognition</h2>
+<p><strong>What it's useful for:</strong> Finding people, places, and things in narrative text.</p>
+<p><strong>How it works:</strong></p>
+<p><strong>What makes it easy:</strong> The Stanford NER library is a java library that you can run on the command line against a text file. (We've even run it against TEI files.) It outputs another file with the entities marked. We used the Stanford NER library to identify entities -- like ship names -- in the Naval Documents of American Revolution. Recogito also uses Stanford NER to identify place names in text you provide, and you can use their interface to play with this technique.</p>
+<h2>3) Sentiment Analysis</h2>
+<p><strong>What it's useful for:</strong> Giving you a "positive", "negative", or "neutral" score for a sentence, paragraph, letter, etc based on the content. Mostly useful for discovery of "interesting" documents or in comparing documents to one another.</p>
+<p><strong>How it works:</strong> Every word in the text is compared to a dictionary which gives it a +1 (positive) a -1 (negative) or a 0 (neutral or missing). Sum up the scores for the document and get a sense of how positive or negative the text is.  (<a href="http://digitalaustinpapers.org/about#sentiment-analysis">Longer explanation</a>.)</p>
+<p><strong>What makes it easy:</strong> There's lots of sentiment analysis dictionaries and utilities out there. We used <a href="https://github.com/stiang/textmood">this one</a> for our work on the Digital Austin Papers, where we added sentiment as a visual dimension in search results:</p>
+<p>We also used it to find the most positive and most negative documents.  For example, <a href="http://digitalaustinpapers.org/document.php?id=APB0286">the most negative</a> described a feud, altercation, and duel between Stephen F. Austin and Joshua Pilcher. The most positive, by contrast, was Austin's <a href="http://digitalaustinpapers.org/document.php?id=APB1858">glowing sales letter</a> to a Swiss group considering immigration to Texas.</p>
+<p>There are <a href="http://saifmohammad.com/WebPages/lexicons.html">more sophisticated approaches</a> that cover different sentiments and emotions.</p>

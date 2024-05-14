@@ -1,0 +1,89 @@
+---
+layout: post
+title: Feature Triage for v1.0
+date: 2008-01-17 22:02:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- feature plan
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/01/feature-triage-for-v10.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2168876945696419156"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-triage-for-v1-0/"
+---
+<p>I've been using this blog to brainstorm features since its inception.  Partly this is to share my designs with people who may find them useful, but mainly it's been a way to flush this data out of my brain so that I don't have to worry about losing it.</p>
+<p>Last night, I declared my app feature-complete for the first version.  But what features are actually in it?</p>
+<p>Let's do some data-flow analysis on the collaborative transcription process.  Somebody out in the real world has a physical artifact containing handwritten text.  I can't automate the process of converting that text into an image — plenty of other technologies do that already — so I have to start with a set of images capturing those handwritten pages.  Starting with the images, the user must organize them for transcription, then begin transcription, then view the transcriptions.  Only after that may they analyze or print those transcriptions.</p>
+<p>Following the bulk of that flow, I've cut support for much of the beginning and end of the process, and pared away the ancillary features of page transcription.  The resulting feature set is below, with features I've postponed till later releases <strike>struck out</strike>.</p>
+<ol>
+<li>Image Preparation
+<ul>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/06/progress-report-work-and-page.html">Single image upload/replacement</a></li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/06/progress-report-work-and-page.html">Image orientation/resolution controls</a></li>
+<li><strike>Upload several images</strike></li>
+<li>Single-image titling</li>
+<li>Automatic title generation for several images</li>
+<li>Recto/verso image set collation</li>
+<li>Conversion of a set of titled images into pages of a transcribable work</li>
+</ul>
+</li>
+<li>Page Transcription
+<ul>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/05/feature-zoom.html">Zoom</a></li>
+<li>Transcription text entry</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">Subject links</a></li>
+<li>Auto-linking</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/09/feature-comments-part-1-what-are-they.html">Request review</a></li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/06/feature-illegible-tags.html"><strike>Unclear tags</strike></a></li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/06/feature-sensitive-tags.html"><strike>Sensitive tags</strike></a></li>
+</ul>
+</li>
+<li>Transcription Display
+<ul>
+<li>Table of Contents for a work</li>
+<li>Page display</li>
+<li>Multi-page transcription display</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/09/feature-comments-part-1-what-are-they.html">Page annotations</a></li>
+</ul>
+</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/09/progress-report-printing.html"><strike>Printable Transcription</strike></a>
+<ul>
+<li><strike>PDF generation</strike></li>
+<li><strike>Typesetting</strike></li>
+<li><strike>Table of contents page</strike></li>
+<li><strike>Title/Author pages</strike></li>
+<li><strike>Expansion footnotes</strike></li>
+<li><strike>Subject article footnotes</strike></li>
+<li><strike><a href="http://manuscripttranscription.blogspot.com/2007/04/feature-subject-indexes.html">Index</a><br />
+</strike></li>
+</ul>
+</li>
+<li>Text Analysis
+<ul>
+<li>Subject Articles</li>
+<li>"What links here" indexes</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html"><strike>Relatedness graphs</strike></a> (Implemented, but turned off for v1.0)</li>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/09/progress-report-subject-categories.html">Subject categories</a></li>
+<li>Category-based navigation</li>
+<li><strike>Categorized relatedness graphs</strike></li>
+</ul>
+</li>
+</ol>

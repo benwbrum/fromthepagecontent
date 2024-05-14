@@ -1,0 +1,145 @@
+---
+layout: page
+title: Owner Dashboard Metrics
+date: 2020-06-17 10:41:42.000000000 -05:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta: {}
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/project-owner-documentation/owner-dashboard-metrics/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Question:  I see on my project owner summary dashboard that there are 10,392 page edits plus a couple hundred other deeds (indexed, translated, etc.). If I download the csv from the Mailing List Export, though, and sum the deed counts there, I get a significantly higher number: 26650. Is the discrepancy here because the csv is including <em>all</em> deeds from a user, as defined in the <a rel="noreferrer noopener" href="https://github.com/benwbrum/fromthepage/blob/12fe380e0a52eab04e50ab12c3cddb7886bc7e38/app/models/deed_type.rb" target="_blank">DeedType class</a>? That is, adding notes, marking as blank, etc., are included in the csv export?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Answer:  The dashboard doesn't show all the deeds, but the collaborator mailing list export does.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>A longer, more analytical explanation:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I added up all of the deed counts in the mailing list export spreadsheet and got 27085.I added up each category in your dashboard (pages transcribed, edited, translated, corrected; plus notes created) and got 16403.  (Note:  Subjects created is not a deed!)That's a discrepancy of 10683.  <br />We then pulled all the deeds for your collections, including the ones that aren't in the dashboard, we show the same discrepancies:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:table --></p>
+<figure class="wp-block-table">
+<table>
+<tbody>
+<tr>
+<td></td>
+<td>all</td>
+<td>not in dashboard</td>
+<td>in dashboard</td>
+<td>calculated discrepancy<br />(all – not in dashboard)</td>
+</tr>
+<tr>
+<td>art_edit</td>
+<td>447</td>
+<td>447</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>coll_join</td>
+<td>33</td>
+<td>33</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>markd_blnk</td>
+<td>823</td>
+<td>823</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>note_add</td>
+<td>260</td>
+<td></td>
+<td>260</td>
+<td></td>
+</tr>
+<tr>
+<td>ocr_corr</td>
+<td>25</td>
+<td></td>
+<td>25</td>
+<td></td>
+</tr>
+<tr>
+<td>page_edit</td>
+<td>10560</td>
+<td></td>
+<td>10560</td>
+<td></td>
+</tr>
+<tr>
+<td>page_index</td>
+<td>194</td>
+<td></td>
+<td>194</td>
+<td></td>
+</tr>
+<tr>
+<td>page_trans</td>
+<td>5348</td>
+<td></td>
+<td>5348</td>
+<td></td>
+</tr>
+<tr>
+<td>pg_xlat</td>
+<td>16</td>
+<td></td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>pg_xlat_ed</td>
+<td>26</td>
+<td>26</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>review</td>
+<td>9005</td>
+<td>9005</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>work_add</td>
+<td>327</td>
+<td>327</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>xlat_rev</td>
+<td>22</td>
+<td>22</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>totals</td>
+<td>27086</td>
+<td>10683</td>
+<td>16403</td>
+<td>10683</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<p><!-- /wp:table --></p>

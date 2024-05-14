@@ -1,0 +1,151 @@
+---
+layout: post
+title: Introduction to IIIF at TCDL 2017
+date: 2017-05-27 22:11:57.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- presentations
+tags: []
+meta:
+  _edit_last: '5'
+  enclosure: "https://www.dropbox.com/s/60w2bqvinx06ddn/TCDL.ogg\r\n0\r\naudio/ogg\r\n"
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/iiif-at-tcdl-2017/"
+---
+<p><em>On May 25, I spoke on a panel at the Texas Conference on Digital Libraries with Liz Gushee from the Harry Ransom Center and Benjamin Albritton from Stanford University.  Texas has seen little adoption of IIIF to date, and--aside from <a href="http://www.brumfieldlabs.com/">Brumfield Labs</a>--the only participants I've seen in the community calls are the <a href="http://www.hrc.utexas.edu/">Harry Ransom Center</a> at UT-Austin and the <a href="http://jubilees.stmarytx.edu/">Jubilees Palimpsest Project</a> at St. Mary's in San Antonio.  I think that the panel was received well, and observed a lot of interest among attendees during the rest of the day.</em></p>
+<p><em>This is a lightly edited transcript of my talk.  You can also download the audio in <a href="https://www.dropbox.com/s/0d3qe7xshll2ue6/TCDL.m4a">m4a</a> or <a href="https://www.dropbox.com/s/60w2bqvinx06ddn/TCDL.ogg">ogg</a> formats, or <a href="https://drive.google.com/open?id=0B8Xpm6NXLstzVFJsSXhLZVExNEk">download the slide deck</a>.</em></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-01.png"><img class="alignnone size-medium wp-image-444" src="{{ site.baseurl }}/assets/2017/05/IIIF-01-300x225.png" alt="" width="300" height="225" /></a><br />
+<a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-02.png"><img class="alignnone size-medium wp-image-445" src="{{ site.baseurl }}/assets/2017/05/IIIF-02-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>I'd like to start by introducing a couple of scholars: Laura Morreale and Nick Paul are medievalists at Fordham University.  They work in the <a href="http://legacy.fordham.edu/academics/programs_at_fordham_/medieval_studies/french_of_outremer/index.asp">Center for Medieval Studies</a>, focusing on Old French texts that were composed outside of metropolitan France.</p>
+<p>Specifically, they're looking at a set of legal documents called the <em>Assises de Jerusalem</em>, which were written in the thirteenth century, and were the legal judgements of the Crusader court of Jerusalem.  And they are fantastic documents: if you want to now the rules for trial by combat, they're in there.  If you want to know what happens if a liege lord's horse tears up a vassal's stable, it's in there.  It's really neat stuff.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-03.png"><img class="alignnone size-medium wp-image-446" src="{{ site.baseurl }}/assets/2017/05/IIIF-03-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>They started working a couple of years ago, translating the full <em>Assises</em> from a printed edition that was produced in 1841, which was a combined/critical edition of all the texts that were available.  They got through that, and what they're trying to do right now is focus on the manuscripts -- they've got a system for translating thte texts from Old French into English, but they want to go back to the original manuscripts.</p>
+<p>They're concentrating on a particular text, the <em>Livre au Roi</em>, which has two witnesses.  The Ms. Francais 19026 in the <span lang="fr">Bibliothèque nationale de France</span> is a beautifully produced text, with room for initials -- it's a beautiful book.  Then there's the Cod. gal. 51 in the Bayerische Staatsbibliothek, which is really more informal.  This is interesting because the context that these documents in matters as much as the text itself, telling us about how these texts were received.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-04.png"><img class="alignnone size-medium wp-image-447" src="{{ site.baseurl }}/assets/2017/05/IIIF-04-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>So a goal of the Old French Legal Texts Working Group is not just to produce translations, but to publish them in the context of the manuscripts.</p>
+<p>But that's a challenge!  First off, you have to get the images--you can't just start with something that was OCRed on the Internet Archive like the 1841 edition--and those images are in Paris and Munich, not at Fordham.  How do you edit the texts is another interesting question.  Finally, how do you publish those translations with their manuscript context at the same time?</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-05.png"><img class="alignnone size-medium wp-image-448" src="{{ site.baseurl }}/assets/2017/05/IIIF-05-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Enter IIIF.  <a href="https://iiif.io/">IIIF</a> is a set of standards and a community developed around those standards.  It was primarily developed to solve the problem of presenting high-resolution images online.  (I know that Liz and Benjamin will talk more about the background to this, so I'm going to go deeper on the technical side.)</p>
+<p>There are two core API standards in IIIF: the Image API is just a way of serving images in a consistent manner, and the Presentation API, which is a way of <em>saying this page follows this page; they both belong to the same book; here's the title of that book.</em></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-06.png"><img class="alignnone size-medium wp-image-449" src="{{ site.baseurl }}/assets/2017/05/IIIF-06-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Two ancillary APIs are relevant for digital libraries: the Search API supports searching for OCR (primarily) within a document and presenting it, and there's an Authentication API, since not everything is freely available without restriction.  Many times, libraries have to impose restrictions on the use of documents; the Authentication API supports this.</p>
+<p>But let's go back and focus on the core APIs.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-07.png"><img class="alignnone size-medium wp-image-450" src="{{ site.baseurl }}/assets/2017/05/IIIF-07-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Let's talk about the Image API.</p>
+<p>I'm going to point <em>way up here</em>.  We've got this painting at the Wellcome library; let's take a look at this URL.</p>
+<p>There's the Wellcome library hostname.  We've got a lot of unique IDs (that look kind of horrible) that get us to <strong>this</strong> painting.  But I'm going to concentrate on the pieces that are highlighted.</p>
+<p>I'll read them out.  We have <strong>/full/800,/0/default.jpg</strong>.</p>
+<p>Everything between the slashes is meaningful.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-08.png"><img class="alignnone size-medium wp-image-451" src="{{ site.baseurl }}/assets/2017/05/IIIF-08-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>If we change /full/ to a given width, height, and x,y coordinates, we get a section of the original image.   Let me go back. <em>[previous slide]</em> Here's the full image. <em>[this slide]</em> Here's the region of the image.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-09.png"><img class="alignnone size-medium wp-image-452" src="{{ site.baseurl }}/assets/2017/05/IIIF-09-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>If we then pay attention to the second element of the URL--the element after the region--we can say "we really want this to be a 600x600 image.  That's shrinking this down to a square and distorting the image appropriately.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-10.png"><img class="alignnone size-medium wp-image-453" src="{{ site.baseurl }}/assets/2017/05/IIIF-10-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Finally, we can rotate the image in the third piece of the URL by changing <strong>/0/</strong> to <strong>/90/</strong>, rotating the image by ninety degrees.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-11.png"><img class="alignnone size-medium wp-image-454" src="{{ site.baseurl }}/assets/2017/05/IIIF-11-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Or we can even reverse the image.</p>
+<p>These are all things that image servers have done for years.  Every image server supports functionality similar to this, if it supports deep zoom and tiling.  What's unique about IIIF is this consistent way of having URLs that pull out regions, that pull out rotations, that describe size.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-12.png"><img class="alignnone size-medium wp-image-455" src="{{ site.baseurl }}/assets/2017/05/IIIF-12-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Let's talk about the Presentation API.</p>
+<p>The Presentation API is a standard that is written in JSON-LD, which is a Javascript format that's very easy to parse, and very hard to read.  It's designed for Linked Open Data.</p>
+<p>The fundamental unit of the presentation API is the manifest.  A manifest is, <em>"I'm talking about an item.  What's in that item?" </em> So we have items that are manifests and we have collections that are manifests, listing the items or sub-collections in a collection.</p>
+<p>The Presentation API is built on WebAnnotations, which is a standard that was made official about six months ago.  It's something that Tim Berners-Lee is pushing really hard for.</p>
+<p>So let's dive into a manifest!</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-13.png"><img class="alignnone size-medium wp-image-456" src="{{ site.baseurl }}/assets/2017/05/IIIF-13-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Manifests, I mentioned, are hard to read.  I mean, they're <em>really</em> hard to read!  Here's this horrible JSON-LD file.  It's unpleasant, and I hope you brought your opera glasses, because we're going to dive deep.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-14.png"><img class="alignnone size-medium wp-image-457" src="{{ site.baseurl }}/assets/2017/05/IIIF-14-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>What's in a manifest that's important?  There are core elements, namely</p>
+<ul>
+<li>The @id, which is a URL,</li>
+<li>The @context, which describes which version of the Presentation API standard this manifest supports,</li>
+<li>The @type down here, which says, <em>"this is a manifest."</em></li>
+</ul>
+<p>Then we have some very, very basic metadata that describes this item.  So, this letter is part of a series of correspondence between German Army officials during WWI and Irish patriots talking about whether or not they could join up together against the British.  It's a pretty interesting document.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-15.png"><img class="alignnone size-medium wp-image-458" src="{{ site.baseurl }}/assets/2017/05/IIIF-15-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>I mentioned that this is a presentation API, that has limited metadata.  And this is important to say.  This is not a new metadata standard.  This is a way of describing your objects, and then you can link to your metadata records.</p>
+<p>So this particular manifest links off to the RDF serialization; it links off to a MODS record; it links off to a Europeana Data Model record.  This allows clients to get to your metadata if they want to, but you're not duplicating your metadata within the document.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-16.png"><img class="alignnone size-medium wp-image-459" src="{{ site.baseurl }}/assets/2017/05/IIIF-16-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Other than, that is, the absolute bare bones that might be something a person using a page turner or a zoomer might want to see -- really, really basic stuff.  Here is where it was published, when it was published, who it was published by.</p>
+<p>(If you want to actually look at this manifest, the URL is at the bottom of this slide.)</p>
+<p>Before I go on, I want to say, don't get too intimidated by this.  No-one hand-writes these things.  Manifests are usually generated by getting programmers to take an EAD file and transform it into one of these.  Or they're generated by your software application -- your Hydra or Fedora or Islandora.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-17.png"><img class="alignnone size-medium wp-image-460" src="{{ site.baseurl }}/assets/2017/05/IIIF-17-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>So then we get down to the meat.  If you're displaying a manuscript book, you need to list the pages in the book.  So we have a sequence of pages.</p>
+<p>So we have a sequence, that says, <em>"Here's the current page order, and the first page is a <strong>canvas</strong>..."</em></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-18.png"><img class="alignnone size-medium wp-image-461" src="{{ site.baseurl }}/assets/2017/05/IIIF-18-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>But wait a minute!  What's a canvas?  We're not talking about a painting; we're talking about a letter that has three pages here.</p>
+<p>A canvas is the fundamental way that IIIF represents pages themselves.<a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-19.png"><img class="alignnone size-medium wp-image-462" src="{{ site.baseurl }}/assets/2017/05/IIIF-19-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>This is a canvas.  It has space; it has dimensions.  And things can go onto the canvas.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-20.png"><img class="alignnone size-medium wp-image-463" src="{{ site.baseurl }}/assets/2017/05/IIIF-20-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Now the most important thing to go on the canvas, of course, is the image of the page.  In this case, we have an image of the same page that goes on the canvas.</p>
+<p>Why aren't these the same thing?  Why would you separate them?  Why have this layer of abstraction for a canvas?</p>
+<p>Well, it's because not every page can be represented well by one image.  In particular, in cases where manuscripts have been damaged and are fragmentary, you may have one fragment that has been imaged in one location, another fragment that's been imaged in a different location, and in order to display them on the page for scholars to study them, you need two images.  There are also other examples of multi-image canvases where people are using RTI or ultra-violet photography to create different kinds of images [of the same page].</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-21.png"><img class="alignnone size-medium wp-image-464" src="{{ site.baseurl }}/assets/2017/05/IIIF-21-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Other things can go on a canvas, like transcriptions,</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-22.png"><img class="alignnone size-medium wp-image-465" src="{{ site.baseurl }}/assets/2017/05/IIIF-22-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>or commentary.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-23.png"><img class="alignnone size-medium wp-image-466" src="{{ site.baseurl }}/assets/2017/05/IIIF-23-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>So, looking at one of the canvases in this document, we see that a canvas has a width; it has a height; it has a title (or a label, rather).</p>
+<p>Then there are images, which are described as resources.  What these are, are pointers to the IIIF Image API that serves this page image.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-24.png"><img class="alignnone size-medium wp-image-467" src="{{ site.baseurl }}/assets/2017/05/IIIF-24-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>So why would you use this?  I've just described a lot of hard technical stuff that doesn't seem to really buy you anything.</p>
+<p>Fundamentally, IIIF is at the heart of a digital asset management ecosystem,  because this allows your institution to work with other institutions.  It allows your repository to communicate with other applications without people having to download and schlep a bunch of high-res files around.  There's a really powerful community behind it.</p>
+<p>There are people who are using IIIF internally to transform their digitization workflow.  Jason Ronallo of NCSU has a fully IIIF-based workflow for scanning resources, in which IIIF resources are used to perform OCR and serve OCR back.  It's really spectacular.</p>
+<p>So these are some benefits to libraries for supporting IIIF.  But what's the benefit of IIIF to me?  I run <a href="https://fromthepage.com/">an application that people use for editing documents</a>, and here's the thing:  I want to help people edit their texts.  I want them to come to me with questions--and walk away happy--about how to encode difficult material; how to translate; how to annotate; how to motivate users.  Before IIIF, most of my conversations were about how to upload PDFs; how to upload zipfiles; what image format [my application] needed.  So IIIF allows me as a tool provider, to focus on what my tool does, rather than hosting images and worrying about disk space.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-25.png"><img class="alignnone size-medium wp-image-468" src="{{ site.baseurl }}/assets/2017/05/IIIF-25-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>What are the benefits to scholars?  Let's go back to Laura and Nick.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-26.png"><img class="alignnone size-medium wp-image-469" src="{{ site.baseurl }}/assets/2017/05/IIIF-26-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>They have these documents they want to work with, and the first of them is hosted at the <span lang="fr">Bibliothèque nationale de France's digital library system, <a href="http://gallica.bnf.fr/ark:/12148/btv1b52505635t">Gallica</a></span><i><b><span lang="fr">.  (</span></b></i><b></b><span lang="fr">This is the beautiful one, that has all the space for initials.)  So with a little bit of URL hacking, they can get at the manifest.</span></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-27.png"><img class="alignnone size-medium wp-image-470" src="{{ site.baseurl }}/assets/2017/05/IIIF-27-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>The second one, at the <a href="https://app.digitale-sammlungen.de/bookshelf/view/74968ac5-a978-4859-bcda-4a5353a28a9b?view=ImageView&amp;manifest=https%3A%2F%2Fapi.digitale-sammlungen.de%2Fiiif%2Fpresentation%2Fv2%2Fbsb00076118%2Fmanifest&amp;canvas=https%3A%2F%2Fapi.digitale-sammlungen.de%2Fiiif%2Fpresentation%2Fv2%2Fbsb00076118%2Fcanvas%2F1">Bayerische Staatsbibliothek</a>--it's hard to see on this screen, but actually it has a link to their IIIF manifest, right on their viewer.  (This only went online--I'm going to say--in March, so they're a little more recent than the BnF.)</p>
+<p>So, <em>great!  </em>We have IIIF access to these images at the libraries.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-28.png"><img class="alignnone size-medium wp-image-471" src="{{ site.baseurl }}/assets/2017/05/IIIF-28-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>But there's a problem.  Our editors want to work with one text within these documents: the <em>Livre au Roi. </em> And the documents are the entire codex, so you've got the cover; you've got the frontpapers; you've got a lot of other material that's not the text they want to work with.  So they're going to have to edit that.</p>
+<p>Well, in theory, they could download that manifest.json file, and edit out all the canvases they don't want, but that's horrible.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-29.png"><img class="alignnone size-medium wp-image-472" src="{{ site.baseurl }}/assets/2017/05/IIIF-29-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Fortunately, the Bodleian Library at Oxford has built a<a href="http://iiif.bodleian.ox.ac.uk/manifest-editor/"> visual IIIF manifest editor</a>.  So all they have to do, is take that manifest from the Bayerische Staatsbibliotek and drag it into the manifest editor, and...</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-30.png"><img class="alignnone size-medium wp-image-473" src="{{ site.baseurl }}/assets/2017/05/IIIF-30-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>They have a visual editor in which they can delete the images they don't care about.  They can reorder them.  They can change the metadata.  And they can save that as a new manifest.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-31.png"><img class="alignnone size-medium wp-image-474" src="{{ site.baseurl }}/assets/2017/05/IIIF-31-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>They can import it into the tool they're using for editing, FromThePage.  Here, they're able to <a href="https://fromthepage.ace.fordham.edu/collection/show?collection_id=1">transcribe the manuscript</a>,</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-32.png"><img class="alignnone size-medium wp-image-475" src="{{ site.baseurl }}/assets/2017/05/IIIF-32-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>And then translate it into English.</p>
+<p>But that still doesn't get them presentation and context.  So they can take the manifests that are generated as they transcribe them in FromThePage, and their transcripts and translations then are Open Annotations.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-33.png"><img class="alignnone size-medium wp-image-476" src="{{ site.baseurl }}/assets/2017/05/IIIF-33-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>They can then import them into <a href="http://projectmirador.org/demo/">Mirador</a> at Stanford.</p>
+<p>Mirador is this wonderful tool--which Liz will talk about more--for comparing images.  And if we mouseover, we get the pop-ups--I'm sorry I don't have a screenshot of this--of the translations.  So you can see the translations in the context of the original images.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-34.png"><img class="alignnone size-medium wp-image-477" src="{{ site.baseurl }}/assets/2017/05/IIIF-34-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>And the great thing about this--the amazing thing about this--is that you have images hosted by the <span lang="fr">Bibliothèque nationale and BSB, so we've got Paris and Munich that feed into Oxford, that feed into Austin, that feed into Stanford; all of which are used by editors in New York, and <em>no one uploaded a single image.  </em>All the images that are being viewed in FromThePage are being served not by Fordham, not by FromThePage; they're being served directly off the image servers at the BnF and the BSB.  The images being viewed in Mirador at Stanford -- again, they're being served directly from the originating libraries.  </span></p>
+<p><span lang="fr">One of the things this means, is that all of that deep zoom functionality--all of that high-res functionality that those libraries provide--is being used at every stage of the process.  So if the libraries, for example, have restrictions prohibiting people from doing high-resolution downloads of their original images, <em>it doesn't matter</em>.  The scholars can still use the high-resolution images at every stage of the process, because they've never downloaded them.</span></p>
+<p>Another great thing about this is, no one had to install any new software; no one had to hire any programmers; no one had to ask permission.  They saw a link; they dragged it from one tool to another, to another, to another, and they got their digital scholarly edition.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-35.png"><img class="alignnone size-medium wp-image-478" src="{{ site.baseurl }}/assets/2017/05/IIIF-35-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Okay, that's what Fordham's doing, but Fordham's in New York City.  What about Texas?  What can people in Texas do with IIIF?</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-36.png"><img class="alignnone size-medium wp-image-479" src="{{ site.baseurl }}/assets/2017/05/IIIF-36-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>You can get involed.  You can join the community.  They're super friendly--I really encourage you to join the biweekly conference calls, join the Slack channel, take a look through the IIIF-Discuss Google Group.</p>
+<p>You may already be IIIF enabled, because there are Digital Asset Management System vendors who are building IIIF into their systems already.  There are image clients that already work wtih IIIF, including ones that were built for other purposes: the Internet Archive BookReader, for example, now works as a IIIF client.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-37.png"><img class="alignnone size-medium wp-image-480" src="{{ site.baseurl }}/assets/2017/05/IIIF-37-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Lots of people in Texas are using DSpace.  Some people in Texas are using DSpace for special collections.</p>
+<p>There are discussions that started about two months ago on the <a href="https://wiki.duraspace.org/display/DSPACE/IIIF+and+DSpace">DuraSpace wiki</a> about providing IIIF support in DSpace, and building it in directly.  One of those discussions yielded a response from someone at a software consultancy in Italy called 4Science, that sells a ready-to-go commercial plug-in for DSpace that will support IIIF, and generate your manifests and generate your image service, just sort of right out of the box.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-38.png"><img class="alignnone size-medium wp-image-481" src="{{ site.baseurl }}/assets/2017/05/IIIF-38-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>But we're not all using DSpace either.  A lot of us are using the Portal to Texas History.</p>
+<p>I am pleased to report that as of Monday, the <a href="https://texashistory.unt.edu/">Portal to Texas History</a> supports IIIF -- both the Image API and the Presentation API.</p>
+<p>So you can take any page--here's a letter from the LGBT Collections, a "Letter to Bill", talking about--it's kind of heartbreaking--It's written by a mother to her son who's died of AIDS--about what she's doing with the AIDS Quilt.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-39.png"><img class="alignnone size-medium wp-image-482" src="{{ site.baseurl }}/assets/2017/05/IIIF-39-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>So we take the URL on the Portal site, and if you add <strong>/manifest</strong> at the end of that, you have a IIIF manifest, which you can cut-and-paste.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-40.png"><img class="alignnone size-medium wp-image-483" src="{{ site.baseurl }}/assets/2017/05/IIIF-40-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>You can import it into a IIIF editing tool like FromThePage to transcribe it.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-41.png"><img class="alignnone size-medium wp-image-484" src="{{ site.baseurl }}/assets/2017/05/IIIF-41-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>You can import it into an annotation tool like Mirador, and get people to add links directly onto the image with a link to the square on the AIDS Quilt, for example.</p>
+<p>It's really powerful, and it's right there, and it's available this week.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/05/IIIF-42-1.png"><img class="alignnone wp-image-486 size-medium" src="{{ site.baseurl }}/assets/2017/05/IIIF-42-1-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>Thanks!</p>
+<p><em>If you or your organization would like to know more about IIIF, Brumfield Labs offers a 1 hour <strong>Introduction to IIIF</strong> webinars at no cost.  Send an email to benwbrum@gmail.com.</em></p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c  no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer;">Save</span></p>

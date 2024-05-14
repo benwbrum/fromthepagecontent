@@ -1,0 +1,52 @@
+---
+layout: post
+title: Interview with Hugh Cayless
+date: 2009-06-03 02:23:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- similar projects
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/06/interview-with-hugh-cayless.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5162856937829426064"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '6'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/interview-with-hugh-cayless/"
+---
+<p>One of the neatest things to happen in the world of transcription technology this year was the award of an NEH <span>ODH</span> <a href="http://www.neh.gov/grants/guidelines/digitalhumanitiesstartup.html">Digital Humanities Start-Up Grant</a> to <a href="http://www.neh.gov/news/archive/pdf/Awards_09Mar_Pt3_NCtoWI.pdf">"Image to XML"</a>, a project exploring image-based transcription at the line and word level.  According to <a href="http://www.lib.unc.edu/spotlight/2009/docsouth_grant.html">a press release from <span>UNC</span></a>, this will fund development of "a product that will allow librarians to digitally trace handwriting in an original document, encode the tracings in a language known as Scalable Vector Graphics, and then link the tracings at the line or even word level to files containing transcribed texts and annotations."  This is based on the work of <a href="http://www.unc.edu/~hcayless/">Hugh <span>Cayless</span></a> in developing <span>Img</span>2XML, which he has described in a <a href="http://www.unc.edu/~hcayless/img2xml/presentation.html">presentation to <span>Balisage</span></a>, demonstrated at <a href="http://www.unc.edu/~hcayless/img2xml/viewer.html">this static demo</a>, and shared at this <a href="http://github.com/hcayless/img2xml/tree/master"><span>github</span> repository</a>.</p>
+<p>Hugh was kind enough to answer my questions about the <span>Img</span>2XML project and has allowed me to publish his responses here in interview form:</p>
+<p><span style="font-style: italic;"> First, let me congratulate you on <span>img</span>2<span>xml's</span> award of a Digital Humanities Start-Up Grant. What was that experience like?</span></p>
+<p>Thanks!  I've been involved in writing grant proposals before, and sat on an NEH review panel a couple of years ago.  But this was the first time I've been the primary writer of a grant.  Start-Up grants (understandably) are less work than the larger programs, but it was still a pretty intensive process.  My colleague at <span>UNC</span>, Natasha Smith, and I worked right down to the wire on it. At research institutions like <span>UNC</span>, the hard part is not the writing of the proposal, but working through the submission and budgeting process with the sponsored research office.  That's the part I really couldn't have done in time without help.</p>
+<p>The writing part was relatively straightforward.  I sent a draft to Jason Rhody, who's one of the <span>ODH</span> program officers, and he gave us some very helpful feedback.  NEH does tell you this, but it is absolutely vital that you talk to a program officer before submitting.  They are a great resource because they know the process from the inside.  Jason gave us great feedback, which helped me refine and focus the narrative.</p>
+<p><i>What's the relationship between <span>img</span>2<span>xml</span> and the other e-text projects you've worked on in the past?  How did the idea come about?</i></p>
+<p>At <span>Docsouth</span>, they've been publishing page images and transcriptions for years, so mechanisms for doing that had been on my mind.  I did some research on generating structural visualizations of documents using <span>SVG</span> a few years ago, and presented a paper on it at the <span>ACH</span> conference in Victoria, so I'd some experience with it.  There was also a project I worked on while I was at Lulu where I used <span>Inkscape</span> to produce a vector version of a bitmap image for calendars, so I knew it was possible.  When I first had the idea, I went looking for tools that could create an <span>SVG</span> tracing of text on a page, and found <span>potrace</span> (which is embedded in <span>Inkscape</span>, in fact).  I found that you can produce really nice tracings of text, especially if you do some <span>pre</span>-processing to make sure the text is distinct.</p>
+<p><span style="font-style: italic;"> What kind of <span>pre</span>-processing was necessary?  Was it all manual, or do</span><span style="font-style: italic;"> you think the tracing step could be automated?</span></p>
+<p>It varies.  The big issue so far has been sorting out how to distinguish text from background (since <span>potrace</span> converts the image to black and white before running its tracing algorithm), particularly with materials like papyrus, which is quite dark.  If you can eliminate the background color by subtracting it from the image, then you don't have to worry so much about picking a white/black <span>cutover</span> point--the defaults will work.  So far it's been manual.  One of the agendas of the grant is to figure out how much of this can be automated, or at least streamlined.  For example, if you have a book with pages of similar background color, and you wanted to eliminate that background as part of <span>pre</span>-processing, it should be possible to figure out the color range you want to get rid of once, and do it for every page image.</p>
+<p><i>I've read your <span>Balisage</span> presentation and played around with the viewer demonstration.  It looks like <span>img</span>2<span>xml</span> was in proof-of-concept stage back in mid 2008.  Where does the software stand now, and how far do you hope to take it?</i></p>
+<p>It hasn't progressed much beyond that stage yet.  The whole point of the grant was to open up some bandwidth to develop the tooling further, and implement it on a real-world project.   We'll be using it to develop a web presentation of the diary of a 19<span>th</span> century Carolina student, James <span>Dusenbery</span>, some excerpts from which can be found on Documenting the American South at <a href="http://docsouth.unc.edu/true/mss04-04/mss04-04.html" target="_blank" rel="noopener">http://docsouth.unc.edu/true/<wbr><span>mss</span>04-04/<span>mss</span>04-04.html</wbr></a>.</p>
+<p>This has all been complicated a bit by the fact that I left <span>UNC</span> for NYU in February, so we have to sort out how I'm going to work on it, but it sounds like we'll be able to work something out.</p>
+<p><span style="font-style: italic;">It seems to me that you can automate generating the <span>SVG's</span> pretty easily.  In the <span>Dusenbery</span> project, you're working with a pretty small set of pages and a traditional (i.e. institutionally-backed) structure for managing transcription.  How well suited do you think <span>img</span>2<span>xml</span> is to larger, bulk digitization projects like the <span>FamilySearch</span> Indexer efforts to digitize US census records?  Would the format require substantial software to manipulate the transcription/image links?<br />
+</span><br />
+It might.  <span>Dusenbery</span> gives us a very constrained playground, in which we're pretty sure we can be successful.  So one prong of attack in the project is to do something end-to-end and figure out what that takes.  The other part of the project will be much more open-ended and will involve experimenting with a wide range of materials.  I'd like to figure out what it would take to work with lots of different types of manuscripts, with different <span>workflows</span>.  If the method looks useful, then I hope we'll be able to do follow-on work to address some of these issues.</p>
+<p><i>I'm fascinated by the way you've cross-linked lines of text in a transcription to lines of handwritten text in an <span>SVG</span> image.  One of the features I've wanted for my own project was the ability to embed a piece of an image as an attribute for the transcribed text -- perhaps illustrating an unclear tag with the unclear handwriting itself.  How would <span>SVG</span> make this kind of linking easier?<br />
+</i><br />
+This is exactly the kind of functionality I want to enable.  If you can get close to the actual written text in a <span>referenceable</span> way then all kinds of manipulations like this become feasible.  The NEH grant will give us the chance to experiment with this kind of thing in various ways.</p>
+<p><span style="font-style: italic;">Will you be blogging your explorations?  What is the best way for those interested in following its development to stay informed?</span></p>
+<p>Absolutely.  I'm trying to work out the best way to do this, but I'd like to have as much of the project happen out in the open as possible.  Certainly the code will be regularly pushed to the <span>github</span> <span>repo</span>, and I'll either write about it there, or on my blog (<a href="http://philomousos.blogspot.com/" target="_blank" rel="noopener">http://philomousos.blogspot.<wbr>com</wbr></a>), or both.  I'll probably twitter about it too (<a href="http://twiter.com/hcayless">@<span>hcayless</span></a>).  I expect to start work this week...</p>
+<p>Many thanks to Hugh <span>Cayless</span> for spending the time on this interview.  We're all wishing him and <span>img</span>2<span>xml</span> the best of luck!</p>

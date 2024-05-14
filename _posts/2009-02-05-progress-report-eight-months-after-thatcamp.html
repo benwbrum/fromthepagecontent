@@ -1,0 +1,37 @@
+---
+layout: post
+title: 'Progress Report: Eight Months after THATCamp'
+date: 2009-02-05 21:58:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- progress
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/02/progress-report-eight-months-after.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5674616202690117259"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-eight-months-after-thatcamp/"
+---
+<p>It's been more than half a year since I've updated this blog.  During that period, due to some <a href="http://benbrumfield.blogspot.com/2008/10/bens-guide-for-flooded-house.html">events in my personal life</a>, I was only able to spend a month or so on sustained development, but nevertheless made some real progress.</p>
+<p>The big news is that I announced the project to some interested family members and have acquired one serious user.  My cousin-in-law, Linda Tucker, has transcribed more than 60 pages of Julia Brumfield's 1919 diary since Christmas.  In addition to her amazing productivity transcribing, she's explored a number of features of the software, reading most of the previously-transcribed 1918 diary, making notes and asking questions, and <a href="http://manuscripttranscription.blogspot.com/2008/04/progress-report-one-month-of-alpha.html">fighting </a>with my <a href="http://manuscripttranscription.blogspot.com/2007/05/feature-zoom.html">zoom feature</a>.  Her enthusiasm is contagious, and her feedback -- not to mention her actual contributions -- has been invaluable.</p>
+<p>During this period of little development, I spent a lot of time as a user.  Fewer than 50 pages remain to transcribe in the 1918 diary, and I've started seriously researching the people mentioned in the diary for elaboration in footnotes.  It's much easier to sustain work as a user than as a developer, since I don't need an hour or so of uninterrupted concentration to add a few links to a page.</p>
+<p>I've also made some strides on <a href="http://manuscripttranscription.blogspot.com/2007/09/progress-report-printing.html">printing</a>.  I jettisoned DocBook after too many problems and switched over to using Bruce Williamson's RTeX plugin.  After some limited success, I will almost certainly craft my own set of ERb templates that generate LaTeX source for PDF generation.  RTeX excels in serving up inline PDF files, which is somewhat antithetical to my versioned approach.  Nevertheless, without RTeX, I might have never ventured away from DocBook.  Thanks go to THATCamper <a href="http://www.digitalsinologist.com/">Adam Solove</a> for his willingness to share some of his hard-won LaTeX expertise in this matter.</p>
+<p>Although I'm new to LaTeX, I've got footnotes working better than they were in DocBook.  I still have many of the logical issues I addressed in the printing post to deal with, but am pretty confident I've found the right technology for printing.</p>
+<p>I'm also working on re-implementing zoom in <a href="http://www.mojavelinux.com/cooker/demos/gsv/">GSIV</a>, rather than my cobbled-together solution.  The ability to pan a zoomed image has been consistently requested by all of my alpha testers, <a href="http://manuscripttranscription.blogspot.com/2008/06/thatcamp-takeaways.html">the participants at THATCamp</a>, and its lack is a real pain point for Linda, my first Real User.  I really like the static-server approach GSIV takes, and will post when the first mock-up is done.</p>

@@ -1,0 +1,80 @@
+---
+layout: post
+title: RMagick Lightning Talk at Austin On Rails
+date: 2012-07-25 16:53:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- development
+- presentations
+- rails
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2012/07/rmagick-lightning-talk-at-austin-on.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4672035822854666763"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '8'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/rmagick-lightning-talk-at-austin-on-rails/"
+---
+<p>This is a transcript of my five-minute lightning talk at the July meeting of <a href="http://austinonrails.org/">Austin On Rails</a>, the local Ruby on Rails user group. It highlights a few things I've learned from my work on <a href="http://github.com/FreeUKGen/MyopicVicar">MyopicVicar </a>and <a href="https://github.com/benwbrum/autosplit">Autosplit</a>.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://3.bp.blogspot.com/-7ROXZ3p0Orw/UBAXE6-M6FI/AAAAAAAAASM/eaChLZEvOOo/s1600/Slide1.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide1.PNG" width="320" height="240" border="0" /></a></div>
+<p>Hi everyone, I'm Ben Brumfield and I've been a professional Ruby on Rails developer for three whole months, [applause] and I am here to talk about RMagick!&nbsp; RMagick is a wrapper for ImageMagick, which is great for processing images.&nbsp; These are the kinds of images that I process:</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-Iqtd7xp3Csc/UBAXuxHHMcI/AAAAAAAAATU/I9okMb-N_Mg/s1600/Slide2.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide2.PNG" width="320" height="240" border="0" /></a></div>
+<p>(I write software that helps people transcribe old handwriting.)</p>
+<p>Now is this a pretty image?&nbsp; I don't know.&nbsp; We need to do some things with this, and this is how RMagick has helped me solve some of my problems.&nbsp; One of the things we need to do is to turn it into a thumbnail.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://3.bp.blogspot.com/-B5lTK_Cd6pk/UBAXynu0W9I/AAAAAAAAATc/DoDIKDd6Rtg/s1600/Slide3.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide3.PNG" width="320" height="240" border="0" /></a></div>
+<p>This is an example of RMagic used as a very simple wrapper for ImageMagick: All we're doing is creating an ImageList out of that file, we say <a href="http://www.imagemagick.org/RMagick/doc/image3.html#thumbnail">image.thumbnail</a> and pass it a scaling factor, and that will very quickly go through and transform that image. Write it to a file and we're done.</p>
+<p>So that's kind of basic.&nbsp; RMagick does a lot of other basic kinds of things like this, like <a href="http://www.imagemagick.org/RMagick/doc/image3.html#rotate">rotate </a>or <a href="http://www.imagemagick.org/RMagick/doc/image2.html#negate">negate</a>--sometimes I get files that are negatives--things like that.</p>
+<p>What about the cool stuff?&nbsp; Here's an example of something that I have to deal with.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-WV89yuhrg9s/UBAX0vbBpcI/AAAAAAAAATk/Yz9cLtxADpw/s1600/Slide4.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide4.PNG" width="320" height="240" border="0" /></a></div>
+<p>This is a parish registry from 1810, which would be fine, but this is a scan of a bad microfilm of a parish registry from 1810 that is tilted.&nbsp; Now my users need to draw rectangles around individual lines, and the tilt is going to really throw them off.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-zo9NUrh1GVQ/UBAX2eV-oqI/AAAAAAAAATs/LyGTc6yCOjk/s1600/Slide5.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide5.PNG" width="320" height="240" border="0" /></a></div>
+<p>How badly is this tilted? If you're interested in seeing some RMagick code, here's a script that I wrote to draw a grid over that image or any other image: <a href="http://tinyurl.com/GridifyGist">http://tinyurl.com/GridifyGist</a> . And what you'll see is:</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://3.bp.blogspot.com/-00zDbc8MXac/UBAX6VqPLrI/AAAAAAAAAT0/qFSrAT-B-lc/s1600/Slide6.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide6.PNG" width="320" height="240" border="0" /></a></div>
+<p>Man, it kind of sucks!&nbsp; You draw a rectangle over that and you're going to get all kinds of weird stuff.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://2.bp.blogspot.com/-Xyj1OAs36d8/UBAX8tWalBI/AAAAAAAAAT8/PB6sQ3m6Omw/s1600/Slide7.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide7.PNG" width="320" height="240" border="0" /></a></div>
+<p>Enter <a href="http://www.imagemagick.org/RMagick/doc/image1.html#deskew">deskew</a>.&nbsp; So here's an example of ruby code, very simple:</p>
+<div style="font-family: 'Courier New',Courier,monospace;"><span style="font-size: x-small;">require 'RMagick' # Which is very idiosyncratically capital-R capital-M</span></div>
+<div style="font-family: 'Courier New',Courier,monospace;"><span style="font-size: x-small;">s = Magick::ImageList.new('skew.jpg') # We get a new ImageList from skew.jpg</span></div>
+<div style="font-family: 'Courier New',Courier,monospace;"><span style="font-size: x-small;">d = s.deskew # And poof!&nbsp; Zap!</span></div>
+<div style="font-family: 'Courier New',Courier,monospace;"><span style="font-size: x-small;">d.write('deskew.jpg') # We write out deskew and get this:</span></div>
+<p>&nbsp;</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-_uHyaDUMQ5w/UBAYA_p84rI/AAAAAAAAAUE/LQ4epzm99JM/s1600/Slide8.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide8.PNG" width="320" height="240" border="0" /></a></div>
+<p>Now this looks kind of weird. The image looks off.&nbsp; But the image's <i>contents </i>are not off.&nbsp; And if we throw the grid on it:</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-BD_SfqbzCBQ/UBAYEZ7OK5I/AAAAAAAAAUM/W88rTmW7pEU/s1600/Slide9.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide9.PNG" width="320" height="240" border="0" /></a></div>
+<p>You can see that what RMagick has done is that it's gone through and it's looked for lines inside the content of the image, and it's rotated the image in correspondence to where it thinks the lines go and where it thinks the orientation is.</p>
+<p>I think that's pretty slick.</p>
+<p>RMagick can do some other slick things, and this is where you get into the programming aspects of RMagick and why you'd use RMagick instead of just calling ImageMagick from the command line.<br />
+<a style="margin-left: 1em; margin-right: 1em;" href="http://2.bp.blogspot.com/-FspyNHoyblU/UBAXHn-DLfI/AAAAAAAAASU/fgMocT-A_bM/s1600/Slide10.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide10.PNG" width="320" height="240" border="0" /></a><br />
+Here what we're doing is extracting files from a PDF.&nbsp; Lots of scanners produce images in PDF format, that is just using PDF as a container for a bunch of images.</p>
+<p>This goes through, creates an ImageList from the file, and then goes through for each image in the image list--actually more specifically for each page in that PDF--and it writes it out correctly.&nbsp; (RMagick may not be the right thing to user for some files because it's going to get page by page images -- if you have PDFs that are composed of a bunch of images [on each page] then you're going to want to use some other tools.)</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-h9cAnKaGoB8/UBAXNVHG_mI/AAAAAAAAASc/hu3w75OadRg/s1600/Slide11.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide11.PNG" width="320" height="240" border="0" /></a></div>
+<p>Okay.&nbsp; So here's a file that I'm dealing with, and when I want to present it to my users I actually want to present them with a single page.&nbsp; Is this file a single page? No -- this file is two pages, all scanned on a flatbed scanner.&nbsp; (For those that are curious, it's a sixteenth-century Spanish legal document; I don't know what it says.)&nbsp; But how do I find the spine?&nbsp; How do I know where to split it?&nbsp; It's easy enough to go through and do cropping, but you know, what do we do?</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://3.bp.blogspot.com/-vWr5OVrfKtQ/UBAXO9p24jI/AAAAAAAAASk/DM_V4BXP0h8/s1600/Slide12.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide12.PNG" width="320" height="240" border="0" /></a></div>
+<p>So I came up with this idea: Let's look for vertical dark stripes.&nbsp; Let's look for the darkest strip that is vertical in a deskewed version of this image and see if we can identify that.&nbsp; So this is something we can do.&nbsp; What I've done here is I've said-- this is the inside of a loop where I've said for each <i>x</i> let's <a href="http://www.imagemagick.org/RMagick/doc/image2.html#get_pixels">pull all the pixels out</a>, and then come up with a total brightness for that image [stripe].&nbsp; Then later on, I'm going to find the minimum brightness for those vertical stripes.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://3.bp.blogspot.com/-8DnZQ22qGEw/UBAXVwJaNRI/AAAAAAAAASs/ZMuqvQUJG58/s1600/Slide13.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide13.PNG" width="320" height="240" border="0" /></a></div>
+<p>If I do this on some of the files and indicate that stripe by a red line--which I hope you can see--it did pretty well on this!</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-k3Z4HK-9mU0/UBAXZULsp2I/AAAAAAAAAS0/2Pk5QsYWRVM/s1600/Slide14.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide14.PNG" width="320" height="240" border="0" /></a></div>
+<p>It does well on this awful scan of a microfilm, although the red line is hard to see at this resolution.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-PvTUYLWg86Q/UBAXgCzzFeI/AAAAAAAAAS8/X_AfU72WYsw/s1600/Slide15.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide15.PNG" width="320" height="240" border="0" /></a></div>
+<p>And wow, it does great on this piece!</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-fkAwXPOUdWE/UBAXjdxBTjI/AAAAAAAAATE/AXTEmTOQYAU/s1600/Slide16.PNG"><img src="{{ site.baseurl }}/assets/2012/07/Slide16.PNG" width="320" height="240" border="0" /></a></div>
+<p>This is just an example of using RMagick to solve my problems.&nbsp; After I've gotten the line I want to <a href="http://www.imagemagick.org/RMagick/doc/image1.html#crop">crop </a>it, so left page/right page</p>
+<p>The only caveats that I'd give you about RMagick is that I find it necessary to call GC.start a lot -- at least I did in Ruby 1 6 [ed: 1.8.6] -- because RMagic--I don't know, man--because it swaps out the garbage collector or something and you run out of memory really fast.</p>
+<p>RMagick: I love it!</p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c  no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer;">Save</span></p>

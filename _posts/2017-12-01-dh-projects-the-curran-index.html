@@ -1,0 +1,44 @@
+---
+layout: post
+title: DH Projects -- The Curran Index
+date: 2017-12-01 09:34:34.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- brumfield labs
+- digital humanities
+tags: []
+meta:
+  _edit_last: '5'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/dh-projects-the-curran-index/"
+---
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/12/CurranIndex.png"><img class="aligncenter wp-image-716 size-full" src="{{ site.baseurl }}/assets/2017/12/CurranIndex.png" alt="" width="1275" height="964" /></a></p>
+<p>In addition to FromThePage, Brumfield Labs also provides software development to scholars, historical societies, and heritage organizations. The following is a description of a project we did for Gary Simons and the Research Society for Victorian Periodicals to produce an <a href="http://curranindex.org/">interactive version of the Curran Index</a>.</p>
+<p>Gary Simons, the current editor of the Curran Index, had recreated the original bound version of the Index as an Access database on his personal computer; our challenge was to put that online in a way that was searchable and filterable by anyone.</p>
+<p>Gary was a technically sophisticated customer -- he knew what he wanted and what should be possible. What Brumfield Labs brought to the table was extensive software development experience and our knowledge of modern web platforms and agile development methodologies. Because Gary had a limited budget, and a laundry list of features he wanted, we proposed an Agile approach to developing the project within his budget: We gave him 4 weeks of work, and together we prioritized both what was a requirement for a working site and "nice to have" features.</p>
+<p>It can be hard for to a stakeholder to trust us when we say "You'll get a working site, but not everything you want, within your budget" and Gary's inclination was to hash out *exactly* what would make the final deliverable. The challenge a software developer has with that approach is that in order to negotiate that list you have to do a *lot* of research. Some things are amazing fast and easy ("look, a library for faceted browsing") other things require three days of research in order to write the 5 lines of code that makes something work. The problem is that figuring out how long it takes to do a task requires figuring out how you're going to do it, which is half the work. Even once you start implementing, problems throw you curve balls from left field ("but what if 2 contributors share the same name?"), so even well researched estimates aren't dependable. The agile approach allowed us to avoid spending Gary's entire budget on researching and negotiating specifications.</p>
+<p>One part of the agile approach that gave Gary confidence was frequent deployments. We deployed new code regularly -- at least once a week -- with the site always functional, so that when our 4 weeks ran out -- "pencils down" -- we all knew what would be delivered, and that it would meet Gary's needs, if not every single one of his wants.</p>
+<p>The other cost-containing strategy we used was tapping our junior developer, Trisha Lewis, for the actual implementation work. Trisha did the majority of the coding, but Sara provided the architecture, strategy, and prioritization that kept the project on track. Freeing up your developer from interacting and negotiating makes them much more productive; providing a senior engineer in a consultative and leadership capacity keeps development from getting stuck on hard problems or making a small part of a project perfect instead of delivering a working whole. <a href="http://content.fromthepage.com/wp-content/uploads/2017/12/waffle.png"><img class="wp-image-545 size-full aligncenter" src="{{ site.baseurl }}/assets/2017/12/waffle.png" alt="" width="1343" height="770" /></a></p>
+<p>Gary, Sara, and Trisha met weekly and used two Agile strategies to stay on the same page. We started the meeting with a sprint review -- basically a "show and tell" of what was accomplished the previous week. We then went to a KanBan board that contained all the tasks for the project. (You can see our KanBan board for the project here: https://waffle.io/VictorianResearchWeb/TheCurranIndex) If a new issue, request or bug came up it was added to the "incoming" column of the KanBan board. At each meeting we prioritized the incoming tasks and moved them into the "ready" column and assigned them to the appropriate people (Trisha had most of them, but everyone -- including Gary -- had tasks that involved research or making decisions.) During the week, as Trisha worked on tasks, she moved the task's card through the "in progress" and "done" columns. The "done" column served as reference during our sprint review; tasks status was always visible to everyone (including Gary), raising trust and reducing risk.</p>
+<p><a href="http://curranindex.org/">The Curran Index</a> is a database containing entries for 16,000 articles from more than 2000 contributors. The website utilizes faceted filtering to allow users to narrow down the article pool.</p>
+<p>Similar to the original bound index, they can look at articles by periodical or contributor, but the filtering provides increased flexibility and specificity. For example, a user could search for prose articles by John Gibson Lockhart in Blackwood's Edinburgh magazine written between 1817-1838.</p>
+<p>We also provided a title search functionality, allowing users to search either the database as a whole or the filtered list.</p>
+<p>All of the filters can be applied in any order, which lets the user explore the information in multiple ways. We also provide popover biographical information on the contributors and periodicals. Other static information such as release notes and related sites is provided via tabs.</p>
+<p>It looks and works as well on a tablet or mobile device, as it does on a laptop.</p>
+<p>We've published it open source on github, so that Gary and RSVP are not tied to Brumfield Labs for development in the future (although we hope to continue to work on the project!). Since the groundwork has been laid, it's possible to enhance and extend the project piecemeal.</p>
+<p>We all love it when our work is well received; when Gary announced the project on the <a href="https://list.indiana.edu/sympa/arc/victoria/2017-09/msg00067.html">VICTORIA list </a>, Ruth Richardson, one of his many stakeholders for this information, <a href="https://list.indiana.edu/sympa/arc/victoria/2017-09/msg00070.html">responded</a>:</p>
+<p><em>Gary Simons has asked us to take a look at the new RSVP Curran Index - it is a DREAM! Wonderful!</em></p>
+<p><em>As an old cataloguer and current historian I can only say that it is breathtakingly good, so useful, so well thought out, so helpful! I can think of several scholars who are probably applauding in heaven - including Eileen Curran and Kathleen Tillotson - at this marvellous beginning!</em></p>
+<p><em>I am sure that in time many of us will USE this resource and collectively help improve it with snippets of data, pixels of the picture. My only suggestion would be that there should perhaps be an easy way people can submit new information.</em></p>
+<p><em>Blessings upon Eileen Curran, Patrick Leary, Gary Simons and RSVP!</em></p>
+<p><strong>Have a digital humanites project in need of software development? We'd be happy to discuss it with you.  Send us an email -- benwbrum@gmail.com.</strong></p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; top: 25px; left: 20px;">Save</span></p>

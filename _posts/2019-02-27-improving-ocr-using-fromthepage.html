@@ -1,0 +1,75 @@
+---
+layout: post
+title: Improving OCR using FromThePage
+date: 2019-02-27 16:32:35.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- brumfield labs
+- digital humanities
+- FromThePage
+tags:
+- crowdsourcing
+- iiif
+- ocr
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_metadesc: FromThePage is a collaborative transcription system used
+    by libraries, archives, museums and academic researchers.  It is open source software
+    (available under the Affero GPL 3.0 license) and is deployed at the University
+    of Texas, Fordham University, Northwestern University, and Carleton University
+    among others.
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '8'
+  _yoast_wpseo_schema_article_type: BlogPosting
+  _yoast_wpseo_primary_category: '46'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/improving-ocr-using-fromthepage/"
+---
+<p>This is a response to the recently published "<a href="https://ocr.northeastern.edu/report/">A Research Agenda for Historical and Multilingual Optical Character Recognition</a>" by David A. Smith and Ryan Cordell, with the support of The Andrew W. Mellon Foundation. &nbsp;The report analyzes current challenges faced by humanities researchers using OCR text and outlines important avenues for research to improve OCR quality. &nbsp;In many places, the report calls for transcription systems and crowdsourcing experts. Since we have run crowdsourced transcription systems for more than a decade, we have &nbsp;a lot of ideas on how transcription systems could be used as part of the solution. Our ideas are specific to FromThePage, our platform, but many could apply to other tools. &nbsp;We thought the best way to be part of the conversation was to share our ideas publicly. If you're working on solving the problems outlined in the report, we'd be very interested in collaborating with you.</p>
+<p>The report has nine recommendations; our thoughts will be organized accordingly after introducing FromThePage.</p>
+<h3>About FromThePage</h3>
+<p>Before we dive into potential implementations, an introduction to FromThePage is in order. &nbsp;FromThePage is a collaborative transcription system used by libraries, archives, museums and academic researchers. &nbsp;It is open source software (available under the Affero GPL 3.0 license) and is deployed at the University of Texas, Fordham University, Northwestern University, and Carleton University among others. &nbsp;We also offer FromThePage as a software-as-a-service. For $1000 to $5000 per year, we host projects for organizations and individuals on shared servers that we run and maintain; this shared infrastructure approach means that projects can be up and running in hours without technical expertise.</p>
+<p>While FromThePage is most popular as a crowdsourced transcription platform, it is also in use as an OCR correction platform. &nbsp;Our current OCR ingestion integrations are from the Internet Archive (i.e. the <a href="http://commons.pelagios.org/2019/02/final-report-on-latam-a-historical-gazetteer-of-colonial-latin-america-and-the-caribbean/">LatAm</a> project) or ContentDM (i.e. <a href="https://fromthepage.com/digitalindy">Indianapolis Public Library</a>). Our multilingual support means we host projects in a wide variety of languages: Old French, Spanish, Malay (Jawi), Arabic, Nahuatl, Mixtec, Urdu, and Dutch. &nbsp;That support includes right-to-left script support (top to bottom is coming soon). We also support collaborative translation of transcribed texts.</p>
+<p>FromThePage has been in ongoing development for thirteen years; our first deployment was for San Diego Museum of Natural History in 2010. &nbsp;FromThePage.com, the software-as-a-service solution, has been in use since 2011. Our approach to sustainability is a combination of SaaS subscriptions and "sponsored development" -- we collaborate with institutions and individuals to build needed features. &nbsp;Recent examples include right-to-left script support sponsored by the British Library and field-based transcription and ContentDM integration sponsored by the Council of State Archivists. While both the SaaS subscriptions and feature development are often funded by grants, the shared cost approach means that no one grant program, institution, or granting organization carries a large burden for software development. &nbsp;All new features are available to all users of FromThePage.</p>
+<h2>OCR Improvement Ideas</h2>
+<h3>Recommendation #1: &nbsp;Improve Statistical analysis of OCR output</h3>
+<p>"Inferred" OCR quality statistics can be approached through entirely computational models, but we suspect that a human identifying and correcting a small portion of an OCR'd text -- 5-10 exemplar pages or 1000 lines -- could provide better input into OCR quality. &nbsp;A scholar considering 3 or 4 different corpora might be motivated to transcribe those exemplar pages for each different sets of materials; a comparison of before-and-after versions of the text could lead to an informed statistic of how good or bad the OCR for each was. &nbsp;Since the scholar’s corrections provide the gold standard--quality statistics can be calculated for texts with non-standard orthography like early modern printed work or multi-lingual texts. FromThePage currently keeps page transcription versions in our database and presents a “diff” view to end users, but would need to be modified to count corrections and calculate error rates in the uncorrected OCR.</p>
+<p>To take this idea even further, if a researcher spent the time to correct some number of pages of a low quality OCR text, those corrections could be used to retrain an OCR engine as each page is completed. &nbsp;The retrained model could be applied in batch to a similar corpus. Better yet, the retained model could be applied to all the subsequent pages in the corpus. The result would be a virtuous cycle of OCR text that continually improves as it is corrected, needing fewer corrections the further the editor works through the text. &nbsp;This emergent model of OCR correction retraining and application could be integrated into a standalone service accepting contributions from many editing platforms or could be integrated directly into an editing platform like FromThePage. The labor to correct the OCR in this model is very motivated by the immediate improvement in the text they are correcting and by the ability to improve the OCR text of their particular corpus.</p>
+<h3>Recommendation #2: &nbsp;Formulate standards for annotation and evaluation of document layout</h3>
+<p>We don't see that FromThePage is a good match for this recommendation, but we would encourage others to look into the work being done by the IIIF Newspapers Community Group for open standards to support this task.</p>
+<h3>Recommendation #3: &nbsp;Exploit existing digital editions for training and test data</h3>
+<p>We think that there are a lot of possibilities here. &nbsp;We already have digital edition projects that start with OCR correction, like the <a href="https://fromthepage.com/nesvetr/the-james-malcolm-rymer-collection">James Malcom Rymer Collection</a>. &nbsp;We also have crowdsourced transcription of typewritten text in projects like the<a href="https://fromthepage.com/centerfordigitalediting/the-papers-of-julian-bond"> Papers of Julian Bond</a>.&nbsp; These transcription/edition projects--and the more straightforward OCR correction crowdsourcing projects--currently produce edition text as outputs, but the act of correction (and creation of human-edited text) can be leveraged to produce training data for OCR engines, or even trained models as a separate export.</p>
+<h3>Recommendation #4: &nbsp;Develop a reusable contribution system for OCR ground truth</h3>
+<p>This recommendation is where FromThePage is already in use, and can easily continue to play this role. &nbsp;In 2018, the British Library identified a need for an Arabic manuscript ground truth dataset to improve HTR models. &nbsp;They used FromThePage to <a href="https://fromthepage.com/bldigital/arabic-scientific-manuscripts">crowdsource the transcription of 85 pages</a> of Arabic Scientific Manuscripts.</p>
+<p>Volunteers have also expressed a <a href="https://content.fromthepage.com/ocr-correction-vs-transcription/">preference for transcription rather than OCR correction.</a></p>
+<h3>Recommendation #5: &nbsp;Develop model adaptation and search for comparable training sets</h3>
+<p>(no comment)</p>
+<h3>Recommendation #6: &nbsp;Train and test OCR on linguistically diverse texts</h3>
+<p>(no comment beyond FromThePage's aforementioned support for a wide variety of languages.)</p>
+<h3>Recommendation #7: &nbsp;Convene OCR Institutes in critical research areas</h3>
+<p>Both crowdsourcing for the creation of ground truth data sets and OCR correction takes motivated groups of people, be they scholars, students, or the public. &nbsp;Building that community and using them across similar projects that they are motivated to work on is not a trivial undertaking, but would be a key task of domain centric OCR institutes. &nbsp;We often refer to the medievalists as "early adopters" in the digital humanities, but we saw this sort of community build as the Parker Library at Corpus Christi College, Cambridge put their <a href="https://fromthepage.com/theparkerlibrary">Anglo Saxon manuscripts online for transcription</a> and reached out in a variety of ways to their scholarly community.</p>
+<p>Hosting all the projects on a central platform like FromThePage that facilitates different types of projects -- public and private, transcription or correction -- and makes it easy to find a project of interest and share it would make sense. &nbsp;It would also give the community manager (a required role for any institute) a centralized way to coordinate and communicate with volunteers/contributors.</p>
+<h3>Recommendation #8: &nbsp;Create an OCR assessment toolkit for cultural heritage institutions</h3>
+<p>(no comment)</p>
+<h3>Recommendation #9: &nbsp;Establish an "OCR Service Bureau"</h3>
+<p>Using FromThePage for OCR correction and ground truth dataset creation could save a tax-payer money in the creation of such a service bureau.</p>
+<h3>IIIF</h3>
+<p>Although it isn't mentioned in the OCR report, we believe IIIF is the right solution to moving page images and text through data pipelines.</p>
+<p>We have thought quite a bit about how you attach text (in many formats -- plaintext, HTML, TEI, optimized for search or analytics) to page images in IIIF. &nbsp;The <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations">FromThePage API</a> provides one example on how you can do this; our approach is shared by <a href="http://jeffreycwitt.com/">Jeffrey Witt</a>’s <a href="https://scta.info/">Sentences Commentary Text Archive</a>. &nbsp;We would encourage any system implementers for OCR improvement to use IIIF to transport page images and text together. &nbsp;The IIIF Image API works allows you to target specific regions of an image (say a line) with a specific body (say the transcription of it) in a web annotation, and also to link full page images to external resources like ALTO files.</p>
+<p>A discussion with a scholar recently about working with OCR'd text of early international law broadsheets from the Bibliothèque nationale de France made us realize that exposing the original OCR format (i.e. ALTO) as a seeAlso link in the IIIF manifest would give scholars the ability to go back to the original OCR bounding boxes and perform their own transformations specific to their unique text and projects. &nbsp;In other words, until we "solve" the problems with OCR of historical texts, exposing raw OCR files is one way to increase the number of approaches to processing and improving OCR output.</p>
+<p>We'd suggest looking at the following resources for thinking about IIIF in the context of OCR improvement and text processing pipelines:</p>
+<ul>
+<li>Jason Ronallo and his team at North Carolina State University Libraries built <a href="https://ronallo.com/presentations/content-search-api-iiif-conf-2018">Ocracoke</a>, an OCR pipeline built on IIIF.</li>
+<li><a href="https://docs.google.com/presentation/d/1ZQ2-aWuAJfFXQ-UT7xTiKk2MYafPPVD0j6vMj4Cds-w/edit?usp=sharing">"Round Trip to Paradise"</a> -- presentation on how John Howard at University College Dublin is using FromThePage's IIIF API to "roundtrip" from Fedora into FromThePage and back.</li>
+<li>IIIF runs on community groups, and each group has different domain specific knowledge about IIIF. &nbsp;For the sorts of work we are talking about here we'd look into the <a href="https://iiif.io/community/groups/newspapers/">IIIF Newspapers group</a>, the <a href="https://iiif.io/community/groups/archives/">IIIF Archives group</a>, and the <a href="https://iiif.io/community/groups/text-granularity/">IIIF Text Granularity group</a>.</li>
+</ul>

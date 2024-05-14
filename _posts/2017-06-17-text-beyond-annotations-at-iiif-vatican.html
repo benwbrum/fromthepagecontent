@@ -1,0 +1,77 @@
+---
+layout: post
+title: Text Beyond Annotations at IIIF-Vatican
+date: 2017-06-17 06:00:39.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- images
+- presentations
+- tei
+tags:
+- iiif
+meta:
+  _edit_last: '3'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/text-beyond-annotations-at-iiif-vatican/"
+---
+<p><em>On June 8, 2017, Patrick Cuba, John Howard, Peter Robinson, Jeffrey Witt and I organized a <a href="https://2017iiifconferencethevatican.sched.com/event/ACID/discussion-connecting-iiif-and-text-room-2">discussion session</a> for the IIIF conference hosted by the Vatican Library. We wanted to explore our efforts to utilize IIIF in our existing, manuscript-based textual projects, from crowdsourced transcription to documentary editing to textual scholarship. The urgency of this conversation was heightened during the weeks between our proposal and the conference itself, as a new <a href="https://docs.google.com/document/d/1wTxgcj-AlAE3KwcxP59mTZhOOQKkDEaqwVK_NHOIRvc/edit">Text Granularity Working Group</a> was formed by members of the IIIF Newspapers Working Group.</em></p>
+<p><em>For our session, each of us presented a 5-10 minute lightning talk describing our experiences and making a concrete proposal to move the community forward.  Karen Estlund, organizer of the Newspapers and Text Granularity working groups, also presented on those group's ideas for text and IIIF -- a generous act given very short notice.  A general discussion followed the lightning talks.</em></p>
+<p><em>This is a rough reconstruction of the text of my talk.</em></p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-01.jpg"><img class="alignnone size-medium wp-image-491" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-01-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>&nbsp;</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-02.jpg"><img class="alignnone size-medium wp-image-492" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-02-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>Those of us trying to work with text and IIIF have a problem.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-03.jpg"><img class="alignnone size-medium wp-image-493" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-03-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>The examples we are offered to work from barely represent text at all!</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-04.jpg"><img class="alignnone size-medium wp-image-494" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-04-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>Here is one example from the Web Annotation Spec: the text represented is a plain-text string consisting of only two words: "Comment text".</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-05.jpg"><img class="alignnone size-medium wp-image-495" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-05-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>Here's the same example as a "Textual Body".  It's a slightly more sophisticated structure, until you get to the text itself, which is still only two words.  This is really an impoverished vision of what text is.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-06.jpg"><img class="alignnone size-medium wp-image-496" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-06-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>However, we're not the only ones with this challenge.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-07.jpg"><img class="alignnone size-medium wp-image-497" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-07-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>The IIIF Presentation API spec also gives examples for embedding metadata within IIIF manifests.  It's possible to take your existing metadata from other systems and serialize all of it out to a JSON-LD format within your manifests.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-08.jpg"><img class="alignnone size-medium wp-image-498" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-08-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>However, nobody's doing that anymore!  What libraries are actually doing is linking to their descriptive metadata in other systems, where it is stored in formats like MODS which are actually designed to encode metadata.</p>
+<p>I think we should explore this model of linking to our text in the formats we already have, rather than attempting to embed it as annotations.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-09.jpg"><img class="alignnone size-medium wp-image-499" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-09-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>So how  can we link from IIIF to texts?</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-10.jpg"><img class="alignnone size-medium wp-image-500" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-10-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>We have a lot of options.  Manifests can contain <strong>seeAlso</strong> or <strong>service</strong> elements linking elsewhere.  Sequences can contain a <strong>rendering</strong> that links to a text like a PDF.  Finally, of course, we have open annotations.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-11.jpg"><img class="alignnone size-medium wp-image-501" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-11-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>We also have many options on where to place those links.  Does it make sense to link at the manifest level, the sequence level, the canvas level, or each of these?</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-12.jpg"><img class="alignnone size-medium wp-image-502" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-12-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>Most importantly, links to our texts serve many purposes.</p>
+<p>There's the sweet-spot for annotations, displaying a simple transcript of a page or region of a page for display by a viewer.</p>
+<p>However, there are many more use cases:</p>
+<ul>
+<li>Downloads of texts in reusable formats like Microsoft Word or LaTeX so that scholars can include texts within their articles.</li>
+<li>Plaintext that library systems can ingest for full-text search.</li>
+<li>TEI for, well, all the things you can do with TEI.</li>
+</ul>
+<p>Finally, we need to link from IIIF to services to create or enhance text via transcription, translation, or named entity identification.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-13.jpg"><img class="alignnone size-medium wp-image-503" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-13-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>It's not enough to define best practices for linking from IIIF to texts.  We also need to figure out how to link from our texts to IIIF images.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-14.jpg"><img class="alignnone size-medium wp-image-504" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-14-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>The TEI Guidelines provide a <a href="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-att.global.facs.html"><strong>facs</strong></a> attribute on the <a href="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-pb.html">page break</a> element that lets editors link to page images.  However, there is no guidance for linking to IIIF image services.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-15.jpg"><img class="alignnone size-medium wp-image-505" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-15-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>&nbsp;</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-16.jpg"><img class="alignnone size-medium wp-image-506" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-16-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>My proposal for connecting text and IIIF is that we follow the example of the Newspapers Group, and create fixtures--well documented, machine-readable exemplars--of linking between text and IIIF using terminology familiar to textual editors.  We start with a small number of short documents (a two-page letter might be perfect here), at varying levels of encoding, and create a set of files encoding those documents in both IIIF/WebAnnotations <em>and TEI</em>.</p>
+<p>We define use cases for these fixtures that will let us test both the IIIF sweet spot (like single-page transcripts within Mirador) and a simple TEI viewer like EVT that is agnostic of IIIF.</p>
+<p><a href="http://content.fromthepage.com/wp-content/uploads/2017/06/IIIF-Text-Lightning-Talk-17.jpg"><img class="alignnone size-medium wp-image-507" src="{{ site.baseurl }}/assets/2017/06/IIIF-Text-Lightning-Talk-17-300x225.jpg" alt="" width="300" height="225" /></a></p>
+<p>I also propose that we postpone a couple of important things.</p>
+<p>We should start with small, simple, single-document/single-text works until we get a consensus on how those should be encoded.  Only then do we move on to multi-document texts and multi-text documents.</p>
+<p>More controversially, I also think we should just postpone the big question of how we model texts as annotations.  At the moment, this seems too huge and ill-defined to grapple with, but we may find that if we focus on linking first, some use cases may emerge that are obvious fits for embedding our texts as annotations.</p>
+<p><em>The discussion following the presentations was productive, but also revealed some real divides among the participants.  Those of us (like myself) with a background in editing are having a lot of trouble mapping our concepts to Linked Data, or indeed in seeing the benefit to trying.  Meanwhile, some participants from the library world appeared not to be aware of the 30-year history of textual encoding practice represented by the TEI and the community that created it.  Only continued conversation between and within these communities will fix this situation.</em></p>
+<p><em>My own presentation was only one of six, so I will link to the others from this post as they become available.</em></p>
+<p><em>If you are interested in exploring these issues--whether to help develop the fixtures I propose, or to tell me I'm wrong--send me an email at benwbrum@gmail.com and I'll try to include you in the conversation as it develops.</em></p>

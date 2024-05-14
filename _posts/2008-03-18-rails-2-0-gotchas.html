@@ -1,0 +1,43 @@
+---
+layout: post
+title: Rails 2.0 Gotchas
+date: 2008-03-18 04:52:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- rails
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/03/rails-20-gotchas.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/6757027725733398140"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/rails-2-0-gotchas/"
+---
+<p>The deprecation tools for Rails 2.0 are grand, but they really don't tell you everything you need to know.  The things that have bitten me so far are:</p>
+<ul>
+<li>The built-in pagination has been removed from the core framework.  Unlike tools like acts_as_list and acts_as_tree, however, there's no obvious plugin that makes the old code work.  This is because the old pagination code was really awful: it performed poorly and hid your content from search engines.  Fortunately, Sara was able to convert my <code>paginate</code> calls to use the <code>will_paginate</code> plugin pretty easily.</li>
+<li>Rails Engines, or at least the restful_comments plugin built on top of them, don't seem to work at all.  So I've had to disable the comments and proofreading request system I spent November through January building.</li>
+<li>Rails 2.0 adds some spiffy automated code to prevent cross-site-scripting security holes.  For some reason this breaks my cross-controller AJAX calls, so I've had to add<br />
+<blockquote><p><code>protect_from_forgery :except =&gt; [<i>my old actions</i>]</code></p></blockquote>
+<p>to those controllers after  getting <span>InvalidAuthenticityToken</span> exceptions.</li>
+<li>The default session has been changed from a <span>filesystem</span>-based storage engine to one that shoves session data into the browser cookie.  So if you're persisting large-<span>ish</span> objects across requests in the session, this will fail.  Sadly, basic tests may pass, while serious work will break: I found my bulk page transformation<br />
+code to work fine for 20 pages, but break for 180. The solution for this is to add <code></code></p>
+<blockquote><p><code> config.action_controller.session_store = :p_store</code></p></blockquote>
+<p>in your environment.<span>rb</span> file.</li>
+</ul>

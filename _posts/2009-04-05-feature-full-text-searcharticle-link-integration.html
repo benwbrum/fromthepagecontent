@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Feature: Full Text Search/Article Link integration'
+date: 2009-04-05 18:54:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2009/04/feature-full-text-searcharticle-link.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/7328178099646953700"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-full-text-searcharticle-link-integration/"
+---
+<p>In the last couple of weeks, I've implemented most of the features <a href="http://manuscripttranscription.blogspot.com/2009/03/feature-editorial-toolkit.html">in the editorial toolkit</a>.  <a href="http://manuscripttranscription.blogspot.com/2007/06/feaure-user-roles.html">Scribes </a>can identify unannotated pages from the table of contents, readers can peruse all pages in a collection <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">linked to a subject</a>, and users can perform a full text search.</p>
+<p>I'd like to describe the full text search in some detail, since there are some really interesting things you can do with the interplay between searching and linking.  I also have a few unresolved questions to explore.</p>
+<p><span style="font-weight: bold;">Basic Search</span></p>
+<p>There are a lot of technologies for searching, so my first task was research.  I decided on the simple <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html">MySQL fulltext search</a> over SOLR, Sphinx, and <code>acts_as_ferret</code> because all the data I wanted to search was located within the <code>PAGES</code> table.  As a result, this only required a migration script, a text input, and a new controller action to implement.  You can see the result on the <a href="http://beta.fromthepage.com/collection/show?collection_id=1&amp;ol=blog">right hand side of the collection homepage</a>.</p>
+<p><span style="font-weight: bold;">Article-based Search</span></p>
+<p>Once basic search was working, I could start integrating the search capability with subject indexes.  Since each subject link contains the wording in the original text that was used to link to a subject, that wording can be used to seed a text search.  This allows an editor to double-check pages in a collection to see if any references to a subject have been missed.</p>
+<p>For example, <a href="http://beta.fromthepage.com/article/show?article_id=7349&amp;ol=blog">Evelyn Brumfield</a> is a grandchild who is mentioned fairly often in Julia's diaries.  Julia spells her name variously as "Evylin", "Evelyn", and "Evylin Brumfield".  So a link from the article page <a href="http://beta.fromthepage.com/display/search?article_id=7349&amp;ol=blog">performs a full text search</a> for <span style="font-style: italic;">"Evylin Brumfield" OR Evelyn OR Evylin</span>.</p>
+<p>While this is interesting, it doesn't directly address the editors need to find references they might have missed.  Since we're able to see all the fulltext matches for Evelyn Brumfield, since we can see <a href="http://beta.fromthepage.com/display/read_all_works?article_id=7349&amp;ol=blog">all pages that link to the Evelyn Brumfield subject</a>, why not subtract the second set from the first?  An additional link on the subject page searches for precisely this set: all references to <span style="font-style: italic;">Evelyn Brumfield</span> within the text that are not on pages linked to the Evelyn Brumfield subject.</p>
+<p>At the writing of this blog post, the <a href="http://beta.fromthepage.com/display/search?article_id=7349&amp;unlinked_only=true&amp;ol=blog">results of such a search</a> are pretty interesting.  The first two pages in the results matched the first name in "Evylin Edmons", in pages that are already linked to <span style="font-style: italic;">Evelyn Edmonds</span> subject.  Matched pages 4-7 appear to be references to Evelyn Brumfield in pages that have not been annotated at all.  But we hit pay dirt with page number 3: it's a page that was transcribed and annotated very early during the transcription project, containing reference to Evelyn Brumfield that should be linked to that subject but is not.</p>
+<p><span style="font-weight: bold;">Questions</span></p>
+<p>I originally intended to add links to search for each individual phrase linked to a subject.  However, I'm still not sure this would be useful -- what value would separate, pre-populated searches for "Evelyn", "Evylin", and "Evylin Brumfield" add?</p>
+<p>A more serious question is what exactly I should be searching on.  I adopted a simple approach of searching the annotated XML text for each page.  However, this means that subject name expansions will match a search, even if the words don't appear in the text.  A search for "Brumfield" will return pages in which Julia never wrote Brumfield, merely because they link to "John", which is expanded to "John Brumfield".  This is not a literal text search, and might astonish users.  On the other hand, would a user searching for "Evelyn" expect to see the <span style="font-style: italic;">Evelyns</span> in the text, even though they had been spelled "Evylin"?</p>

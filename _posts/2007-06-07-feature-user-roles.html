@@ -1,0 +1,48 @@
+---
+layout: post
+title: 'Feature: User Roles'
+date: 2007-06-07 02:01:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- progress
+- requirements
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/06/feaure-user-roles.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5960322794275217583"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-user-roles/"
+---
+<p>I've moved into what is probably the least glamorous phase of development: security, permissions, and user management.</p>
+<p>There are four (or five) different roles in FromThePage, with some areas of ambiguity regarding what those users are allowed to do.</p>
+<ul>
+<li><span style="font-weight: bold;">Admins</span> are the rulers of a software installation.  There are only a few of them per site, and in a hosted environment, they hold the keys to the site.  Admins may manage anything in the system, period.</li>
+<li><span style="font-weight: bold;">Owners</span> are the people who upload the manuscript images and pay the bills.  They have entered into some sort of contractual relationship with the hosting provider, and have the power to create new works, modify manuscript page images, and authorize users to help transcribe works.  In theory, they'll be responsible for supporting the scribes working on their works.</li>
+<li><span style="font-weight: bold;">Scribes</span> may modify transcriptions of works they're authorized to transcribe.  They may create articles and any other content for those works.  They are the core users of FromThePage, and will spend the most time using the software.  If the scribes aren't happy, <span style="font-style: italic;">ain't nobody happy.</span></li>
+<li><span style="font-weight: bold;">Viewers</span> are registered users of the site.  They can see any transcription, navigate any index, and print any work.</li>
+<li><span style="font-weight: bold;">Non-users</span> are people viewing the site who are not signed in to an account.  They probably have the same permissions as viewers, but they will under no circumstances be allowed to create any content.  I've had enough experience dealing with blog comments to know that the minute you allow non-<a href="http://en.wikipedia.org/wiki/Captcha"><span>CAPTCHA</span></a>-authorized user-created content, you become prey to comment <span>spammers</span> who will festoon your website with ads for snake oil, pornography, and fraudulent mortgage refinance offers.  <span style="font-style: italic;">[June 8 Update: Within thirty-six hours of publication, this very post was hit by a comment spammer peddling shady loans, who apparently was able to get through Blogger's CAPTCHA system.]</span></li>
+</ul>
+<p>There are two open questions regarding the permissions granted to these different classes of user:</p>
+<ol>
+<li><span style="font-weight: bold;">Should viewers see manuscript images?</span>  Serving images will probably consume more bandwidth than all other uses combined.  For manuscripts containing <a href="http://manuscripttranscription.blogspot.com/2007/06/feature-sensitive-tags.html">sensitive information</a>, image service is an obvious security breach.  The only people who really <span style="font-style: italic;">need</span> images (aside from those who find <code>unclear</code> tags with links to cropped images insufficient) are scribes.</li>
+<li><span style="font-weight: bold;">Should viewers add comments?</span>  For the reasons outlined above, I think the answer is <span style="font-style: italic;">yes</span>, at least until it's abused enough for me to turn off the capability.</li>
+</ol>
+<p>For those who have never programmed enterprise software before, the reason security gets such short shrift is that fundamentally it's about turning off functionality.  Before you get to the security phase of development, you have to have already developed the functionality you're disabling.  By definition, it's an afterthought.</p>

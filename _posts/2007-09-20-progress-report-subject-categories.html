@@ -1,0 +1,46 @@
+---
+layout: post
+title: 'Progress Report: Subject Categories'
+date: 2007-09-20 02:31:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- subject links
+tags:
+- features
+- history
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/09/progress-report-subject-categories.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/471642370015897243"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-subject-categories/"
+---
+<p>It's been several days since I updated this blog, but that doesn't mean I've been sitting idle.</p>
+<p>I finished a basic implementation of subject categories a couple of weeks ago. I decided to go with hierarchical categories, as is pretty typical for web content. Furthermore, the N:N categorization scheme I <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-subject-indexes.html">described back in April</a> turned out to be surprisingly simple to implement. There are currently three different ways to deal with categories:</p>
+<ol>
+<li><a href="http://manuscripttranscription.blogspot.com/2007/06/feaure-user-roles.html">Owners</a> may add, rename, and delete categories within a collection.</li>
+<li>Scribes associate or disassociate subjects with a category. The obvious place to put this was on the subject article edit screen, but a few minutes of scribal use demonstrated that this would lead to lots of uncategorized articles. Since transcription projects that don't care about subject indexing aren't likely to use the indexes anyway, I added a data-cleanup step to the transcription screen. Now, whenever a page contains a new, uncategorized subject reference, I display a separate screen when the transcription is saved. This screen shows all the uncategorized subjects for that page, allowing the scribe to categorize any subjects they've created.</li>
+<li>Viewers see a category treeview on the collection landing page as well as on the work reader. Clicking a category lists subjects for that category, and clicking the subject link lists links to navigate to the pages referring to that subject.</li>
+</ol>
+<p>The viewer treeview presents the most opportunities, thus the most difficulties from a UI perspective. Should a subject link load the <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">subject article</a> instead of the page list? Should it refer to a reader view of pages including that subject? When viewing a screen with only a few pages from one work, should the category tree only display terms used on that screen, or on the work, or on all works from the collection the work is a part of? I'm really not sure what the answer is. For the moment, I'm trying to achieve consistency at the cost of flexibility: the viewer will always see the same treeview for all pages within a collection, regardless of context.</p>
+<p>Future ideas include:</p>
+<ul>
+<li>Category filtering for <a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html">subject graphs</a> -- this would really allow analysis of questions like "what was the weather when people held dances?" without the need to wade through a cluttered graph.</li>
+<li>Viewing the text of all pages that contain a certain category on the same page, with highlighting of the term within that category.</li>
+</ul>

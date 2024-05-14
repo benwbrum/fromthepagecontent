@@ -1,0 +1,35 @@
+---
+layout: post
+title: 'Progress Report: De-duping catastrophe and a host change'
+date: 2008-05-18 01:50:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/05/progress-report-de-duping-catastrophe.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/7398376151288819396"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-de-duping-catastrophe-and-a-host-change/"
+---
+<p>After a very difficult ten days of coding, I'm almost where I was at the beginning of May.  The story:</p>
+<p>Early in the month, I got a <a href="http://manuscripttranscription.blogspot.com/2008/04/feature-data-maintainance-tools.html">duplicate identifier</a> feature coded.  The <span>UI</span> was based on <span>LibraryThing's</span>, which is the best <span>de</span>-duping interface I've ever seen.  Mine still falls short, but it's able to pair "<span>Ren</span> <span>Worsham</span>" up with "Wren <span>Worsham</span>", so it'll probably do for now.  With that completed, I built a tool to combine subjects: if you see a possible duplicate of the subject you're viewing, you click combine, and it updates all textual references to the duplicate to point to the main article, then deletes the duplicate.  Pretty simple, right?</p>
+<p>Enter <span>DreamHost's</span> process killer.  Now I love <span>DreamHost</span>, and I want to love them more, but I really don't think their cheap shared hosting plan is appropriate for a computationally intensive web-app.  In order to insulate users from other, potentially clueless users, they have a daemon that monitors running processes and kills off any that look "bad".  I'm not sure what criteria constitute "bad", but I should have realized the heuristic might be over-aggressive when I wasn't able to run basic database migrations without running afoul of it.  Nevertheless, it didn't seem to be causing anything beyond the occasional "Rails Application failed to start" message that could be solved with a browser reload.</p>
+<p>However.  Killing a <span>de</span>-duping process in the middle of reference updates is altogether different from killing a relatedness graph display.  Unfortunately, I wasn't quite aware of the problem before I'd tried to <span>de</span>-<span>dup</span> several records, sometimes multiple times.  My app assumes its data will be internally consistent, so my attempts to clean up the carnage resulted in hundreds more duplicates being created.</p>
+<p>So I've moved <span>FromThePage</span> from <span>DreamHost</span> to <span>HostingRails</span>, which I completed this morning.  There remains a lot of back-end work to clean up the data, but I'm pretty sure I'll get there before <span>THATCamp</span>.</p>

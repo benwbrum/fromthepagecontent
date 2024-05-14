@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Review: IATH Manuscript Transcription Database'
+date: 2008-04-05 03:51:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- similar projects
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/04/review-iath-manuscript-transcription.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/462876961080935621"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/review-iath-manuscript-transcription-database/"
+---
+<p>This is the second of two reviews of similar transcription projects I wrote in correspondence with <a style="font-style: italic;" href="http://brianveniceb07.blogspot.com/">Brian Cafferelli</a>, an undergraduate working on the WPI Manuscript Transcription Assistant. In this correspondence, I reviewed systems by their support for collaboration, automation, and analysis.</p>
+<p>The IATH Manuscript Transcription Database was a system for producing transcriptions developed for the Salem Witch Trials court records.  It allowed full collaboration within an institutional setting.  An administrator assigned transcription work to a transcriber, who then pulled that work from the queue and edited and submitted a transcription.  Presumably there was some sort of review performed by the admin, or a proofreading step done by comparison with another user's transcription.  Near as I can tell from the manual, no dual-screen transcription editor was provided.  Rather, transcription files were edited outside the system, and passed back and forth using MTD.</p>
+<p>I'm a bit hazy on all this because after reviewing the docs and downloading the source code, I sent an inquiry to IATH about the legal status of the code.  It turns out that while the author intended to release the system to the public, this was never formally done.  The copyright status of the code is murky, and I view it as tainted IP for my purpose of producing a similar product.  I'm afraid I deleted the files from my own system, unread.</p>
+<p>For those interested in reading more, here is the announcement of the MTD<br />
+<a href="http://www3.iath.virginia.edu/lists_archive/Humanist/v15/0550.html" target="_blank" rel="noopener">on the Humanist list</a>.<br />
+The full manual, possibly with archived source code is <a href="http://web.archive.org/web/*/http://www.iath.virginia.edu/mss/MTD.html">accessible via the wayback machine</a>.  They've pulled this from the IATH site, presumably because of the IP problems.</p>
+<p>So the MTD was another pure-production system.  Automation and collaboration were fully supported, though the collaboration was designed for a purely institutional setting.  Systems of assignment and review are inappropriate for a volunteer-driven system like my own.</p>
+<p>My correspondent at IATH did pass along a piece of advice from someone who had worked on the project: "Use CVS instead".  What I gather they meant by this was that the system for passing files between distributed transcribers, collating those files, and recording edits is a task that source code repositories already perform very well.  This does nothing to replace transcription production tools akin to mine or the TEI editors, but the whole system of editorial oversight and coordination provided by the MTD is a subset of what a source code repository can do.  A combination of Subversion and Trac would be a fantastic way to organize a distributed transcription effort, absent a pure-hosted tool.</p>
+<p>This post contains a lot more speculation and supposition than usual, and I apologize in advance to my readers and the IATH for anything I've gotten wrong.  If anyone associated with the MTD project would like to set me straight, please comment or send me email.</p>

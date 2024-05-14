@@ -1,0 +1,159 @@
+---
+layout: post
+title: Detecting Handwriting in OCR Text
+date: 2013-02-25 14:56:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- hackathon
+tags:
+- ocr
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2013/02/detecting-handwriting-in-ocr-text.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/5602784745298633630"
+  _thumbnail_id: '364'
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '6'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/detecting-handwriting-in-ocr-text/"
+---
+<p><i>This is my fourth and final post about the iDigBio Augmenting OCR Hackathon.&nbsp; Prior posts covered the <a href="http://fromthepage.wpengine.com/idigbio-augmenting-ocr-hackathon/">hackathon itself,</a> my <a href="http://fromthepage.wpengine.com/improving-ocr-inputs-from-ocr-outputs/">presentation</a> on preliminary results, and my results <a href="http://fromthepage.wpengine.com/results-of-the-ocrocrop-approach-to-improving-ocr/">improving the OCR</a> on entomology specimens.&nbsp; The other participants are&nbsp; slowly adding their results to the <a href="https://www.idigbio.org/wiki/index.php/2013_AOCR_Hackathon_Wiki">hackathon wiki</a>, which I recommend checking back with (their efforts were much more impressive than mine).</i></p>
+<table align="center" cellpadding="0" cellspacing="0" style="margin-left: auto; margin-right: auto; text-align: center;">
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="http://1.bp.blogspot.com/-1qHq0VPzwCM/USrM-Xx0lZI/AAAAAAAAAnM/5EUF9ohld84/s1600/TENN-L-0003111_lg.jpg" style="margin-left: auto; margin-right: auto;"><img border="0" height="245" src="{{ site.baseurl }}/assets/2013/02/TENN-L-0003111_lg.jpg" width="320" /></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">Clearly handwritten: <i>T</i>=8, <i>N</i>=78% from <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/abby/TENN-L-0003111_lg.txt">terse</a> and <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/tesseract/TENN-L-0003111_lg.txt">noisy</a> OCR files</td>
+</tr>
+</tbody>
+</table>
+<p>Let's say you have scanned a large number of cards and want to convert them from pixels into data.&nbsp; The cards--which may be bibliography cards, crime reports, or (in this case) labels for lichen specimens--have these important attributes:</p>
+<ol>
+<li>They contain structured data (e.g. title of book, author, call number, etc. for bibliographies) you want to extract, and</li>
+<li>They were part of a living database built over decades, so some cards are printed, some typewritten, some handwritten, and some with a mix of handwriting and type.</li>
+</ol>
+<p>The structured aspect of the data makes it quite easy to build a web form that asks humans to transcribe what they see on the card images.&nbsp; It also allows for sophisticated techniques for parsing and cleaning OCR (which was the point of the hackathon).&nbsp; The actual keying-in of the images is time consuming and expensive, however, so you don't want to waste human effort on cards which could be processed via OCR.</p>
+<p>Since OCR doesn't work on handwriting, how do you know which images to route to the humans and which to process algorithmically?&nbsp; It's simple: any images that contain handwriting should go to the humans.&nbsp; Detecting the handwriting on the images is unfortunately not so simple.</p>
+<p>I adopted a quick-and-dirty approach for the hackathon: if OCR of handwriting produces gibberish, why send all the images through a simple pass of OCR and look in the resulting text files for representative gibberish?&nbsp; In my preliminary work, I pulled 1% of our sample dataset (<a href="https://github.com/idigbio-aocr/HandwritingDetection/tree/master/lichen">all cards ending with "11"</a>) and classified them three ways:</p>
+<ol>
+<li>Visual inspection of the text files produced by an ABBY OCR engine,</li>
+<li>Visual inspection of the text files produced by the Tesseract OCR engine, and</li>
+<li>Looking at the actual images themselves.</li>
+</ol>
+<p><a href="http://1.bp.blogspot.com/-MMlIWVCarlw/URz8wMLVhkI/AAAAAAAAAjM/NbLMu9ktnYQ/s1600/HackathonPresentation+-+05.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="297" src="{{ site.baseurl }}/assets/2013/02/HackathonPresentation+-+05.jpg" width="400" /></a><br />
+To my surprise, I was only able to correctly classify cards from OCR output 80% of the time -- a disappointing finding, since any program I produced to identify handwriting from OCR output could only be less accurate.&nbsp; More interesting was the difference between the kinds of files that ABBY and Tesseract produced.&nbsp; Tesseract produced a lot more gibberish in general--including on card images that were entirely printed.&nbsp; ABBY, on the other hand, scrubbed a lot of gibberish out of its results, including that which might be produced when it encountered handwriting.</p>
+<p>This suggested an approach: look at both the "terse" results from ABBY and the "noisy" results from Tesseract to see if I could improve my classification rate.</p>
+<table align="center" cellpadding="0" cellspacing="0" style="margin-left: auto; margin-right: auto; text-align: center;">
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="http://2.bp.blogspot.com/-Vet6NACqe1A/USrOrGz2JRI/AAAAAAAAAn4/dMKl3jqCrAw/s1600/NY01075911_lg.jpg" style="margin-left: auto; margin-right: auto;"><img border="0" height="225" src="{{ site.baseurl }}/assets/2013/02/NY01075911_lg.jpg" width="320" /></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">Easily classified as type-only, despite (non-characteristic) gibberish: <i>T</i>=0,<i>N</i>=0 from <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/abby/NY01075911_lg.txt">terse</a> and <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/tesseract/NY01075911_lg.txt">noisy</a> OCR files.</td>
+</tr>
+</tbody>
+</table>
+<p>But what does it mean to "look" at a file?&nbsp; I wrote a program to loop through each line of an OCR file and check for the kind of gibberish characteristic of OCR and handwriting.&nbsp; Inspecting the files reveals some common gibberish patterns, which we can sum up as regular expressions:<br />
+<code></code></p>
+<pre><code>GARBAGE_REGEXEN = {
+  'Four Dots' =&gt; /..../,
+  'Five Non-Alphanumerics' =</code><code><code>&gt;</code> /WWWWW/,
+  'Isolated Euro Sign' =</code><code><code>&gt;</code> /S€D/,
+  'Double "Low-Nine" Quotes' =</code><code><code>&gt;</code> /„/,
+  'Anomalous Pound Sign' =</code><code><code>&gt;</code> /£D/,
+  'Caret' =</code><code><code>&gt;</code> /^/,
+  'Guillemets' =</code><code><code>&gt;</code> /[«»]/,
+  'Double Slashes and Pipes' =</code><code><code>&gt;</code> /(\/)|(/\)|([/\]|||[/\])/,
+  'Bizarre Capitalization' =</code><code><code>&gt;</code> /([A-Z][A-Z][a-z][a-z])|([a-z][a-z][A-Z][A-Z])|([A-LN-Z][a-z][A-Z])/,
+  'Mixed Alphanumerics' =</code><code><code>&gt;</code> /(w[^sw.-]w).*(w[^sw]w)/
+}</code></pre>
+<p>However, some of these expressions match non-handwriting features like geographic coordinates or bar codes.&nbsp; Handling these requires a white list of regular expressions for gibberish we know not to be handwriting:<br />
+<code></code></p>
+<pre><code>WHITELIST_REGEXEN = {
+  'Four Caps' =&gt;</code><code><code></code> /[A-Z]{4,}/,
+  'Date' =</code><code><code>&gt;</code> /Date/,
+  'Likely year' =&gt;</code><code> /1[98]dd|2[01]dd/,
+  'N.S.F.' =</code><code><code>&gt;</code> /N.S.F.|Fund/,
+  'Lat Lon' =</code><code><code>&gt;</code> /Lat|Lon/,
+  'Old style Coordinates' =&gt;</code><code><code></code> /dd°s?dd['’]s?[NW]/,
+  'Old style Minutes' =</code><code><code>&gt;</code> /dd['’]s?[NW]/,
+  'Decimal Coordinates' =</code><code><code>&gt;</code> /dd°s?[NW]/,  
+  'Distances' =</code><code><code>&gt;</code> /d?d(.d+)?s?[mkf]/,  
+  'Caret within heading' =</code><code><code>&gt;</code> /[NEWS]^s/,
+  'Likely Barcode' =&gt;</code><code><code></code> /[l1|]{5,}/,
+  'Blank Line' =</code><code><code>&gt;</code> /^s+$/,
+  'Guillemets as bad E' =&gt;</code><code><code></code> /d«t|pav«aont/  
+}</code></pre>
+<p>With these on hand, we can calculate a score for each file based on the number of occurrences of gibberish we find per line.&nbsp; That score can then be compared against a threshold to determine whether a file contains handwriting.  Due to the noisiness of the Tesseract files, I found it most useful to calculate their score <i>N</i> as a percentage of non-blank lines, while the score for the terse files <i>T</i> worked best as a simple count of gibberish matches.</p>
+<table border="1">
+<thead>
+<tr>
+<th>Threshold</th>
+<th>Correct</th>
+<th>False<br />
+Positives</th>
+<th>False<br />
+Negatives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><i>T</i> &gt; 1 and <i>N</i> &gt;  20%</td>
+<td>82%</td>
+<td><b>10</b> of 45</td>
+<td><b>8</b> of 60</td>
+</tr>
+<tr>
+<td><i>T</i> &gt; 0 and <i>N</i> &gt;  20%</td>
+<td>84%</td>
+<td><b>13</b> of 45</td>
+<td><b>4</b> of 60</td>
+</tr>
+<tr>
+<td><i>T</i> &gt; 1</td>
+<td>79%</td>
+<td><b>10 of</b> 45</td>
+<td><b>12</b> of 60</td>
+</tr>
+<tr>
+<td><i>N</i> &gt; 20%</td>
+<td>75%</td>
+<td><b>8</b> of 45</td>
+<td><b>18</b> of 60</td>
+</tr>
+<tr>
+<td><i>N</i> &gt; 10%</td>
+<td>81%</td>
+<td><b>14</b> of 45</td>
+<td><b>6</b> of 60</td>
+</tr>
+</tbody>
+</table>
+<p>One interesting thing about this approach is that adjusting the thresholds lets us tune the classifications for resources and desired quality.  If our humans doing data entry are particularly expensive or impatient, raising the thresholds should ensure that they are only very rarely sent typed text.  On the other hand, lowering the thresholds would increase the human workload while improving quality of the resulting text.</p>
+<table align="center" cellpadding="0" cellspacing="0" style="margin-left: auto; margin-right: auto; text-align: center;">
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="http://3.bp.blogspot.com/-P5kdZQYOu9M/USrLNz2f3rI/AAAAAAAAAnA/oQbB_eHyXOk/s1600/WIS-L-0013011_lg.jpg" style="margin-left: auto; margin-right: auto;"><img border="0" height="213" src="{{ site.baseurl }}/assets/2013/02/WIS-L-0013011_lg.jpg" width="320" /></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">One of the&nbsp; false negatives: <i>T</i>=0, <i>N</i>=10% from parsing <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/abby/WIS-L-0013011_lg.txt">terse</a> and <a href="https://github.com/idigbio-aocr/HandwritingDetection/blob/master/lichen/tesseract/WIS-L-0013011_lg.txt">noisy</a> text files.</td>
+</tr>
+</tbody>
+</table>
+<p>I'm really pleased with this result.&nbsp; The combined classifications are slightly better than I was able to accomplish by looking at the OCR myself.&nbsp; The experience of a volunteer presented with 56 images containing handwriting and 13 which don't may necessitate a "send to OCR" button in the user interface, but must be less frustrating than the unclassified ratio of 45 in 105 from the sample set.&nbsp; With a different distribution of handwriting-to-type in the dataset, the process might be very useful for extracting rare typed material from a mostly-handwritten set, or vice versa.</p>
+<p>All of the datasets, code, and scored CSV files are in iDigBio AOCR Hackathon's<a href="https://github.com/idigbio-aocr/HandwritingDetection"> HandwritingDetection reposity</a> on GitHub..</p>

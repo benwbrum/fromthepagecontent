@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Feature: TEI-XML Export'
+date: 2013-10-25 14:51:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FromThePage
+- tei
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2013/10/feature-tei-xml-export.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/3177928836138603053"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-tei-xml-export/"
+---
+<p><i>How do you get the data out?</i></p>
+<p>This is a question I hear pretty often, particularly from professional archivists.&nbsp; If an institution and its users have put the effort into creating digital editions on FromThePage, how can they pull the transcripts out of FromThePage to back it up, repurpose it, or import it into other systems?</p>
+<p>This spring, I created an XHTML exporter that will generate a single-page XHTML file containing transcripts of a work's pages, their version history, all articles written about subjects within the work, and internally-linked indices between subjects and pages.&nbsp; Inspired by conversations at the TEI and SDSE conferences and informed by my TEI work for a client project, I decided to explore a more detailed export in TEI.</p>
+<p>This is the result, posted on github for discussion:</p>
+<blockquote><p><a href="https://gist.github.com/benwbrum/6933615">https://gist.github.com/benwbrum/6933615</a><br />
+Zenas  Matthews' Mexican War Diary was scanned and posted by Southwestern  University's Smith Library Special Collections.&nbsp; It was transcribed,  indexed, and annotated by Scott Patrick, a retired petroleum worker from  Houston.</p>
+<p><a href="https://gist.github.com/benwbrum/6933603">https://gist.github.com/benwbrum/6933603</a><br />
+Julia  Brumfield's 1919 Diary was scanned and posted by me, transcribed  largely by volunteer Linda Tucker, and indexed and annotated by me.</p></blockquote>
+<p>I requested comment on the TEI mailing list (see the thread <a href="http://listserv.brown.edu/archives/cgi-bin/wa?A1=ind1310&amp;L=TEI-L#12">"Draft TEI Export from FromThePage"</a>), and got a lot of really helpful, generous feedback both on- and off-list.&nbsp; It's obvious that I've got more work to do for certain kinds of texts--which will probably involve creating a section header notation in my wiki mark-up--but I'm pretty pleased with the results.</p>
+<p>One of the most exciting possibilities of TEI export is interoperability with other systems.&nbsp; I'd been interested in pushing FromThePage editions to <a href="http://www.tapasproject.org/">TAPAS</a>, but after I posted the TEI-L announcement, Peter Robinson pulled some of the exports into <a href="http://www.textualcommunities.usask.ca/">Textual Communities</a>.&nbsp; We're exploring a way to connect the two systems, which might give editors the opportunity to do the sophisticated TEI editing and textual scholarship supported by Textual Communities starting from the simple UI and powerful indexing of FromThePage. &nbsp; I can imagine an ecosystem of tools good at OCR correction, genetic mark-up, display and analysis of correspondence, amateur-accessible UIs, or preservation -- all focusing on their strengths and communicating via TEI-XML.</p>
+<p>I'm interested in more suggestions for ways to improve the exports, new things to do with TEI, or systems to explore integration options before I deploy the export feature on production.&nbsp;</p>

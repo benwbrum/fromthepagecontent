@@ -1,0 +1,46 @@
+---
+layout: post
+title: 'Feature: Comments (Part 2: What is commentable?)'
+date: 2007-09-12 03:02:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/09/feature-comments-part-2-what-is.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2590523239114484918"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-comments-part-2-what-is-commentable/"
+---
+<p>Now that I've settled on the <a href="http://manuscripttranscription.blogspot.com/2007/09/feature-comments-part-1-what-are-they.html">types of comments to support</a>, where do they appear?  What is commentable?</p>
+<p>I've given a lot of thought to this lately, and have had more than one really good conversation about it.  In a <a href="https://www.blogger.com/comment.g?blogID=5730930067468816440&amp;postID=864719887898006106">comment</a> to an earlier post, <a href="http://www.wikispaces.com/user/view/kathleenburns">Kathleen Burns</a> recommended I investigate <a href="http://www.futureofthebook.org/commentpress/examples/">CommentPress</a>, which supports annotation on a paragraph-by-paragraph level with a spiffy UI.  At the <a href="http://www.lonestarrubyconf.com/">Lone Star Ruby Con</a> this weekend, <a href="http://blog.gregoryfoster.name/">Gregory Foster</a> pointed out the limitations of XML for delimiting commentable spans of text if those spans overlap.  As one door opens, another one closes.</p>
+<p>What kinds of things can comments (as broadly defined below) be applied to?  Here's my list of possiblities, with the really exciting stuff at the end:</p>
+<ol>
+<li><span style="font-weight: bold;">Users</span>: See comments on <a href="http://www.librarything.com/profile/fulgentius">user profile pages</a> at LibraryThing.</li>
+<li><span style="font-weight: bold;">Articles</span>: See annotations to <a href="http://www.pepysdiary.com/p/1042.php">article pages</a> at Pepys' Diary.</li>
+<li><span style="font-weight: bold;">Collections</span>: Since these serve as the main landing page for sites on FromThePage, it makes sense to have a top-level discussion (albeit hidden on a separate tab).</li>
+<li><span style="font-weight: bold;">Works</span>: For large works, such as the Julia Brumfield diaries, discussions of the work itself might be appropriate.  For smaller works like letters, annotating the "work" might make more sense than annotating individual pages.</li>
+<li><span style="font-weight: bold;">Pages</span>: This was the level I originally envisioned for comment support.  I still think it's the highest priority, based on the value comments add to Pepys' Diary, but am no longer sure it's the smallest level of granularity worth supporting.</li>
+<li><span style="font-weight: bold;">Image "chunks"</span>:  Flickr has some kind of spiffy JavaScript/DHTML goodness that allows users to select a rectangle within an image and post comments on that.  I imagine that would be incredibly useful for my purposes, especially when it comes to arguing about the proper reading of a word.</li>
+<li><span style="font-weight: bold;">Paragraphs within a transcription</span>: This is what CommentPress does, and it's a really neat idea.  They've got an especially cool UI for it.  But why stop at paragraphs?</li>
+<li><span style="font-weight: bold;">Lines within a transcription</span>: If it works for paragraphs, why not lines?  Well, honestly you get into problems with that.  Perhaps the best way to handle this is to have comments reference a line element within the transcription XML.  Unfortunately, this means that you have to use LINE tags to be able to locate the line.  Once you've done that, other tags (like my subject links) can't span linebreaks.</li>
+<li><span style="font-weight: bold;">Spans of text within a transcription</span>: Again, the nature of XML disallows overlapping elements.  As a result, in the text "one two three", it would be impossible to add a comment to "one two" and a different comment to "two three".</li>
+<li><span style="font-weight: bold;">Points within a transcription</span>: This turns out to be really easy, since you can use an empty XML tag to anchor the comment.  This won't break the XML heirarchy, and you might be able to add an "endpoint" or "startpoint" attribute to the tag that (when parsed by the displaying JavaScript) would act like 8 or 9.</li>
+</ol>

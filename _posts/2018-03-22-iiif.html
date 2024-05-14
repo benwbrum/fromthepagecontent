@@ -1,0 +1,37 @@
+---
+layout: post
+title: New IIIF Support in FromThePage
+date: 2018-03-22 11:09:32.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  _edit_last: '10'
+  _wp_old_slug: 648-2
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/iiif/"
+---
+<p>The latest version of the FromThePage crowdsourcing platform includes major enhancements to its IIIF support. The full documentation is available at <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations">FromThePage Support for the IIIF Presentation API and Web Annotations</a>, but here are some highlights:</p>
+<h3>Collection Import</h3>
+<p>Launching a large crowdsourcing project from a IIIF-compliant digital library system is now easier and more consistent through the collection import.&nbsp; Project owners can enter the URI of a IIIF collection manifest and import the entire collection or selections from it in bulk.&nbsp; This reduces labor, but also minimizes the possibility for omission and duplication during the import process.</p>
+<h3><a id="user-content-linking-properties" class="anchor" href="https://gist.github.com/benwbrum/e39803b9a375a0bdf4aad350a85fad7d#linking-properties" aria-hidden="true"></a>Linking Properties</h3>
+<p>We've used the IIIF manifests produced by FromThePage as the main integration point for digital library systems. To that end, integration endpoints are exposed using linking properties on the IIIF manifests produced for any object made public on FromThePage.</p>
+<p>Links to human-readable application pages to transcribe pages, translate pages, read documents or access document tables of contents are exposed via <code>related</code> elements on <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#related-1">canvases</a> and <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#related">manifests</a>. Human-readable transcripts and translations of an entire document in verbatim plaintext, HTML, and TEI-XML appear as <code>rendering</code> elements for a <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#sequence-level-rendering">sequence</a>. Machine-readable exports of text in various plaintext formats for full-text search, analyisis, or editing as well as CSV exports of tagged subjects are presented as <code>seeAlso</code> elements for the <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#seealso">manifest</a> and corresponding <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#seealso-1">canvas</a>.</p>
+<h3><a id="user-content-contributions-api" class="anchor" href="https://gist.github.com/benwbrum/e39803b9a375a0bdf4aad350a85fad7d#contributions-api" aria-hidden="true"></a>Contributions API</h3>
+<p>Exposing transcripts, corrected OCR, translations, and notes via properties on derivative manifests allow content providers (or anyone else) to access crowdsourced contributions, but how do they find out what contributions have been made or what materials of theirs have been imported into the platform? While discovery of enhancements made to IIIF content has been under long and productive discussion by the community, integration of crowdsourced contributions into content provders' digital library systems presents a pressing and particular use case. To that end, we have added a simple <code>contributions</code> API to FromThePage.</p>
+<p>The <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#iiifcontributions-user-contribution-api">user contributions API</a> allows a content provider to pass the domain name that appears in their manifests and optional start-date and end-date parameters to a FromThePage server and receive a IIIF collection containing links to derivative manifests for all projects created from the provider's manifests. For ease of integration, each manifest link contains a <code>metadata</code> block with a single <code>dc:source</code> element containing the orginal manifest IRI, as well as a contribution status service.</p>
+<h3><a id="user-content-status-service" class="anchor" href="https://gist.github.com/benwbrum/e39803b9a375a0bdf4aad350a85fad7d#status-service" aria-hidden="true"></a>Status Service</h3>
+<p>When is a transcription or translation "done"? We've found that the answer varies from institution to institution, from project to project, and sometimes from work to work. We've tried to satsify the needs of disparate projects by creating a fine-grained status service at the <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#service">work/manifest level</a> and <a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#service-1">page/canvas level</a>. At the manifest level, the service exposes the percentage of the work which as been transcribed, OCR-corrected, translated, indexed, marked as needing review or marked as blank. (A <code>pctCompleted</code> element rolls up the most common use cases into a single number.) At the canvas level, flags represent whether a page has a translation, a transcription, subject tags, or has been marked as blank or needing review.</p>

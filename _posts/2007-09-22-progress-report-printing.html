@@ -1,0 +1,60 @@
+---
+layout: post
+title: 'Progress Report: Printing'
+date: 2007-09-22 03:35:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- progress
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/09/progress-report-printing.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/623138142685098875"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/progress-report-printing/"
+---
+<p>I just spent about two weeks doing what's known in software engineering as a "spike investigation."  This is somewhat unusual, so it's worth explaining:</p>
+<p>Say you have a feature you'd like to implement.  It's not absolutely essential, but it would rank high in the priority queue if its cost were reasonably low.  A spike investigation is the commitment of a little effort to clarify requirements, explore technology choices, create proof-of-concept implementations, and (most importantly) estimate costs for implementing that feature.  From a developer's perspective you say "Pretend we're really doing <span style="font-style: italic;">X</span>.  Let's spend <span style="font-style: italic;">Y days</span> to figure out how to do it, and how long <span style="font-style: italic;">that</span> would take."  Unlike other software projects, the goal is not a product, but 1) <span style="font-weight: bold;">a plan</span> and 2) <span style="font-weight: bold;">a cost</span>.</p>
+<p><span style="font-weight: bold;">The Feature:</span> <span style="font-style: italic;">PDF-download</span><br />
+According to the professionals, digitization projects are either oriented towards preservation (in which case the real-life copy may in theory be discarded after the project is done, but a website is merely a pleasant side-effect) or towards access (in which distribution takes primacy, and preservation concerns are an afterthought). FromThePage should enable digitization for access — after all, the point is to share all those primary sources locked away in somebody's file cabinet, like Julia Brumfield's diaries.  Printed copies are a part of that access: when much of the audience is elderly, rural, or both, printouts really are the best vehicle for distribution.</p>
+<p><span style="font-weight: bold;">The Plan:</span> <span style="font-style: italic;">Generate a DocBook file, then convert it to PDF</span><br />
+While considering some PDF libraries for Ruby,  I was fortunate enough to hear <a href="http://blog.grayproductions.net/">James Edward Gray II</a> speak on "Ruby as a Glue Language".  In one section called "shelling out", he talked about a requirement to produce a PDF when he was already rendering HTML.  He investigated PDF libraries, but ended up piping his HTML through <code>`html2ps | ps2pdf`</code> and spending a day on the feature instead of several weeks.  This got me looking outside the world of PDF-modifying Ruby gems and Rails plugins, at other documenting scripting languages.  It makes a lot of sense — after all, I'm not hooking directly to the Graphviz engine for <a href="http://manuscripttranscription.blogspot.com/2007/07/feature-subect-graphs.html">subject graphs</a>, but generating <code>.dot</code> files and running <code>neato</code> on them.</p>
+<p>I started by looking at typesetting languages like <code>LaTeX</code>, then stumbled upon <a href="http://www.docbook.org/">DocBook</a>.  It's an SGML/XML-based formatting language which only specifies a logical structure.  You divide your .docbook file into chapters, sections, paragraphs, and footnotes, then DocBook performs layout, applies typesetting styles, and generates a PDF file.  Using the Rails templating system for this is a snap.</p>
+<p><span style="font-weight: bold;">The Result:</span><br />
+See for yourself: <a href="http://www.mrdata.com/~benwbrum/finished/w6v63d20070923t130248.pdf">This is a PDF generated from my development data.</a>  (Please ignore the scribbling.)</p>
+<p><span style="font-weight: bold;">The Gaps:</span></p>
+<ul>
+<li><span style="font-style: italic;">Logical Gaps:</span>
+<ul>
+<li>The author name is hard-wired into the template.  DocBook expects names of authors and editors to be marked up with elements like surname, firstname, othername, and heritage.  I assume that this is for bibliographic support, but it means I'll have to write some name-parsing routine that converts "Julia Ann Craddock Brumfield" into "<code>&lt;firstname&gt; Julia &lt;/firstname&gt; &lt;othername type="middle"&gt; Ann &lt;/othername&gt; &lt;othername type="maiden"&gt; Craddock &lt;/othername&gt; &lt;surname&gt; Brumfield &lt;/surname&gt;</code>".</li>
+<li>There is a single chapter called "Entries" for an entire diary.  It would be really nice to split those pages out into chapters based on the month name in the page title.</li>
+<li>Page ranges in the index aren't marked appropriately.  You see "6,7,8" instead of "6-9".</li>
+<li>Names aren't subdivided (into surname, first name, suffix, etc.), and so are alphabetized incorrectly in the index.  I suppose that I could apply the name-separating function created for the first gaps to all the subjects within a "Person" category to solve this.</li>
+</ul>
+</li>
+<li><span style="font-style: italic;">Physical Layout:</span>  The footnote tags are rendering as end notes.  Everyone hates end notes.</li>
+<li><span style="font-style: italic;">Typesetting:</span> The font and typesetting betrays DocBook's origins in the world of technical writing.  I'm not sure quite what's appropriate here, but "Section 1.3.4" looks more like a computer manual than a critical edition of someone's letters.</li>
+</ul>
+<p><span style="font-weight: bold;">The Cost:</span><br />
+Fixing the problems with personal names requires a lot of ugly work with regular expressions to parse names, amounting to 20-40 hours to cover most cases for authors, editors, and indices.  The work for chapter divisions is similar in size.  I have little idea how easy it will be to fix the footnote problem, as it involves learning "a Scheme-like language" used for parsing .docbook files.  Presumably I'm not the first person to want footnotes to render as footnotes, so perhaps I can find a <code>.dsssl</code> file that does this already.  Finally, the typesetting should be a fairly straightforward task, but requires me to learn a lot more about CSS than the little I currently know.  In all, producing truly readable copy is about a month's solid work, which works out to 4-6 months of calendar time at <a href="http://manuscripttranscription.blogspot.com/2007/06/money-current-situation.html">my current pace</a>.</p>
+<p><span style="font-weight: bold;">The Side-Effects:</span><br />
+Generating a <code>.docbook</code> file is very similar to generating any other XML file.  Extending the printing code for exporting works in TEI or a FromThePage-specific format will only take 20-40 hours of work.  Also, DocBook can be used to generate a set of paginated, static HTML files which users might want for some reason.</p>
+<p><span style="font-weight: bold;">The Conclusions:</span><br />
+It's more important that I start transcribing in earnest to shake out problems with my core product, rather than delaying it to convert end notes to footnotes.  As a result, printing is not slated for the alpha release.</p>

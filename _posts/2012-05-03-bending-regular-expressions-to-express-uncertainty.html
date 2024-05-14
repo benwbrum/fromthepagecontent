@@ -1,0 +1,85 @@
+---
+layout: post
+title: Bending Regular Expressions to Express Uncertainty
+date: 2012-05-03 02:24:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- client projects
+- development
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2012/05/this-post-expands-upon-email-i-sent-to.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4469496210545595842"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '9'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/bending-regular-expressions-to-express-uncertainty/"
+---
+<p><i>This post expands upon an email I sent to <a href="http://graysoftinc.com/">James Edward Gray II</a>, my mentor in regular expressions, whom I thank for his generosity.</i></p>
+<p>For the last few months--ever since I started conducting regular expression workshops at THATCamps--I've been thinking about using regular expressions to represent uncertainty. The great power of the regex is its ability to define context, boundaries, and precision over what is essentially unknown: <code>/A[BC]/</code> means "I'm looking for an <code>A</code>, followed by either a <code>B</code> or a <code>C</code> -- I don't know which, but if you see either of those, that's the text."</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-XbsocUX3QPw/T6HeHwGhWAI/AAAAAAAAARY/IAEvYf3yUqg/s1600/hw1.png"><img src="{{ site.baseurl }}/assets/2012/05/hw1.png" width="320" height="28" border="0" /></a></div>
+<p>I build tools for transcribing handwritten text -- some of it very old, some of it illegible, some of it damaged by fire or water. Representing uncertainty is a common problem within that domain, and it's important for a couple of reasons:</p>
+<ol>
+<li>Usually the text will be presented out of context -- the ASCII (or Unicode) characters representing the underlying text will be separated from the image containing the underlying text.</li>
+<li>Even when the images are available, the person doing the transcription is far more skilled at deciphering a particular cursive hand than their readers are likely to be. Take someone trained in 16th century paleography, who has spent weeks working on a particular author's handwriting -- their opinion on whether a scribble is an "f" or an "s" is going to be worth more than that of a casual researcher who encounters that handwriting in a single record of search results. We need to pass that opinion from the expert to the reader.</li>
+</ol>
+<p>While otherwise rigorous, the methods professional documentary editors use for recording uncertain readings are pretty shabby -- suited to print editions, they're often concise but imprecise: the Emerson Journals display missing text via <code>||&nbsp;.&nbsp;.&nbsp;.&nbsp;||</code>, with "three dots representing one to five words; four dots, six to ten words; and five dots, sixteen to thirty words". Another example uses <code>[&nbsp;.&nbsp;.&nbsp;.&nbsp;]</code>, with each period representing an illegible letter. There is no convention for expressing "I'm sure this is either an 'a' or a 'u', but I can't be certain which one." (Kline and Perdue, <i>A Guide to Documentary Editing, Third Edition</i>)<br />
+<a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-S4g9VltvUFc/T6HeVg77oXI/AAAAAAAAAR4/odrQAYJEk_E/s1600/mary_daughter_of_james_and_judith_half_jan_20.png"><img src="{{ site.baseurl }}/assets/2012/05/mary_daughter_of_james_and_judith_half_jan_20.png" width="320" height="25" border="0" /></a><br />
+This is where the notation regular expressions use for their search patterns comes in. It seems like a perfect fit to record <code>Br[au]mfield</code> when the user can't tell whether a name is "Brumfield" or "Bramfield" but is certain that it's not, say "Bremfield". And happily, FreeUKGen is doing exactly this -- they've created a regex-inspired <b>Uncertain Character Format</b> (UCF) for their volunteers to use when they're not quite able to make out text:</p>
+<blockquote>
+<table border="1">
+<tbody>
+<tr>
+<td valign="TOP"><code>_</code>&nbsp;(Underscore)</td>
+<td>A single uncertain character. It could be anything but is definitely one character. It can be repeated for each uncertain character.</td>
+</tr>
+<tr>
+<td valign="TOP"><code>*</code> (Asterisk)</td>
+<td>Several adjacent uncertain characters. A single <code>*</code> is used when there are 1 or more adjacent uncertain characters. It is not used immediately before or after a <code>_</code> or another <code>*</code>.<br />
+Note: If it is clear there is a space, then <code>* *</code> is used to represent 2 words, neither of which can be read.</td>
+</tr>
+<tr>
+<td valign="TOP"><code>[<i>abc</i>]</code></td>
+<td>A single character that could be any one of the contained characters and only those characters. There must be at least two characters between the brackets.<br />
+For example, <code>[79]</code> would mean either a <code>7</code> or a <code>9</code>, whereas <code>[C_]</code> would mean a <code>C</code> or some other character.</td>
+</tr>
+<tr>
+<td valign="TOP"><code>{<i>min</i>,<i>max</i>}</code></td>
+<td>Repeat count - the preceding character occurs somewhere between <i>min</i> and <i>max</i> times. <i>max</i> may be omitted, meaning there is no upper limit. So <code>_{1,}</code> would be equivalent to <code>*</code>, and <code>_{0,1}</code> means that it is unclear if there is any character.</td>
+</tr>
+<tr>
+<td valign="TOP"><code>?</code></td>
+<td>Sometimes you will have the situation where all of the characters have been read but you remain uncertain of the word. In this case append a ? at the end of the word e.g. RACHARD? The most frequent place where a ? is used is with transcription that have been donated from other systems and are being converted for entry into FreeREG.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>And their volunteers are actually using UCF a lot -- <a href="http://www2.freebmd.org.uk/cgi/show-file.pl?user=hawkeye&amp;file=1843B3B0190">here</a>'s a file with a minimal-but-effective example, and <a href="http://www.freebmd.org.uk/UCFusage.html">here</a>'s a list of files with a high incidence of records containing UCF.</p>
+<p>One of the only big differences between UCF notation and regular expression notation is the use of underscore (<code>_</code>) for "I'm not sure what this character is". In a sense, this is equivalent to the regex <code>.</code> character, but in practice that's not how it's used. <code>/[i.]/</code> makes no sense in regular expressions: "either <code>'i'</code> or any character" is turned into the logical set of <code>all characters</code> plus the set of <code>{&nbsp;'i'&nbsp;}</code>, the union of which is the same as <code>the set of all characters</code>.&nbsp; As a result, in regular expressions the <code>'i'</code> is redundant in <code>[i.]</code>.&nbsp; However, that's not how they use <code>_</code> in UCF.&nbsp; <code>[i_]</code> means "I think this character is an <code>'i'</code>, but I'm not really sure."&nbsp; That statement is not the same thing as "I don't know what this character is" -- not at all!</p>
+<p>So, cool! We've got a notation for describing uncertainty inspired by regular expressions. Problem solved, right? Well, not quite. While FreeUKGen's UCF represents uncertain readings successfully, I think, there are still a couple of issues to iron out.</p>
+<p>The first one of these is displaying the data -- I won't go too far into this, as UI is not really my forte, but it seems like we might be able to represent notations of the form "[a_]" by using a different font weight. I have no idea what we'll do about a "Br[au]mfield", though.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://2.bp.blogspot.com/-8V5KH22uv9s/T6HeQex9POI/AAAAAAAAARg/WBnTwdQ_bmo/s1600/isabella_daughter_of_henry_osborne_and_elizabeth_elener.png"><img src="{{ site.baseurl }}/assets/2012/05/isabella_daughter_of_henry_osborne_and_elizabeth_elener.png" width="320" height="51" border="0" /></a></div>
+<p>The second issue is in searching the data. No problem, right? Regular expressions are designed for searching! Well, sort of. In this case, we expect end users (primarily genealogy researchers) to be typing in precise search strings like "Brumfield" which they expect to match against the regular expression <code>/Br[au]mfield/</code>. This wouldn't be a problem if we only had a handful of records -- we'd convert the UCF in each transcription into its equivalent regular expression, then iterate through each record, matching it against the user-entered search string. Unfortunately this approach might take a while on a database containing hundreds of millions of records.</p>
+<p>The problem with searching regular expressions is that you can't index them. So far as I'm aware, it's theoretically impossible to shove a working finite state machine into a B+-tree. What you can do, however, is index permutations of UCF -- if a first name is <code>[_J]ane</code>, you can at least index <code>Jane</code> so that a search for "Jane" will find that record. You can also permute <code>/Br[au]mfield/</code> into both <code>"Brumfield"</code> and <code>"Bramfield"</code> and index them each, so that a search on either string will find the <code>/Br[au]mfield/</code> record. This an incomplete solution, in that its results will differ from the aforementioned, logically correct approach of applying each regex against the search string. However, it might be just adequate for the most common cases.</p>
+<p>After writing this and reading James's response, I started thinking more about my options.&nbsp; One of these is a parallelized brute-force approach.&nbsp; Why <i>can't</i> I match each regex in the database against a search string?&nbsp; After all, we're talking about fewer than a billion records, and asking <code>does X match Y</code> is the sort of thing that is easily parallelized.&nbsp; <i>O brave new world, that has such infrastructure!</i> I'm hesitant to go down this path, but I may be missing something -- perhaps some Hadoopy, Erlangy, Map-Reducey algorithm is cheap, easy, and presents the simplest solution to the problem?&nbsp; Any other option is really an approximation to "correct", so it would be a shame to rule this out because of my own lack of experience.</p>
+<p>Another approach might be to categorize each kind of UCF expression. Based on my limited research so far, it appears that the majority of the UCF in the existing transcripts falls into either the "completely unknown" category of <code>"*"</code> for an entire field, or the nuanced "I think this is a <code>J</code> but I'm not sure" category represented by <code>[J_]</code>.&nbsp; We will likely have to handle the former gingerly no matter what we do -- if a surname is totally illegible in the manuscript, the search engine will have to rely on other fields.&nbsp; The former expression could be approximated by <code>"J"</code>, which would match precise searches well provided the transcriber actually has the greatest possible expertise.</p>
+<div style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://1.bp.blogspot.com/-ty1jTHawjsk/T6HeU2jU5LI/AAAAAAAAARw/IlwMlNXOVSQ/s1600/margaret_mayton_d_of_thomas_1_october.png"><img src="{{ site.baseurl }}/assets/2012/05/margaret_mayton_d_of_thomas_1_october.png" width="320" height="18" border="0" /></a></div>
+<p>Moving into what I expect are rarer cases, expressions like <code>/Br[au]mfield/</code> would work well with the permutation treatment I outlined above. If the system already supports <code>begins-with</code> and <code>ends-with</code> searches, we should be able to index <code>"Brumf*"</code> as well as <code>"*field"</code>.&nbsp; In fact, we might even be able to index a single, infixed wildcard like <code>"Br*ld"</code> by doing both <code>begins-with</code> and <code>ends-with</code> searches with a combination of cleverness and hackery.&nbsp; This leaves some smaller number of true regular expression-equivalent UCF-encoded records like "Ca_{1,2}s*d" to deal with.&nbsp; It's possible that this represents such a small sample that the system could actually apply each record containing an irreducible regex to every search, whether via big parallelization or a long loop.</p>
+<p>Yet another approach is one that I understand to be deployed on the FreeUKGen databases now -- lossy comparison that reduces UCF to searchable data.&nbsp; For example, the venerable Soundex algorithm begins by stripping non-alphabetic data from a record, converting <code>/[J_]ane/</code> to <code>"Jane"</code>.&nbsp; The uncertainty recorded by the transcriber fades into the larger fog of the search algorithm.&nbsp; I'm just as uncomfortable with this methodology as I am with the permutation of <code>/[J_]ane/</code> to <code>"Jane"</code> I described above.&nbsp; I suspect that my discomfort is due to simply not knowing what the correct behavior is when a user is searching on <code>/[J_]ane/</code> -- I know that "Jane" should match, but am not entirely sure whether "Zane" should match the record.</p>
+<p>Perhaps the right approach is a hybrid -- use tricks with database indexing for the majority of cases--which don't involve any UCF at all--provide Soundex and Metaphone in transparent ways, and shove the irreducable regular expressions into a spot where they can be processed cheaply.&nbsp; But I really don't know, and I don't anticipate knowing for months yet.&nbsp; Of course, if you happen to have done this before, I'd love to know how.&nbsp; I'm heading to bed, expecting dreams which revolve around <code>gem&nbsp;install&nbsp;index-fsm</code>.</p>
+<p><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font: bold 11px/20px 'Helvetica Neue',Helvetica,sans-serif; color: #ffffff; background: #bd081c  no-repeat scroll 3px 50% / 14px 14px; position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer;">Save</span></p>

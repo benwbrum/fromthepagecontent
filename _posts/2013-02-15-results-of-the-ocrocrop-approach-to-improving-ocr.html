@@ -1,0 +1,65 @@
+---
+layout: post
+title: Results of the "Ocrocrop" Approach to Improving OCR
+date: 2013-02-15 22:21:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- hackathon
+tags:
+- ocr
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2013/02/results-of-ocrocrop-approach-to.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/1288323735824653084"
+  _thumbnail_id: '368'
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/results-of-the-ocrocrop-approach-to-improving-ocr/"
+---
+<p>This project attempted to improve the quality of OCR applied to difficult entomology images[*] by cropping labels from the images to run through OCR separately.  In order to identify labels on the image to crop, an initial,  'naive' pass of OCR was made over the whole image, generating both</p>
+<ul>
+<li>A) a set of rectangles on the image defined as word bounding boxes by the OCR engine, and&nbsp;</li>
+<li>B) a control OCR text file to be used for comparing the 'naive' model with the methodology.</li>
+</ul>
+<p>Those word rectangles were then filtered, consolidated, and filtered again to identify the labels on the image, which were then extracted and run through the OCR engine separately.  The resulting OCR output files were then concatenated into a single text file, which was compared against the 'naive' output described in A (above).</p>
+<p>I'll call this method "ocrocrop".  (For more detail on method, see the  <a href="http://fromthepage.wpengine.com/improving-ocr-inputs-from-ocr-outputs/">transcript of my preliminary presentation.</a>)</p>
+<p>The results were encouraging.    (See <a href="https://github.com/idigbio-aocr/LabelExtraction/blob/master/metrics/metrics.csv">CSV file listing results for each file</a>, and the <a href="https://github.com/idigbio-aocr/LabelExtraction/tree/master/metrics">directory</a> containing "naive" output, annotated JPGs, and cleaned output files for each test.)</p>
+<p>Of 80 files tested, 20 experienced a  decrease in score (see <a href="https://docs.google.com/document/d/1rH5a8Qee2hwzlGZPisEr5-tV8nmDa50j1dxyUu0pY84/edit">Alex Thomson's scoring service</a>), but most (14/20) of those were on OCR output below 10% accuracy in the first place, and the remainder  were at or below 20% accuracy.  So it is reasonable to say that the ocrocrop method only degraded the quality of texts that were unusable in the first place.</p>
+<p>40 of the 80 files tested showed more promising results, showing improvements from one to twenty percentage points -- in some cases only marginally improving unusable (below 10% accurate) outputs, but in many cases improving the scores more substantially (say from 25% to 35% in the case of EMEC609908_Stigmus_sp).</p>
+<p>Most of the top quartile of results saw improvements on texts that were already scoring above 10% accuracy rates (16 of 20), so it appears that the effectiveness of the ocrocrop method is correlated to the quality of the naive input data -- garbage is degraded or only minimally improved, while OCR that is merely bad under the naive approach can be significantly improved.</p>
+<div style="clear: both; text-align: center;"><a href="https://raw.github.com/idigbio-aocr/LabelExtraction/master/metrics/EMEC609928_Stigmus_sp.hocr.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="240" src="{{ site.baseurl }}/assets/2013/02/EMEC609928_Stigmus_sp.hocr.jpg" width="320" /></a></div>
+<p>The ocrocrop method saw the greatest improvement in cases where the naive OCR pass was effective at identifying word bounding boxes, but ineffective at translating their contents into words.  Taking EMEC609928_Stigmus_sp, the case of greatest improvement (naive: 18.9%, ocrocrop: 70.5%), we see that all words on the labels except for the collector name were recognized as words (in purple), making the cropped label images (in blue) good representatives of the  actual labels on the image.</p>
+<p>The cropped image was more easily processed by our OCR image, so that we may compare the naive version of the second label:</p>
+<pre> CALIF:Hunbo1dt Co. ;‘ ~
+ 3 m1.N' Garbervﬂle ,::f&lt; '_- '
+ v—23~75 n.n1e:z.' 9 ._ ’</pre>
+<p>with the ocrocrop version of the second label:</p>
+<pre> CALIF:Humboldt Co.
+ 3 mi.N Garberville
+ V-23-76 R.Dietz,'</pre>
+<div style="clear: both; text-align: center;"><a href="https://raw.github.com/idigbio-aocr/LabelExtraction/master/metrics/EMEC609651_Cerceris_completa.hocr.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="240" src="{{ site.baseurl }}/assets/2013/02/EMEC609651_Cerceris_completa.hocr.jpg" width="320" /></a></div>
+<p>One of the problems with the OCR-based pre-processing which may be hidden  by the scores is that many labels are entirely missed by the ocrocrop if the  first, naive OCR pass failed to identify any words at all on the label.  In cases  such as EMEC609651_Cerceris_completa, the determination label was not cropped (indicated by blue rectangles) because no words (purple rectangles) were detected by the original.  As a result,  while the ocrocrop OCR is an improvement over the naive OCR (6.6% vs. 6.5%),  substantial portions of text on the image are unimproved because they are  unattempted.</p>
+<p>There are two possible ways to solve this problem.  One is to abandon the ocrocrop model entirely, switching back to a computer vision approach --  either by programmatically locating rectangles on the image (as Phuc Nguyen demonstrated)  or by asking humans to identify regions of interest for OCR processing (as   demonstrated by Jason Best in Apiary and by Paul and Robin Schroeder in ScioTR).  The other   option is to improve the naive OCR -- perhaps by swapping out the engine  (e.g. use ABBY instead of Tesseract), perhaps by using a different image  pre-processor (like ocropus's front-end to Tesseract), perhaps by re-training  Tesseract.</p>
+<p>I suspect that a computer vision approach to extracting entomology labels (or  similar pieces of paper photographed against a noisy background) will provide  a more effective eventual solution than the ocrocrop method.  Nevertheless,  the ocrocrop "bang it with a rock until it works" approach has a lot of potential to take entomology-style OCR <b>to</b> bad <b>from</b> worse.</p>
+<p>[*]In addition to the difficulties typical of specimen labels--mix of typefaces, handwritten material, typewritten material, text inventory with few overlaps with a dictionary of literary English--the entomology dataset contained additional challenges.  Difficulties included the following:</p>
+<ul>
+<li>Images containing specimens and rulers as well as labels.&nbsp;</li>
+<li>Labels casually arranged for photography, so that text orientation was not necessarily aligned.&nbsp;</li>
+<li>Labels photographed against a background of heavily pin-pricked styrofoam rather than a black or neutral background.&nbsp;</li>
+<li>3-d images including what appear to be shadows, which soften the contrast differences around borders.</li>
+</ul>

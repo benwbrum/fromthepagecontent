@@ -1,0 +1,67 @@
+---
+layout: post
+title: 'Feature: Illegible Tags'
+date: 2007-06-26 11:40:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2007/06/feature-illegible-tags.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/6622958715172827655"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-illegible-tags/"
+---
+<p><span style="font-weight: bold;">Illegible</span> tags allow a scribe to mark a piece of text as illegible with a tag, linking that tag to a cropped image from the text.  The application does the cropping itself, allowing the user to draw a rectangle around the illegible chunk on their web-browser and then presenting that as a link for insertion into their transcription as mark-up.</p>
+<p>The open questions I have regard the markup itself and its display.  The TEI manuscript transcription guidelines <a href="http://www.tei-c.org/Lite/teiu5_en.xml.ID=U5-edit2">refer to an </a><unclear><a href="http://www.tei-c.org/Lite/teiu5_en.xml.ID=U5-edit2">unclear tag</a> that allows the transcriber to mark a passage as unclear, but attach variant readings, each with a confidence level.  There's no provision for attaching an image of the unclear text.  In a scenario where the reader is provided access to the unclear text, do you think there's anything to be added from displaying the probable reading?  How about many probable readings?</unclear></p>
+<p>I've been persuaded by <a href="http://manuscripttranscription.blogspot.com/2007/06/matt-ungers-papas-diary-project.html">Papa's Diary</a> that probable readings are tremendously useful, so I should probably rephrase <code>illegible</code> as <code>unclear</code>.  I want to encourage scribes to be a free as possible with the tags, increasing the transparency of their transcriptions.  In fact, the Papa's Diary usage — in which Hebrew is displayed as an image, but transcribed into Latin characters — makes me think that <code>unclear</code> is not sufficiently generalized.  I may need to either come up with other tags for image links, or generalize <code>unclear</code> into something with a different name.</p>
+<p>Implementing the image manipulation code would not be difficult, except that a lot of work needs to be done in the UI, which is not my strength.</p>
+<p><span style="font-weight: bold;">UI</span></p>
+<ol>
+<li><unclear>Scribe hits an 'unclear' icon on the page transcription screen.</unclear></li>
+<li>This changes their mouse pointer to something that looks appropriate for cropping.</li>
+<li>They click on the image and start dragging the mouse.</li>
+<li>This displays a dashed-rectangle on the image that disappears on mouseUp.</li>
+<li>The mouse pointer changes to a waiting state until a popup appears displaying the cropped image and requesting text to insert.</li>
+<li>A paragraph of explanatory text would explain that the text entry field should contain a possible reading for the unclear text.</li>
+<li>The text entry field defaults to "illegible", so users with low-legibility texts will be able to just draw rectangles and hit enter when the popup appears.</li>
+<li>Hitting OK inserts a tag into the transcription.  Hitting cancel returns the user to their transcription.</li>
+</ol>
+<p><unclear><span style="font-weight: bold;">Implementation</span><br />
+</unclear></p>
+<ol>
+<li><unclear>Clicking the 'unclear' icon triggers an 'I am cropping now' flag on the browser and turns off zoom/unzoom.</unclear></li>
+<li>onMouseDown sets a begin coordinate variable</li>
+<li>onMouseUp sets an end coordinate variable, launches an AJAX request to the server, and sets the pointer state to waiting.</li>
+<li>The server receives a requst of the form 'create an illegible tag for page X with this start XY and this end XY.</li>
+<li>It loads up the largest resolution image of that manuscript page, transposes the coordinates if the display image was zoomed, then crops that section of the image.</li>
+<li>A new record is inserted into the cropped_image table for the page and the cropped image itself is saved as a file.</li>
+<li>RJS tells the browser to display  the tag generation dialog.</li>
+<li>The tag generation dialog inserts the markup <code>&lt;illeg image="image_id.jpg"&gt;illegible&lt;/illeg&gt;</code> at the end of the transcription.</li>
+<li>When the transcription is saved, we parse the transcription looking for illegible tags, deleting any unused tags from the database and updating the db entries with the user-entered text.</li>
+</ol>
+<p><unclear><span style="font-weight: bold;">Data Model<br />
+</span>I'll need a new <code>cropped_image</code> table with a foreign key to <code>page</code>, a string field for the display text, a filename for the image, and perhaps a sort order.  My existing models will change as follows to support the new relationship:<br />
+<code>cropped_image belongs_to :page<br />
+page has_many :cropped_images</code></unclear></p>
+<p><span style="font-weight: bold;">Viewer</span><br />
+At display time, the illegible tag is transformed into marked-up HTML.  The contents of the HTML should be whatever the user entered, but a formatting difference should indicate that the transcription is uncertain -- probably italicizing the text would work.  The cropped images need to be accessible to viewers -- editorial transparency is after all the point of image-based transcription.  I'm tempted to just display any cropped images at the bottom of the transcription, above the user-annotations.  I could then put in-page anchor tags around the unclear text elements, directing the user to the linked image.</p>
+<p><span style="font-weight: bold;">Print</span><br />
+The idea here is to display the cropped images along with the transcription as footnotes.  The print version of a transcription is unlikely to include entire page images, so these footnotes would expose the scribe's decision to the reader's evaluation.  In this case I'd want to render the unclear text with actual footnote numbers corresponding to the cropped image.  Perhaps the printer should also have the option of printing an appendix with all cropped images, their reading, and the page in which they appear.</p>

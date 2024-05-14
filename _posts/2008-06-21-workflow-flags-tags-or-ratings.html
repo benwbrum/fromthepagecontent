@@ -1,0 +1,64 @@
+---
+layout: post
+title: 'Workflow: flags, tags, or ratings?'
+date: 2008-06-21 19:29:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/06/workflow-flags-tags-or-ratings.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2492545732362816351"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/workflow-flags-tags-or-ratings/"
+---
+<p>Over the past couple of months, I've gotten a lot of user feedback relating to workflow.  Paraphrased, they include:</p>
+<ul>
+<li>How do I mark a page "unfinished"?  I've typed up half of it and want to return later.</li>
+<li>How do I see all the pages that need transcription?  I don't know where to start!</li>
+<li>I'm not sure about the names or handwriting in this page.  How do I ask someone else to review it?</li>
+<li>Displaying whether a page has transcription text or not isn't good enough -- how do we know when something is <span style="font-style: italic;">really </span>finished?</li>
+<li>How do we ask for a proofreader, a tech savvy person to review the links, or someone familiar with the material to double-check names?</li>
+</ul>
+<p>In a traditional, institutional setting, this is handled both through formal workflows (transcription assignments, designated reviewers, and researchers) and through informal face-to-face communication.  None of these methods are available to volunteer-driven online<br />
+projects.</p>
+<p>The folks at THATCamp <a href="http://manuscripttranscription.blogspot.com/2008/06/thatcamp-takeaways.html">recommended </a>I get around this limitation by implementing user-driven ratings, similar to those found at online bookstores.  Readers could flag pages as needing review, scribes could flag pages in which they need help, and volunteers could browse pages by quality to look for ways to help out.  An additional benefit would be the low barrier to user-engagement, as just about anyone can click a button when they spot an error.</p>
+<p>The next question is what this system should look like.  Possible options are:</p>
+<ol>
+<li><span style="font-weight: bold;">Rating scale:</span> Add a one-to-five scale of "quality" to each page.
+<ul>
+<li>Pros: Incredibly simple.</li>
+<li>Cons: "Quality" is ambiguous.  There's no way to differentiate a page needing content review (i.e. "what is this placename?") from a page needing technical help (i.e. "I messed up the subject links").  Low quality ratings also have an almost accusatory tone, which can lead to lots of problems in social software.</li>
+</ul>
+</li>
+<li><span style="font-weight: bold;">Flags:</span> Define a set of attributes ("needs review", "unfinished", "inappropriate") for pages and allow users to set or un-set them independently of each other.
+<ul>
+<li>Pros: Also simple.</li>
+<li>Cons: Too precise.  The flags I can think of wanting may be very different from those a different user wants.  If I set up a flag-based data-model, it's going to be limited by my preconceptions.</li>
+</ul>
+</li>
+<li><span style="font-weight: bold;">Tags:</span> Allow users to create their own labels for a page.
+<ul>
+<li>Pros: Most flexible, easy to implement via acts_as_taggable or similar Rails plugins.</li>
+<li>Cons: Difficult to use.  Tech-savvy users are comfortable with tags, but that may be a small proportion of my user base.  An additional problem may be use of non-workflow based tags.  If a page mentions a dramatic episode, why not tag it with that?  (Admittedly this may actually be a feature.)</li>
+</ul>
+</li>
+</ol>
+<p>I'm currently leaning towards a combination of tags and flags: implement tags under the hood, but promote a predefined subset of tags to be accessible via a simple checkbox UI.  Users could tag pages however they like, and if I see patterns emerge that suggest common use-cases, I could promote those tags as well.</p>

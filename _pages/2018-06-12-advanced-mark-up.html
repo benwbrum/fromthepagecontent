@@ -1,0 +1,99 @@
+---
+layout: page
+title: Advanced Mark-up
+date: 2018-06-12 09:58:16.000000000 -05:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '5'
+  _wp_page_template: default
+  _genesis_scripts_body_position: bottom
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/project-owner-documentation/advanced-mark-up/"
+---
+<p><em>FromThePage supports mark-up of text for common features found in historic documents.  This guide is a comprehensive listing of supported mark-up and its uses.</em></p>
+<p>Anyone who has started transcribing a document runs into questions of encoding within the first few pages.  This phrase is underlined, that word isn't clearly legible, the rest of this sentence crawls its way up the edge of the paper when the writer ran out of paper -- how should these features be typed?  Is it even important to indicate them?</p>
+<p>Our goal is to let users type naturally, balancing the flexibility to encode difficult features in the text with the speed of typing what they see with minimal mark-up.  The Wiki-text conventions used in FromThePage were originally inspired by the Mediawiki software used by Wikipedia, and have since been informed by Markdown.  Please also see the page on the <a href="https://content.fromthepage.com/advanced-editor/">Advanced Mark-up Editor</a> for configuring an easier interface for mark-up.</p>
+<h4>Displaying and Exporting Mark-up</h4>
+<p>The reason we mark up text is so that it can be used properly.  Text should be easy to read on-screen, but it should also be easy to re-use by editors working on scholarly editions or librarians integrating it into their systems.  This means that the same mark-up will be displayed differently in these environments:</p>
+<ul>
+<li><strong>Single-page display:</strong>  When users read a single page on FromThePage, viewing a page image next to the transcript, we try to preserve any line-breaks in the text, so that the transcript lines up clearly with the manuscript image.</li>
+<li><strong>Multi-page display:</strong> Users reading the text of a work several pages at a time see a compacted version of the text with only thumbnail images for page facsimiles.  This display is also used for viewing all the pages that mention a subject or search results.  In this case, we attempt to wrap words, but preserve paragraph breaks.</li>
+<li><strong>TEI-XML export:</strong> TEI projects using FromThePage generally take documents exported in TEI as a starting point for further mark-up and processing.  For format, we attempt to preserve all mark-up created by users and translate it to the corresponding TEI elements to produce P5-compliant XML documents.</li>
+<li><strong>Verbatim plaintext export:</strong> Users can export verbatim plaintext from FromThePage for use in further editing projects.  In these cases, most mark-up is stripped in an attempt to present the basic transcript as typed, with the expectation that the export will be imported into off-line editing software.</li>
+<li><strong>Plaintext export for search or analysis:</strong> Both library systems supporting full-text search features and analytical tools operating on "bag of words" datasets need inputs that are stripped of markup.  However, their functionalities also benefit from further reductions like removing newlines and re-joining words hyphenated across line breaks, so these export formats support this additional stripping.</li>
+</ul>
+<h2>Mark-up Guidelines</h2>
+<h5>Line and Paragraph Breaks</h5>
+<p>A single newline represents a new line within a paragraph of text.  This line will be wrapped for readers.</p>
+<p>A single hyphen at the end of a line represents a word-break within the text.  Readers will see the word joined together, as if it were not broken in the original.  To indicate a literal hyphen at the end of a line, add a space after the hyphen.</p>
+<p>Double newline represents a break between paragraphs or sections of texts.  The lines will not be wrapped when displayed, and will be represented as paragraphs if exported.</p>
+<p>&nbsp;</p>
+<table style="height: 587px;" width="603">
+<thead>
+<tr>
+<td>Source</td>
+<td>Multi-page Display</td>
+<td>Export</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre>first line
+second line
+</pre>
+</td>
+<td>first line second line</td>
+<td><code><br />
+first line&lt;lb/&gt;second line<br />
+</code></td>
+</tr>
+<tr>
+<td>
+<pre>word contin-
+ues on next line
+</pre>
+</td>
+<td>word continues on next line</td>
+<td>TEI-xml:<br />
+<code><br />
+word contine&lt;lb/&gt;ues on next line<br />
+</code>Searchable/Analytic Plaintext<br />
+<code>word continues on next line</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Headers</h5>
+<p>Surrounding a phrase with a balanced number equals signs marks it as a section header.  Increasing numbers of equals signs indicate more substantial section breaks:</p>
+<p>===Chapter 1===<br />
+==Section A==<br />
+==Section B==</p>
+<p>===Chapter 2===<br />
+==Section C==</p>
+<h5>HTML/XML</h5>
+<p>Experienced users often add HTML tags to their texts, and FromThePage presents them as marked when displaying to users.</p>
+<ul>
+<li><strong>&lt;i&gt;</strong> The italic tag in HTML is rendered as such in display modes, stripped from plaintext exports, and translated into <em>&lt;hi rend="italic"&gt;</em> in TEI exports.</li>
+<li><strong>&lt;u&gt;</strong> The underline HTML tag is rendered as an underline in display modes, stripped from plaintext exports, and translated into <em>&lt;hi rend="underline"&gt;</em> in TEI exports.</li>
+<li><strong>&lt;s&gt;</strong> and <strong>&lt;strike&gt;</strong> tags are rendered as strike-throughs when displaying, stripped from plaintext exports, and translated into <em>&lt;del&gt;</em> in TEI exports.</li>
+<li><strong>&lt;sup&gt;</strong> is rendered as a superscript in display, stripped from plaintext, and translated into <em>&lt;add&gt;</em> in TEI exports.</li>
+<li><strong>&lt;sensitive&gt;</strong> is a FromThePage-specific XML tag that will display the text to anyone with the permission to transcribe a text, but hide it from web crawlers and users who are not logged in.</li>
+</ul>
+<p>&nbsp;</p>
+<h5>Tabular</h5>
+<p>Accounting ledgers and other tables can be encoded using Markdown table syntax.  See <a href="https://content.fromthepage.com/project-owner-documentation/table-encoding/">this article on table encoding</a> for examples and more information.</p>
+<h5>LaTeX</h5>
+<p>FromThePage supports LaTeX for encoding scientific and mathematical formulae.  Enclosing any valid LaTeX expression with curly braces and "tex" tags as follows:<br />
+<strong> {{tex: </strong><em>expression goes here</em><strong> :tex}}<br />
+</strong>The LaTeX expression will be rendered as an inline image in the display.  For more information and examples see this article on <a href="https://content.fromthepage.com/project-owner-documentation/encoding-formula-with-latex/">encoding mathematical and scientific formula with LaTex</a>.</p>

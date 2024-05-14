@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'Feature: Data Maintenance Tools'
+date: 2008-04-26 02:36:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- subject links
+tags:
+- features
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/04/feature-data-maintainance-tools.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/2591546270392990759"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/feature-data-maintenance-tools/"
+---
+<p>With only two collections of documents, fewer than a hundred transcriptions, and only a half-dozen users who could be charitably described as "active", FromThePage is starting to strain under the weight of its data.</p>
+<p>All of this has to do with <a href="http://manuscripttranscription.blogspot.com/2007/04/feature-article-links.html">subjects</a>.  These are the indexable words that provide navigation, analysis, and context to readers.  They're working out pretty well, but frequency of use has highlighted some urgent features to be developed and intolerable bugs to be fixed:</p>
+<ul>
+<li>We need a tool to combine subjects.  Early in the transcription process, it was unclear to me whether "the Island" referred to Long Island, Virginia -- a nearby town with a post office and railroad station -- or someplace else.  Increasing familiarity with the texts, however, has shown "the Island" to be definitely the same as "Long Island".
+<p>The best interface for doing this sort of deduping is implemented by LibraryThing, which is so convenient that it has inspired the ad-hoc creation of a group of "combining" enthusiasts -- an astonishing development, since this is usually the worst of dull chores.  A similar interface would invite the user viewing "the Island" to consider combining that subject with "Long Island".  This requires an algorithm to suggest matches for combination, which is itself no trivial task.</li>
+<li>We need another tool to review and delete orphans.  As identification improves, we've been creating new subjects "Reese Smith" and linking previous references to "Reese" to that improved subject.  This leaves the old, incomplete subject without any referents, but also without any way to prune it.</li>
+</ul>
+<p><a href="http://manuscripttranscription.blogspot.com/2007/06/progress-report-article-links.html">Autolink </a>has become utterly essential to transcriptions, since it allows the scribe to identify the appropriate subject as well as the syntax to use for its link.  Unfortunately, it has a few serious problems:</p>
+<ul>
+<li>Autolink looks for substrings within the transcription without paying attention to word boundaries.  This led to some odd autolink suggestions before this week, but since the addition of "ink" and "hen" to the subjects link text, autolink has started behaving egregiously.  The word "then" is unhelpfully expanded to "t[[chickens|hen]]".  I'll try to retain matches for display text regardless of inflectional markings, but it's time to move the matching algorithm to a more conservative heuristic.</li>
+<li>Autolink also suggests matches from subjects that reside within different collections.  It's wholly unhelpful for autolink to suggest a tenant farmer in rural Virginia within a context of UK soldiers in a WWI prison camp.  This is a classical cross-talk bug, and needs fixing.</li>
+</ul>

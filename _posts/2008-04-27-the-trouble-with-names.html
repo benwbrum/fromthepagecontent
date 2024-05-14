@@ -1,0 +1,39 @@
+---
+layout: post
+title: The Trouble with Names
+date: 2008-04-27 19:39:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2008/04/trouble-with-names.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/4111541070384440074"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/the-trouble-with-names/"
+---
+<p>The trouble with people as subjects is that they have names, and that personal names are hard.</p>
+<ul>
+<li>Names in the text may be illegible or incomplete, so that Reese _____ and Mr ____ <span>Edmonds</span> require special handling.</li>
+<li>Names need be remembered by the scribe during their transcription.  I discovered this the hard way.
+<p>After doing some research in secondary documents, I was able to "improve" the entries for Julia's children.  Thus <span style="font-style: italic;">Kate Harvey</span> became <i>Julia Katherine <span>Brumfield</span> Harvey</i> and <i>Mollie Reynolds</i> became <span style="font-style: italic;">Mary Susan <span>Brumfield</span> Reynolds</span>.</p>
+<p>The problem is that while I'm transcribing the diaries, I can't remember that "Mary Susan" == Mollie.  The diaries consistently refer to her as Mollie Reynolds, and the family refers to to her as Mollie Reynolds.  No other person working on the diaries is likely to have better luck than I've had remembering this.  After fighting with the improved names for a while, I gave up and changed all the full names back to the common names, leaving the full names in the articles for each subject.</li>
+<li>  Names are odd ducks, when it comes to strings.  "Mr. Zach Abel" should be sorted before "Dr. Anne <span>Zweig</span>", which requires either human intervention to break the string into component parts or some serious parsing effort.  At this point my subject list has become unwieldy enough to require sorting, and the index generation code for <span>PDFs</span> is completely dependent on this kind of separation.</li>
+</ul>
+<p>I'm afraid I'll have to solve all of these problems at the same time, as they're all interdependent.  My initial inclination is to have subject articles for people allow the user to specify a full name in all its component parts.  If none is chosen, I'll populate the parts via a series of regular expressions.  This will probably also require a hard look at how both <span>TEI</span> and <span>DocBook</span> represent names.</p>

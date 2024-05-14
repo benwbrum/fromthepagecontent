@@ -1,0 +1,48 @@
+---
+layout: post
+title: Building a Structured Transcription Tool with FreeUKGen
+date: 2012-10-03 14:13:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- brumfield labs
+- client projects
+- digital humanities
+- structured transcription
+tags:
+- indexing
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2012/10/building-structured-transcription-tool.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/8733131299847203621"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/building-a-structured-transcription-tool-with-freeukgen/"
+---
+<p>I'm <a href="http://manuscripttranscription.blogspot.com/2012/03/jumping-in-with-both-feet.html">currently</a> working with FreeUKGen--the charity behind the genealogy database <a href="http://en.wikipedia.org/wiki/FreeBMD">FreeBMD</a>--to build a general-purpose, open-source tool for crowdsourced transcription of structured manuscript data into a searchable database.</p>
+<p>We're basing our system on the Scribe tool developed for the Citizen Science Alliance for <a href="http://whats-the-score.org/">What's the Score at the Bodleian</a>, which originated out of their experience building <a href="http://oldweather.org/">OldWeather</a> and other citizen science sites.</p>
+<p>We are building the following systems:</p>
+<ol>
+<li>A new tool for loading image sets into the Scribe system and attaching them to data-entry templates.</li>
+<li>Modifications to the Scribe system to handle our volunteer organization's workflow, plus some usability enhancements.</li>
+<li>A publicly-accessible search-and-display website to mine the database created through data entry.</li>
+<li>A reporting, monitoring, and coordinating system for our volunteer supervisors.</li>
+</ol>
+<p>We also plan to add support for geocoding during transcription and GIS support within the search and display system. Currently, initial development is mostly finished with 1 and moving on to 2 and 3 above.</p>
+<p>Although this tool is focused on support for parish registers and census forms, we are intent on creating a general-purpose system for any tabular/structured data.&nbsp;&nbsp; Scribe's data-entry templates are defined in its database, with the possibility to assign different templates to different images or sets of images.&nbsp; As a result, we can use a simple template for a 1750 register of burials or a much more complex template for an 1881 census form.&nbsp; Since each transcribed record is linked to the section of the page image it represents, we have the ability to display the facsimile version of a record alongside its transcript in a list of search results, or to get fancy and pre-populate a transcriber's form with frequently-repeated information like months or birthplaces.</p>
+<p>Under the guidance of <a href="http://en.wikipedia.org/wiki/Ben_Laurie">Ben Laurie</a>, the trustee directing the project, we are committed to open source and open data.&nbsp; We're releasing the <a href="https://github.com/FreeUKGen">source code</a> under an Apache license and planning to build API access to the full set of record data.</p>
+<p>We feel that the more the merrier in an open-source project, so we're looking for collaborators, whether they contribute code, funding, or advice.&nbsp; We are especially interested in collaborators from archives, libraries, and the genealogy world.</p>

@@ -1,0 +1,444 @@
+---
+layout: post
+title: 'AI-Assist in FromThePage: Using HTR in People-Centered Transcription'
+date: 2024-03-19 08:29:47.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _oembed_7fe571682dd6f2728ba6c097aef3dcef: '<iframe title="AI Assist in FromThePage:
+    Using HTR in People Centered Transcription" width="500" height="281" src="https://www.youtube.com/embed/f4xp5BYpB04?feature=oembed"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+    gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+  _oembed_time_7fe571682dd6f2728ba6c097aef3dcef: '1710251868'
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_primary_category: '1'
+  _yoast_wpseo_estimated-reading-time-minutes: ''
+  _yoast_wpseo_wordproof_timestamp: ''
+author:
+  login: anabeabas
+  email: ana@fromthepage.com
+  display_name: Ana Bastida
+  first_name: Ana
+  last_name: Bastida
+permalink: "/ai-assist-in-fromthepage-using-htr-in-people-centered-transcription/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Last month, Ben and Sara Brumfield hosted a webinar to introduce the new AI-assist feature: Handwritten Text Recognition. The presentation, linked below in a video and embedded as slides, presents a walkthrough of the new HTR feature. This was one of FromThePage's most-attended webinars, and it was exciting to have so many people join. You can sign up for future webinars&nbsp;<a href="https://content.fromthepage.com/webinars/" target="_blank" rel="noreferrer noopener">here</a>. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><strong>Watch the recording of the presentation below:&nbsp;</strong></h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:html --><br />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/f4xp5BYpB04?si=OmPIpcdfdmqe8Uft" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br />
+<!-- /wp:html --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><strong>Read through Ben and Sara's adapted presentation:&nbsp;</strong></h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:image {"align":"center","id":2664,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide1.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide1.png" alt="" class="wp-image-2664" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"align":"center","id":2665,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide3.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide3.png" alt="" class="wp-image-2665" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Today we’re going to start with some background on what Handwritten Text Recognition is, how it’s different from OCR or crowdsourced transcription, then cover the ways we’re integrating HTR technology into FromThePage.&nbsp;Finally, we’ll close with some AI hallucinations we encountered during the process, which is something everyone enjoys.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2666,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide4.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide4.png" alt="" class="wp-image-2666" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let’s start by talking about what HTR is.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2667,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide5.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide5.png" alt="" class="wp-image-2667" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Most of us are familiar with OCR – Optical Character Recognition. This is a technology that’s been around for decades, which looks at an image of a printed document and automatically transcribes the contents of the document into electronic text.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2668,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide6.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide6.png" alt="" class="wp-image-2668" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Handwritten Text Reconition – HTR – is similar to OCR, but it runs into some challenges that OCR doesn’t have.&nbsp; Letters are connected in many handwritten documents, which means that the software isn’t able to isolate a single character to match against a database of similar characters – instead recognition must be done word-by-word, which complicates the problem.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Also, scripts vary a lot more than printed typefaces do. And two people who have been taught the same cursive script may write very differently – a clerk will probably write in a different hand than a farmer will, even if they were taught the same script.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As a result, HTR software must be trained on “ground truth” – human-transcribed text matched to the images it was transcribed from.&nbsp;HTR software often must be re-trained on a particular hand, which is rarely the case with OCR.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2669,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide7.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide7.png" alt="" class="wp-image-2669" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>HTR is also different from Human Transcription.&nbsp;Aside from the difference in process, HTR output is like OCR output in that it maps transcribed words onto matching regions of the image.&nbsp;&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The output of HTR engines usually includes bounding boxes for each word, describing the coordinates of the image matching the text.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2670,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide8.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide8.png" alt="" class="wp-image-2670" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>This bounding box linking can be really powerful – it’s what powers any full text search that highlights matching keywords, whether in digitized newspapers or in PDF files.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2671,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide9.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide9.png" alt="" class="wp-image-2671" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>HTR engines don’t differentiate between important text and unimportant text. This is HTR output&nbsp; from a diary entry, and you can see that–in addition to the diarist’s writing–it transcribes the pre-printed information on each page, including notes about the pheasant hunting season which I doubt that anyone reading this diary would care about.&nbsp;But the HTR system doesn’t know that.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2672,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide10.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide10.png" alt="" class="wp-image-2672" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>So how good is HTR?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2673,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide11.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide11.png" alt="" class="wp-image-2673" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>It depends.&nbsp;It depends on the document, the engine, and the model, but most importantly, it depends on what you plan to use the text for.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2674,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide12.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide12.png" alt="" class="wp-image-2674" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Most automated transcription systems talk about CER, Character Error Rate. The classic definition of CER measures the number of changes that need to be made to correct computer-generated text: substitutions + insertions + deletions divided by the total number of characters. So you’ll see CER numbers like 5% or 10% or 3%.&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If the average word in English is 4.7 characters, the Word Error Rate you’d expect from a CER of 5% is 23%. That means that approximately 1 in 4 words will be incorrect.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2675,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide13.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide13.png" alt="" class="wp-image-2675" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>CER isn’t perfect, however. For one thing, not all errors are equal: reading “Renée” as “Renee” has a CER of 20%, but so does reading “Renée” as “8enée” – these are really not equivalent errors. In addition, CER is a poor predictor of the amount of effort it will take to correct a text – finding subtle errors is a lot harder than finding obvious errors. For this reason, some alternative measures weigh substitution errors at 5 times the severity of insertions or deletions.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2676,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide14.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide14.png" alt="" class="wp-image-2676" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Because HTR and OCR tools match a transcription to the region of the image where it was written–which is a wonderful feature for word highlighting in full-text search–they can produce kinds of errors we wouldn’t see in human-transcribed text. People generally transcribe text in the order they read it, with some exceptions for footnotes or marginalia. HTR systems can slip up when they are analyzing the layout of a document, interpreting a two-column document as a single column, resulting in an unreadable text like this one.&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>(Note that the Character Error Rate of this text is 0 – a perfect score that hides an unusable text.)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2677,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide15.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide15.png" alt="" class="wp-image-2677" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Okay, I could nerd out about transcription errors all day long, but we need to get back on track.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We’re partnering with Transkribus, an HTR tool produced by the READ Coop, a group of universities, libraries and archives led by the University of Innsbruck. Over the past decade, they’ve advanced HTR technology for archival documents substantially.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2678,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide16.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide16.png" alt="" class="wp-image-2678" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Transkribus offers thousands of models trained by their users on their own documents with their own ground truth.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2679,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide17.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide17.png" alt="" class="wp-image-2679" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Okay, so now that we have HTR, we can replace human transcription!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Hmmm… not so fast.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2680,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide18.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide18.png" alt="" class="wp-image-2680" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Sara and I run FromThePage, a web-based platform for manuscript transcription. Unlike HTR, however, we use crowdsourcing and collaboration to transcribe documents.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We've hosted hundreds of projects over the last few years, and our users have transcribed more than two million pages on the platform.&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Why would the libraries and archives who we host want to keep human transcription?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2681,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide19.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide19.png" alt="" class="wp-image-2681" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Humans are more accurate than machines. They can learn from context and develop expertise on a hand or a subject. Best, they can collaborate, as in this example at the British National Archives, where volunteers are helping each other decipher a name.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2682,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide20.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide20.png" alt="" class="wp-image-2682" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>All of that collaboration provides an additional benefit: public engagement for the institutions we host. The Riksarkivet, has drawn 318 people to volunteer on I Demokratins Namn, transcribing women’s petitions for the right to vote. These are people who might not interact with the Riksarkivet normally, and now they have a connection to the institution and to its holdings.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2683,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide21.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide21.png" alt="" class="wp-image-2683" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Finally, transcribing documents provides meaningful volunteer work to people who are elderly, home-bound, or retired. (These are quotes from Tom York, who spends several hours each day volunteering for the Indiana State Archives and other institutions which we host.)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2684,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide22.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide22.png" alt="" class="wp-image-2684" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>So HTR presents a challenge -- if we do not want to replace humans, can we use HTR technology in a way that increases our users' accuracy, enjoyment, and productivity?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2685,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide23.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide23.png" alt="" class="wp-image-2685" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>These are the principles we want to follow for integrating AI into crowdsourcing.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2686,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide24.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide24.png" alt="" class="wp-image-2686" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We want AI functionality to be optional instead of required.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We want AI-generation of data to be transparent to users rather than invisible.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Finally, we want AI-generated data to seem tentative instead of "authoritative".</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2687,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide25.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide25.png" alt="" class="wp-image-2687" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here's how we're trying to use HTR to help transcribers.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2688,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide26.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide26.png" alt="" class="wp-image-2688" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>It all starts with a page image -- this test is done with the 1883 Diary of Emily Creaghe, which is held at the State Library of New South Wales. These have been imported into FromThePage using IIIF, but they could have been uploaded as a PDF or text document.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2689,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide27.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide27.png" alt="" class="wp-image-2689" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We take the URI for that page image and submit it to Transkribus using the Processing API, which lets us specify a model ID -- in this case the Text Titan model, which is excellent for general-purpose western scripts.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2690,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide28.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide28.png" alt="" class="wp-image-2690" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We then poll Transkribus to see when the processing has finished, and fetch the HTR text as ALTO-XML&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2691,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide29.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide29.png" alt="" class="wp-image-2691" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The next step is to present that text to our users as they are transcribing a document. Our transcription screen is pretty simple -- the image viewer appears on one side, and the text area is on the other.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2692,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide30.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide30.png" alt="" class="wp-image-2692" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's take a closer look at that image viewer. We've added a new button on the upper corner of the viewer. We're calling it "AI Assist" in our English interface, but French, German and Spanish use a variant of "AI assistant".</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2693,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide31.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide31.png" alt="" class="wp-image-2693" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Clicking that AI Assist button takes the ALTO-XML and paints that text onto the image as a text overlay, letting users see what Transkribus thinks the text is.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>(And I have to say that this is where I usually hear gasps from librarians and archivists -- Transkribus's output is really impressive!)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2694,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide33.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide33.png" alt="" class="wp-image-2694" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The text scales with the the image viewer, so users can zoom in and pan the image to see a word they are having trouble reading.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2697,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide34-1.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide34-1.png" alt="" class="wp-image-2697" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this case, I've been transcribing the document and come across a word that does not make sense -- I can zoom in on the word and request an AI Assist, and I can see that Transkribus has identified the word as "station", which is an Australian term of what we in Texas would call a ranch.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Users can also lock the image display to select text to copy and paste into the editor.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2696,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide35.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide35.png" alt="" class="wp-image-2696" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>But copy-and-paste can be a little slow. Can we use the text from Transkribus as a first draft for our transcribers to use?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2698,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide36.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide36.png" alt="" class="wp-image-2698" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We added a new "AI Text" button to our transcription interface. It's optional--users do not have to click it--but if they do it should pull the HTR text in for them to edit.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2699,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide37.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide37.png" alt="" class="wp-image-2699" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>First we need to convert the ALTO-XML into the wikitext which our transcribers prefer, a straightforward process.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2700,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide38.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide38.png" alt="" class="wp-image-2700" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>But that text has errors -- a lot of them! We don't want that process of correction to be more difficult than necessary, so we want to highlight the errors so that our users can focus on them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2701,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide39.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide39.png" alt="" class="wp-image-2701" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The first step in that process is to ask ChatGPT to normalize the text -- we tell it to be a scholarly editor preparing historic documents for publication.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2702,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide40.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide40.png" alt="" class="wp-image-2702" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then we feed ChatGPT the raw HTR text with this prompt, in which we ask the large language model to correct any errors produced by the automated process.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2703,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide41.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide41.png" alt="" class="wp-image-2703" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>That does a very nice job of producing a readable version of the HTR text. Most of it makes sense, and ChatGPT knows not to correct personal names.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There's just one problem with ChatGPT's corrections.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2704,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide42.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide42.png" alt="" class="wp-image-2704" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>They are absolutely poisonous! The corrections are not based on a better reading of the image or better knowledge of the people and places in this document -- they are plausible but wrong!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2705,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide43.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide43.png" alt="" class="wp-image-2705" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We want to treat AI-produced text like this as radioactive -- we never want to show this to users. Far better to show them the raw HTR text, with its obvious errors.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2706,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide44.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide44.png" alt="" class="wp-image-2706" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>How can we use this poisonous text? The corrections produced by ChatGPT are worthless! But knowing what ChatGPT thought should be corrected -- that's valuable.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We also want our users to view AI-produced text with skepticism, and to be critical about it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2707,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide45.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide45.png" alt="" class="wp-image-2707" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Hmm -- "puzzled face emoji"</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2708,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide46.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide46.png" alt="" class="wp-image-2708" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>So we compare the ChatGPT-"corrected" text with the raw HTR text produced by Transkribus. Any time the texts are different, we replace the text with a puzzled-face emoji. Our goal is to make this AI-produced text look as un-authorative as possible, so that our users feel comfortable editing it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>(We also add a warning to the beginning of the text, which users are forced to delete as they edit.)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2709,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide47.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide47.png" alt="" class="wp-image-2709" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>So this is what a transcriber sees when they request AI Text as they work. Our goal is to force them to consult the image as much as is necessary to get a good transcription.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2710,"width":"840px","height":"auto","sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full is-resized"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide48.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide48.png" alt="" class="wp-image-2710" style="width:840px;height:auto" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>At the moment, our friends at the State Library of New South Wales and the Center for Archival Futures at the University of Maryland are testing the usability of this feature.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We are testing differences in workflow -- should we start users with HTR and have them correct it, or should we make the AI text optional?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We are also testing differences in the text we show users -- do they prefer the raw HTR produced by Transkribus, or do they prefer the placeholder approach I just showed you? Should the placeholders be at the character level or should we used them to replace any word that contains a difference?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2711,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide49.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide49.png" alt="" class="wp-image-2711" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We hope to evaluate this testing on the basis of transcriber enjoyment; engagement with the task, volunteer productivity, and accuracy of results.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2712,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide50.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide50.png" alt="" class="wp-image-2712" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We received our first results this Monday</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2713,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide51.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide51.png" alt="" class="wp-image-2713" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We’d like to thank the students at the Design, Cultures and Creativity Honors Program for their impressive work.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2714,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide52.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide52.png" alt="" class="wp-image-2714" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Students prefer using an AI text – they liked having a draft of the text to edit, and liked that they had control – they were able to decide whether to use it or not.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2715,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide53.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide53.png" alt="" class="wp-image-2715" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>They also found that it helped them understand the contents of the letter before they transcribed it. On the other hand, they were not as happy with the emoji placeholders.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2716,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide54.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide54.png" alt="" class="wp-image-2716" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Once we have the results of this testing, what are the next steps?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2717,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide55.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide55.png" alt="" class="wp-image-2717" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We plan to integrate Transkribus HTR into the FromThePage user interface, allowing project owners to enter their Transkribus credentials, select a model, then process their documents.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We will also use the bounding boxes in the ALTO-XML files produced by Transkribus and merge in the corrected text, producing corrected ALTO-XML.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We also plan to explore additional HTR services – Transkribus is the highest quality, but lower-cost alternatives might be useful for some applications.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2718,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide56.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide56.png" alt="" class="wp-image-2718" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let’s wrap this up with some fun stuff we encountered during the process.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2719,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide57.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide57.png" alt="" class="wp-image-2719" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Anyone who’s used OCR will be familiar with the gibberish produced when it encounters ink bleed-through – random punctuation marks.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you feed similar images to Transkribus’s Text Titan Model, you get brief phrases in French or German.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2720,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/Slide58.png"><img src="{{ site.baseurl }}/assets/2024/03/Slide58.png" alt="" class="wp-image-2720" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We ran into another hallucination when we accidentally asked ChatGPT to correct blank pages. In those cases, it always produced the same text: a wild letter from a research who claimed to discover lost writings from the American Revolution written in code. This is straight out of a conspiracy theory!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":2722,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image aligncenter size-full"><a href="https://content.fromthepage.com/wp-content/uploads/2024/03/HTR-in-FromThePage-Webnar.jpg"><img src="{{ site.baseurl }}/assets/2024/03/HTR-in-FromThePage-Webnar.jpg" alt="" class="wp-image-2722" /></a></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Check out our <a href="https://fromthepage.com/ai/handwritten-text-recognition-sandbox" target="_blank" rel="noreferrer noopener">HTR Sandbox</a> and become a development partner for FromThePage's AI-Assist.</p>
+<p><!-- /wp:paragraph --></p>

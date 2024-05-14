@@ -1,0 +1,42 @@
+---
+layout: post
+title: Errata
+date: 2010-12-04 17:32:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- rails
+- similar projects
+tags: []
+meta:
+  blogger_blog: manuscripttranscription.blogspot.com
+  blogger_author: Ben W. Brumfield
+  blogger_permalink: "/2010/12/errata.html"
+  blogger_internal: "/feeds/5730930067468816440/posts/default/8865994768597798254"
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_meta-robots-noindex: '1'
+  _yoast_wpseo_meta-robots-nofollow: '1'
+author:
+  login: benwbrum
+  email: benwbrum@gmail.com
+  display_name: Ben Brumfield
+  first_name: Ben
+  last_name: Brumfield
+permalink: "/errata/"
+---
+<p>Two important errata in previous posts are worth highlighting:</p>
+<h3>Wikisource for Manuscript Transcription</h3>
+<p>Commenters on my most recent post, <a href="http://manuscripttranscription.blogspot.com/2009/07/wikisource-for-manuscript-transcription.html">"Wikisource for Manuscript Transcription"</a> have pointed out that the Wikisource rule prohibiting the addition of unpublished works--thereby almost entirely prohibiting manuscript transcription projects--is specific to the language domains.  The English and French language Wikisource projects enforce the prohibition, but the German and Hebrew language Wikisource projects do not.</p>
+<p><a href="http://en.wikipedia.org/wiki/User:Dovi">Dovi</a>, a Wikipedia editor whom I used to bump into on Ancient Near Eastern language articles, points to his work on the the Wikisource edition of Arukh Hashulchan, pointing to <a href="http://he.wikisource.org/wiki/SIMANIM">this example of <i>simanim</i></a>.  Sadly, my Hebrew isn't up to the task of commenting on this effort.</p>
+<p>I was delighted to see that the post also inspired <a href="http://de.wikisource.org/wiki/Wikisource:Skriptorium/Archiv/2010/Oktober#Feedback_aus_Texas">a bit of commentary</a> on the German-language Wikisource Skriptorium.  In particular, WikiAnika seemed to agree with my criticism of flat transcription: <i>Man scheint in gewisser Weise noch an der Printform „zu kleben“. Oder um einen Dritten zu zitieren: „WS ist eine Sackgasse – man findet vielleicht zu einem interessanten Text hin, aber man kommt nicht mehr weiter.“</i></p>
+<h3>A Short Introduction to <code>before_filter</code></h3>
+<p>In my <a href="http://manuscripttranscription.blogspot.com/2007/06/rails-short-introduction-to.html">2007 post on Rails filters</a>, I mentioned using filters to authenticate users:</p>
+<blockquote><p>Filters are called filters because they return a Boolean, and if that return value is false, the action is never called. You can use the the <code>logged_in?</code> method of <code>:acts_as_authenticated</code> to prohibit access to non-users — just add <code>before_filter :logged_in?</code> to your controller class and you're set!</p></blockquote>
+<p>Thanks to some changes made in Rails 2.0, this is not just wrong but <b>dangerously wrong</b>.  Rails now ignores filter return values, allowing unauthorized access to your actions if you followed my advice.</p>
+<p>Because Rails no longer pays any attention to the return values of controller filters, I've had to replace all my <code>return <i>condition</i></code> statements with <code>unless <i>condition</i> redirect_to <i>somewhere</i></code>.</p>

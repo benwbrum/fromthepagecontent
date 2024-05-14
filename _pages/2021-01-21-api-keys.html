@@ -1,0 +1,80 @@
+---
+layout: page
+title: Key Based API Access for Private Collections & Bulk Exports
+date: 2021-01-21 16:12:50.000000000 -06:00
+type: page
+parent_id: '551'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '3'
+  _wp_page_template: default
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_wordproof_timestamp: ''
+  _yoast_wpseo_content_score: '30'
+author:
+  login: saracarl
+  email: saracarl@gmail.com
+  display_name: Sara Brumfield
+  first_name: Sara
+  last_name: Brumfield
+permalink: "/project-owner-documentation/api-keys/"
+---
+<p>You can access the IIIF API of a private collection using our key based API. Querying public collections does not need an API key.</p>
+<p>You can download bulk export zip files containing page and work level transcripts and translations via our key based API.  You'll need a key even if your collection is public.</p>
+<p>To get a key:</p>
+<ol>
+<li>Log in to FromThePage and make sure your account has access to the private collections you'd like to export by clicking on the "Dashboard" link.</li>
+<li>Click on "Your Profile" under the "Signed In As..."</li>
+<li>Click "API Keys" button on the upper right.</li>
+<li>Click "Generate Key"</li>
+<li>Copy the key you just generated.  (You can always find it again under your profile.)</li>
+</ol>
+<p><img class="wp-image-1055 size-medium aligncenter" src="{{ site.baseurl }}/assets/2021/01/Screenshot-from-2021-01-21-16-18-32-300x127.png" alt="" width="300" height="127" /></p>
+<p><img class="wp-image-1054 size-medium aligncenter" src="{{ site.baseurl }}/assets/2021/01/Screenshot-from-2021-01-21-16-18-17-300x165.png" alt="" width="300" height="165" /></p>
+<p>To query the IIIF API, use your key:</p>
+<pre>curl -H 'Authorization: Token token=KEY' 'COLLECTION_URL'</pre>
+<p>where KEY is your key and COLLECTION_URL is the IIIF collection URL found on the collection export tab in the user interface.<br />
+for example:</p>
+<pre>curl -H 'Authorization: Token token=AvTgcRvaU5lURgBt3Y9C1gtt' 'https://fromthepage.com/iiif/collection/4'</pre>
+<p>To initiate a bulk export API:</p>
+<pre>curl -H 'Authorization: Token token=KEY' -X POST "https://fromthepage.com/api/v1/bulk_export/collection-slug?option1=true&amp;option2=true</pre>
+<p>Where the collection-slug is the part of the collection url (find it in the settings page for the collection, or just look at the URL for the collection).  Options are different types of files to be included in your export zip file.  You must have at least one.  You may have all options.  The following are valid options for the formats included in the export file:</p>
+<pre>plaintext_verbatim_page
+plaintext_verbatim_work
+plaintext_emended_page
+plaintext_emended_work
+plaintext_searchable_page
+plaintext_searchable_work
+tei_work
+html_page
+html_work
+subject_csv_collection
+subject_details_csv_collection
+table_csv_collection
+table_csv_work</pre>
+<p><a href="https://content.fromthepage.com/project-owner-documentation/export-formats/">More about export formats</a></p>
+<p>For example, the following API call will start an export a plaintext verbatim file for each work in the collection and one plaintext verbatim file for each page in the collection, organized into folders by work.</p>
+<pre>curl -H 'Authorization: Token token=4e258CaCK71WWrQS13PP4gtt' -X POST "http://localhost:3000/api/v1/bulk_export/east-civil-war-letters?plaintext_verbatim_page=true&amp;plaintext_verbatim_work=true"</pre>
+<p>This will return:</p>
+<pre>{
+   "id":26,
+   "status":"queued",
+   "status_uri":"https://fromthepage.com/api/v1/bulk_export/26/status",
+   "download_uri":"https://fromthepage.com/api/v1/bulk_export/26/download"
+}</pre>
+<p>To monitor the status of your export, take the ID that is returned from that request and use it in the status API call:</p>
+<pre>curl -H 'Authorization: Token token=4e258CaCK71WWrQS13PP4gtt' 'http://localhost:3000/api/v1/bulk_export/ID/status'</pre>
+<p>Once the status is complete, like so:</p>
+<pre>{
+   "id":25,
+   "status":"finished",
+   "status_uri":"http://fromthepage.com/api/v1/bulk_export/25/status",
+   "download_uri":"https://localhost:3000/api/v1/bulk_export/25/download"
+}</pre>
+<p>You can download the export file using the URL in the response:</p>
+<pre>curl -H 'Authorization: Token token=4e258CaCK71WWrQS13PP4gtt' 'https://fromthepage.com/api/v1/bulk_export/14/download' --output out.zip</pre>

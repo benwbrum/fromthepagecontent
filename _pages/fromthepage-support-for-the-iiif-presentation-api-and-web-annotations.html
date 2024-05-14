@@ -1,0 +1,794 @@
+---
+layout: page
+title: FromThePage Support for the IIIF Presentation API and Web Annotations
+date: 
+type: page
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _edit_last: '10'
+  _genesis_scripts_body_position: bottom
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '15'
+  _yoast_wpseo_wordproof_timestamp: ''
+author:
+  login: anabeabas
+  email: ana@fromthepage.com
+  display_name: Ana Bastida
+  first_name: Ana
+  last_name: Bastida
+permalink: "/"
+---
+<p><!-- wp:heading {"level":1} --></p>
+<h1 class="wp-block-heading">Query APIs</h1>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>In addition to the implementations of the IIIF Presentation API, FromThePage servers also support two non-standard APIs for querying IIIF content.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Since most IIIF clients only work with IIIF manifests (rather than other presentation objects like supplementary layers), FromThePage re-presents transcripts, comments, translations and other additions to IIIF content as&nbsp;<em>derivative manifests</em>. Any IIIF item that has been imported into FromThePage will be re-presented on the FromThePage IIIF Presentation API server as a manifest including information from the originating manifest as well as links to resources and annotations authored on by FromThePage users. Each derivative manifest includes a&nbsp;<code>metadata</code>&nbsp;element&nbsp;<code>dc:source</code>&nbsp;referencing the original manifest so that these may be correlated. However, additional APIs are convenient so that content providers do not need to crawl all FromThePage IIIF manifests to find content in use on the crowdsourcing platform.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#iiifcontributions-user-contribution-api"></a><code>iiif/contributions</code>: User Contribution API</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The&nbsp;<code>iiif/contributions</code>&nbsp;API allows content providers to find all user-created contributions relating to their content on a FromThePage site. This can be used by a single institution to integrate crowdsourcing output with its digital library systems, or by multiple institutions to poll FromThePage servers for researcher-driven projects using their content.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Usage:&nbsp;<em>{FromThePage Server}</em><code>/iiif/contributions/</code><em>{domain or user slug}</em>/<em>start date</em>/<em>end_date</em>/</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul><!-- wp:list-item --></p>
+<li><code>domain or user slug</code>&nbsp;may be a slug for a project owner user account or a string like&nbsp;<code>data.ucd.ie</code>&nbsp;or&nbsp;<code>stanford.edu</code>&nbsp;corresponding to the domain of the imported manifest URI.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><code>start date</code>&nbsp;is an ISO8601 date/time representing the&nbsp;<em>terminus a quo</em>&nbsp;-- the beginning of a time window for user activity. Works which were transcribed, translated, or indexed before this time will not be returned by this query. This parameter is optional, but must be specified if an&nbsp;<code>end date</code>&nbsp;parameter is specified.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><code>end date</code>&nbsp;is an ISO8601 date/time representing the&nbsp;<em>terminus ad quem</em>&nbsp;-- the end of a time window for user activity. Only works which had user activity between the start date and end date of the window will be returned by this query. This parameter is optional.</li>
+<p><!-- /wp:list-item --></ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>This API returns a IIIF Presentation Collection listing IIIF Manifests for each FromThePage work that matches the query. In addition to label and derivative URI, each manifest also lists the&nbsp;<code>dc:source</code>&nbsp;and FromThePage Status service for the manifest.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#iiiffor-iiif-content-redirection-api"></a><code>iiif/for</code>: IIIF Content Redirection API</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The&nbsp;<code>iiif/for</code>&nbsp;API allows content providers to query for derivative resources corresponding to their own IIIF presentation collections, manifests, or canvases on a FromThePage server. Any content derived from the originating manifest will be returned as a&nbsp;<code>302</code>&nbsp;redirect.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Usage:&nbsp;<em>{FromThePage Server}</em><code>/iiif/for/</code><em>{originating URI}</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":1} --></p>
+<h1 class="wp-block-heading">IIIF Collections</h1>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#top-level-collection"></a>Top-level Collection</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The top-level collection for a FromThePage server lists sub-collections, and is accessible at&nbsp;<code>{protocol}://{hostname/iiif/collections</code></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Each IIIF sub-collection represents a FromThePage Collection. In addition, those collections which have been imported from a corresponding IIIF collection elsewhere include a metadata block with a&nbsp;<code>dc:source</code>&nbsp;term referencing the originating collection, so that clients can easily identify the derivative resource that corresponds with their IIIF collection:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>    {
+      "@id": "https://fromthepage.com/iiif/collection/163",
+      "@type": "sc:Collection",
+      "label": "UCD Ephemera Collection",
+      "metadata": &#91;
+        {
+          "label": "dc:source",
+          "value": "https://data.ucd.ie/api/img/collection/ivrla:9927"
+        }
+      ]
+    },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#sub-collections"></a>Sub-collections</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Each sub-collection displays the title and description of the underlying FromThePage collection along with manifests that correspond to FromThePage works in the collection.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If the collection has been imported into FromThePage from a IIIF collection hosted elsewhere, the metadata block will include a reference the originating IIIF collection in the&nbsp;<code>dc:source</code>&nbsp;field.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Each manifest listed in the sub-collection document includes the standard label/descripion fields in short views of manifests, and omits sequences of canvases.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In addition, the manifest includes a&nbsp;<code>metadata</code>&nbsp;block containing the&nbsp;<code>dc:source</code>&nbsp;field pointing to an originating manifest, if that work was imported into FromThePage by from a IIIF manifest. Manifests also include a&nbsp;<code>service</code>&nbsp;block containing the transcription status of the work.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#user-collections"></a>User Collections</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The top-level collection for each project owner user account is accessible at&nbsp;<code>{protocol}://{hostname/iiif/collections</code><em>{user slug}</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Each IIIF sub-collection represents a FromThePage Collection or Document Set owned by the user with that slug.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":1} --></p>
+<h1 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#iiif-manifests"></a>IIIF Manifests</h1>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>FromThePage generates a IIIF manifest for each work that is publicly visible. If the work was imported from a content provider's IIIF manifest, the manifest FromThePage serves is a derivative manifest with a new&nbsp;<code>@id</code>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#id"></a><code>@id</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A URI pointing to this document. All works have unique&nbsp;<code>@id</code>&nbsp;values referring to themselves, including those imported from a IIIF manifest elsewhere.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>  "@id": "https://fromthepage.com/iiif/99/manifest",
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#label"></a><code>label</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Label is populated by the work title set in FromThePage. If the work was imported from a IIIF manifest originally, the work title was initially populated with the originating IIIF manifest.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>  "label": "1.24 Houston, Sam, 30 July 1841",
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#description"></a><code>description</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Description is populated by the work description in FromThePage.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If the work was imported from a IIIF manifest originally, the work description was populated by the description property on the originating manifest.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#metadata"></a><code>metadata</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If the work was imported from a IIIF manifest, the&nbsp;<code>metadata</code>&nbsp;property contains a single value pointing users to the originating manifest.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>  "metadata": &#91;
+    {
+      "label": "dc:source",
+      "value": "https://data.ucd.ie/api/img/manifests/ivrla:18727"
+    }
+  ],
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#within"></a><code>within</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A pointer to the IIIF collection manifest for the FromThePage collection this work has been added to. Note that the parent collection may not correspond to a IIIF collection, even when works have been imported from IIIF manifests.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>  "within": 
+    {
+      "@id": "https://fromthepage.com/iiif/collection/93",
+      "@type": "sc:Collection",
+      "label": "Indianapolis Metropolitan Police Department"
+    }, 
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#related"></a><code>related</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#read-work-url"></a>Read Work URL</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A link to the work's main reader view on FromThePage.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Read-Work",
+         "label": ""Read 1.24 Houston, Sam, 30 July 1841",
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#table-of-contents-url"></a>Table of Contents URL</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A link to the work's table of contents on FromThePage.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841/contents",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Table-of-Contents",
+         "label": "Table of Contents"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#originating-related-properties"></a>Originating&nbsp;<code>related</code>&nbsp;Properties</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If a work has been imported from a IIIF manifest, any&nbsp;<code>related</code>&nbsp;properties from that manifest will be re-presented here. The contents of these properties will reflect the originating manifest's state when it was imported.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading">Sequence-level&nbsp;<code>rendering</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>The&nbsp;<code>rendering</code>&nbsp;property is placed under the default&nbsp;<code>sequence</code>, not directly under the manifest.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The following formats will be exposed via&nbsp;<code>rendering</code>, with the expectation that clients will allow human users to download them for further editing. Some formats may also be exposed via&nbsp;<code>seeAlso</code>&nbsp;for machine consumption.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-plaintext"></a>Verbatim Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A verbatim plaintext version of the work will be available at this URL. This plaintext file will represent line breaks with single newline, paragraph breaks with a double newline, and page breaks with a triple newline. It will contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=verbatim",
+         "format": "text/plain",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Export-Plaintext-Verbatim",
+         "label": "Verbatim Plaintext"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#tei-xml"></a>TEI-XML</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The existing FromThePage TEI-XML export of the work will be available for download at the link target. This may be useful to editors who plan to do further mark-up within TEI-XML editors like&nbsp;<a href="https://www.oxygenxml.com/">Oxygen</a>. The TEI-XML export of the work will be identical to that available in the FromThePage UI under the Export tab.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/tei?work_id=11",
+         "format": "application/tei+xml",
+         "profile": "https://tools.ietf.org/html/rfc6129",
+         "label": "TEI XML"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#xhtml"></a>XHTML</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The existing FromThePage XHTML export of the work will be available for download at the link target. This may be useful for preservation in other systems or as a starting point for display on another website. The XHTML export of the work will be identical to that available in the FromThePage UI under the Export tab.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+          "@id": "https://fromthepage.com/export/show?work_id=365",
+          "label": "XHTML Export",
+          "profile": "XHTML URL"
+        },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#seealso"></a><code>seeAlso</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#structured-data"></a>Structured Data</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For projects configured to support item-level metadata creation, each manifest will contain a&nbsp;<code>seeAlso</code>&nbsp;element with a link to the&nbsp;<a href="https://github.com/benwbrum/fromthepage/wiki/Structured-Data-API-for-Harvesting-Crowdsourced-Contributions#structured-data-endpoint-reference">FromThePage Structured Data API</a></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-plaintext-1"></a>Verbatim Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Identical to the sequence-level verbatim plaintext&nbsp;<code>rendering</code>. As&nbsp;<code>rendering</code>&nbsp;is designed for human download, but&nbsp;<code>seeAlso</code>&nbsp;specifies machine-readable output, the same link target will appear in both places within the manifest. contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=verbatim",
+         "format": "text/plain",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Export-Plaintext-Verbatim",
+         "label": "Verbatim Plaintext"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#emended-plaintext"></a>Emended Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>An emended plaintext version of the work will be available at this URL. Like the verbatim plaintext, this plaintext file will represent line breaks with single newline, paragraph breaks with a double newline, and page breaks with a triple newline. It differs from the verbatim text, in that normalization will be applied to all subjects mentioned, so that while the verbatim text may read&nbsp;<code>"I greeted Mr. Jones and his wife this morning."</code>, the emended plaintext will read&nbsp;<code>"I greeted James Jones and Elizabeth Smith Jones this morning"</code>. This artificial text is useful for programmatic analysis, but is not meant to be read by humans. contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=emended",
+         "format": "text/plain",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Export-Plaintext-Emended",
+         "label": "Emended Plaintext"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-translation-plaintext"></a>Verbatim Translation Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Identical to the verbatim plaintext in formatting, but containing the text of the translation (rather than the original language) for works which support translation.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#emended-translation-plaintext"></a>Emended Translation Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>An emended plaintext version (see above) of the translation of the work will be available at this URL. This element is not included for works that do not have translation enabled.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#plaintext-for-full-text-search"></a>Plaintext for full-text search</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A plaintext version of the work optimized for full-text search will be available at this URL. This version contains a verbatim plaintext transcript of each page (as described above), except that words broken by hyphenated newlines are joined together, and a list of the canonical names mentioned within each page is appended to the end of the page. The example text would be rendered as</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>I greeted Mr. Jones and his wife this morning.
+
+James Jones
+Elizabeth Smith Jones
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=searchable",
+         "format": "text/plain",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Export-Plaintext-Searchable",
+         "label": "Searchable Plaintext"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#xhtml-1"></a>XHTML</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The existing XHTML export of the work will be accessible at this link. contain the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=verbatim",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Export-Plaintext-XHTML",
+         "label": "XHTML Export"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#tei-xml-1"></a>TEI-XML</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The existing TEI-XML export of the work will be accessible at this link. Like Verbatim Plaintext, an identical link appears under both sequence-level&nbsp;<code>rendering</code>&nbsp;and the manifest's&nbsp;<code>seeAlso</code>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>      {
+         "@id": "https://fromthepage.com/export/plaintext?work_id=11&amp;transform=verbatim",
+         "format": "application/tei+xml",
+         "profile": "https://tools.ietf.org/html/rfc6129",
+         "label": "TEI XML"
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#service"></a><code>service</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A JSON block listing the percentage of work completed, translation completed, pages&nbsp;<em>transcribed, corrected, indexed</em>,&nbsp;<em>marked blank or "needs review"</em>, and pages&nbsp;<em>translated</em>,&nbsp;<em>translation indexed</em>,&nbsp;<em>translation marked blank or "needs review"</em>. Example:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:preformatted --></p>
+<pre class="wp-block-preformatted">      "service": {
+        "@context": "http://www.fromthepage.org/jsonld/1/context.json",
+        "@id": "http://localhost:3000/iiif/2264/status",
+        "label": "Work Status",
+        "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations-(draft)",
+        "pctComplete": 100.0,
+        "pctTranscribed": 100.0,
+        "pctOcrCorrected": 0.0,
+        "pctIndexed": 100.0,
+        "pctMarkedBlank": 0.0,
+        "pctNeedsReview": 0.0,
+        "pctTranslationComplete": 0.0,
+        "pctTranslated": 0.0,
+        "pctTranslationNeedsReview": 0.0,
+        "pctTranslationIndexed": 0.0,
+        "pctTranslationMarkedBlank": 0.0
+      }</pre>
+<p><!-- /wp:preformatted --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#canvas"></a><code>canvas</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For works directly uploaded to FromThePage, each canvas refers to the FromThePage Image API service and uses a dereferenceable FromThePage canvas&nbsp;<code>@id</code>:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>        {
+          "@id": "https://fromthepage.com/iiif/99/canvas/4532",
+          "@type": "sc:Canvas",
+          "label": "Page 1",
+          "width": 2397,
+          "height": 2997,
+          "images": &#91;
+            {
+              "@id": "https://fromthepage.com/image-service/4532",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://fromthepage.com/image-service/4532/full/full/0/native.jpg",
+                "@type": "dcterms:Image",
+                "format": "image/jpeg",
+                "width": 2397,
+                "height": 2997,
+                "service": {
+                  "@context": "http://iiif.io/api/image/1/context.json",
+                  "@id": "https://fromthepage.com/image-service/4532",
+                  "profile": "http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level2"
+                }
+              },
+              "on": "https://fromthepage.com/iiif/99/canvas/4532"
+            }
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>For works imported from a IIIF manifest, each canvas retains its original&nbsp;<code>@id</code>&nbsp;and the originating canvas property values for&nbsp;<code>width</code>,&nbsp;<code>height</code>&nbsp;and image service annotations:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>        {
+          "@id": "https://data.ucd.ie/api/img/ivrla:18727/canvas/ivrla:18728",
+          "@type": "sc:Canvas",
+          "label": "vol. 1, p. 3",
+          "width": 4192,
+          "height": 5992,
+          "images": &#91;
+            {
+              "@id": "https://iiif.ucd.ie/loris/ivrla:18728",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://iiif.ucd.ie/loris/ivrla:18728/full/full/0/default.jpg",
+                "@type": "dcterms:Image",
+                "format": "image/jpeg",
+                "width": 4192,
+                "height": 5992,
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "https://iiif.ucd.ie/loris/ivrla:18728",
+                  "profile": "http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level2"
+                }
+              },
+              "on": "https://data.ucd.ie/api/img/ivrla:18727/canvas/ivrla:18728"
+            }
+          ]
+        },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#related-1"></a><code>related</code></h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Links to the FromThePage application pages to read, transcribe, or (if enabled) translate or correct OCR for this page are added to all canvases as&nbsp;<code>related</code>&nbsp;properties:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>   "related": &#91;
+      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841/display/4532",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Read-Page",
+         "label": "Read this page."
+      },
+      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841/transcribe/4532",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Read-Page",
+         "label": "Transcribe this page."
+      },
+      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841/transcribe/4532",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Correct-Page",
+         "label": "Correct this page."
+      },
+      {
+         "@id": "https://fromthepage.com/nlthomas/utsa-james-morgan-papers/1-24-houston-sam-30-july-1841/translate/4532",
+         "format": "text/html",
+         "profile": "https://github.com/benwbrum/fromthepage/wiki/IIIF-Profiles-Translate-Page",
+         "label": "Translate this page."
+      },
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>Note that translation is only available if the project owner has set the work to enable translation. Note also that only one of "Correct this page" or "Transcribe this page" will be present, depending on whether a work is set for OCR correction versus manuscript transcription.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#seealso-1"></a><code>seeAlso</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Machine-processable links for this page include page-level representations of texts for consumption into indexing services.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#structured-data-1"></a>Structured Data</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For projects configured to support field-based transcription or spreadsheet transcription, each canvas will contain a link to the&nbsp;<a href="https://github.com/benwbrum/fromthepage/wiki/Structured-Data-API-for-Harvesting-Crowdsourced-Contributions#structured-data-endpoint-reference">FromThePage Structured Data API</a></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#html-transcription"></a>HTML Transcription</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>HTML representation of the page text, including formatting and links to subjects.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-plaintext-2"></a>Verbatim Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Verbatim plaintext export of the text for this page.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#emended-plaintext-1"></a>Emended Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Emended plaintext export of the text for this page.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#html-translation"></a>HTML Translation</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>HTML representation of the translation text of this page, including formatting and links to subjects.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-translation-plaintext-1"></a>Verbatim Translation Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Verbatim plaintext export of the translation text for this page.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#emended-translation-plaintext-1"></a>Emended Translation Plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Emended plaintext export of the translation text for this page.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#plaintext-for-full-text-search-1"></a>Plaintext for full-text search</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Full-text search plaintext export of the text for this page.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Example:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>
+          "seeAlso": &#91;
+            {
+              "label": "Searchable Plaintext",
+              "format": "text/plain",
+              "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Plaintext-Export-Formats#searchable-plaintext",
+              "@id": "http://localhost:3000/jbhoward/ucd-letters-71/note-from-john-henry-newman-to-an-unnamed-recipient-apologising-for-his-inability-to-answer-letters-due-to-old-age-355/export/18252/plaintext/searchable"
+            },
+            {
+              "label": "Verbatim Plaintext",
+              "format": "text/plain",
+              "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Plaintext-Export-Formats#verbatim-plaintext",
+              "@id": "http://localhost:3000/jbhoward/ucd-letters-71/note-from-john-henry-newman-to-an-unnamed-recipient-apologising-for-his-inability-to-answer-letters-due-to-old-age-355/export/18252/plaintext/verbatim"
+            },
+            {
+              "label": "Emended Plaintext",
+              "format": "text/plain",
+              "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Plaintext-Export-Formats#emended-plaintext",
+              "@id": "http://localhost:3000/jbhoward/ucd-letters-71/note-from-john-henry-newman-to-an-unnamed-recipient-apologising-for-his-inability-to-answer-letters-due-to-old-age-355/export/18252/plaintext/emended"
+            },
+            {
+              "label": "Verbatim Translation Plaintext",
+              "format": "text/plain",
+              "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Plaintext-Export-Formats#verbatim-translation-plaintext",
+              "@id": "http://localhost:3000/jbhoward/ucd-letters-71/note-from-john-henry-newman-to-an-unnamed-recipient-apologising-for-his-inability-to-answer-letters-due-to-old-age-355/export/18252/plaintext/translation/verbatim"
+            },
+            {
+              "label": "Emended Translation Plaintext",
+              "format": "text/plain",
+              "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Plaintext-Export-Formats#emended-translation-plaintext",
+              "@id": "http://localhost:3000/jbhoward/ucd-letters-71/note-from-john-henry-newman-to-an-unnamed-recipient-apologising-for-his-inability-to-answer-letters-due-to-old-age-355/export/18252/plaintext/translation/emended"
+            }
+          ],
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#service-1"></a><code>service</code></h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A JSON block representing the editorial status of this page. Since projects vary in their workflows and definitions of "done", FromThePage offers fine-grained flags for variations of status.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Valid status flags are</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul><!-- wp:list-item --></p>
+<li><em><code>needsReview</code></em>: Either a user has intentionally marked this page as needing review, or the project has been configured to automaticaly mark pages as needing review and the page has not yet been un-marked. This flag probably means that work on the page is either incomplete or problematic; the page is likely not "finished".</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>unedited</code></em>: No user has transcribed, corrected or translated this page. Work on the page has not yet started, so the page is not "finished".</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>markedBlank</code></em>: A user has looked at the page and decided that there is nothing to transcribe/translate/correct on it. The page is likely "finished".</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>hasTranscript</code></em>: The page contains text. For manuscript transcription projects, this implies that a user has at least partially transcribed this page, so the page may be "finished"&nbsp;<code>needsReview</code>&nbsp;is not set and projects do not require subject tags. For OCR correction projects, the text present may be raw OCR, so&nbsp;<code>unedited</code>&nbsp;should be consulted for determining whether the page is "finished".</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>hasTranslation</code></em>: A translation of the page text has been created by users. For translation projects, this may indicate that the page is "finished", modulo&nbsp;<code>translationNeedsReview</code>.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>translationNeedsReview</code></em>: The translation of the page has been flagged as needing review.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><em><code>hasSubjectTags</code></em>: Subjects within the page text have been tagged, creating index entries. For more extensive editing projects, this flag indicates that the page is "finished", modulo&nbsp;<code>needsReview</code>.</li>
+<p><!-- /wp:list-item --></ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:preformatted --></p>
+<pre class="wp-block-preformatted">          "service": {
+            "@context": "http://www.fromthepage.org/jsonld/1/context.json",
+            "@id": "http://localhost:3000/iiif/2264/39168/status",
+            "label": "Page Status",
+            "profile": "https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#service-1",
+            "pageStatus": [
+              "needsReview",
+              "hasTranscript"
+            ]
+          },</pre>
+<p><!-- /wp:preformatted --></p>
+<p><!-- wp:heading {"level":1} --></p>
+<h1 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#web-annotations"></a>Web Annotations</h1>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>At present, web annotations are only used for displaying textual content in viewers like Mirador.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#transcripts"></a>Transcripts</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A page transcript is presented as an AnnotationList targeting the canvas.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#verbatim-plaintext-3"></a>Verbatim plaintext</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A verbatim plaintext version of the page. The annotation body represents line breaks with single newline and paragraph breaks with a double newline. It contains the verbatim text, with all formatting, emendation, and subject linking stripped out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "https://fromthepage.com/iiif/4532/list/transcription",
+  "@type": "sc:AnnotationList",
+  "resources": &#91;
+    {
+      "@type": "oa:Annotation",
+      "motivation": "TODO",
+      "on": "https://fromthepage.com/iiif/99/canvas/4532",
+      "resource": {
+        "@id": "plaintext_export_for_4532",
+        "@type": "cnt:ContentAsText",
+        "format": "text/plain",
+        "chars": "\n        Cedar Point\n 30th July 1841\n\n\n My dear Colonel\n\n\n We felt the most painful\n anxiety for Mrs Lee on your voyage\n up yesterday, aware as we were of\n her great timidity on water.  I thought\n Mother and Mrs Houston would have\n gone into fits to see the Boat top and\n dive in the breakers.  Of course you\n reached home safe with your preci\n -ous charge.  Don't let it deter the\n Madam from coming to see us in\n future.  The Ladies salute Mrs Lee\n and the dear little Lee, with their\n best respects, to Col Morgan!\n\n\n I send you No 2, of \"Truth,\" and\n as it is interlined so much, I hope\n you will have it copied, corrected\n and if you can, hand it to Baker\n\n\n      "
+      }
+    }
+  ]
+}
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#html"></a>HTML</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A HTML version of the page transcript, including formatting and hyperlinks</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>    {
+      "@type": "oa:Annotation",
+      "motivation": "supplementing",
+      "on": "https://fromthepage.com/iiif/99/canvas/4532",
+      "resource": {
+        "@id": "plaintext_export_for_4532",
+        "@type": "cnt:ContentAsText",
+        "format": "text/html",
+        "chars": "&lt;div class="page-preview"&gt;&lt;p&gt;&lt;a data-tooltip='/article/tooltip?article_id=8881&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8881' title='Cedar Point,Chambers,Texas'&gt;Cedar Point&lt;/a&gt;&lt;br/&gt;
+ 30th July 1841&lt;/p&gt;
+
+&lt;p&gt; My dear &lt;a data-tooltip='/article/tooltip?article_id=8858&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8858' title='Colonel James Morgan'&gt;Colonel&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt; We felt the most painful&lt;br/&gt;
+ anxiety for &lt;a data-tooltip='/article/tooltip?article_id=8935&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8935' title='Caroline Ophelia (Morgan) Lee'&gt;Mrs Lee&lt;/a&gt; on your voyage&lt;br/&gt;
+ up yesterday, aware as we were of&lt;br/&gt;
+ her great timidity on water.  I thought&lt;br/&gt;
+ &lt;a data-tooltip='/article/tooltip?article_id=8936&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8936' title='Nancy (Moffett) Lea'&gt;Mother&lt;/a&gt; and &lt;a data-tooltip='/article/tooltip?article_id=8937&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8937' title='Margaret Moffett (Lea) Houston'&gt;Mrs Houston&lt;/a&gt; would have&lt;br/&gt;
+ gone into fits to see the Boat top and&lt;br/&gt;
+ dive in the breakers.  Of course you&lt;br/&gt;
+ reached home safe with your preci&lt;br/&gt;
+ -ous charge.  Don't let it deter the&lt;br/&gt;
+ Madam from coming to see us in&lt;br/&gt;
+ future.  The Ladies salute &lt;a data-tooltip='/article/tooltip?article_id=8935&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8935' title='Caroline Ophelia (Morgan) Lee'&gt;Mrs Lee&lt;/a&gt;&lt;br/&gt;
+ and the dear little &lt;a data-tooltip='/article/tooltip?article_id=8938&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8938' title='Ellen Lee'&gt;Lee&lt;/a&gt;, with their&lt;br/&gt;
+ best respects, to &lt;a data-tooltip='/article/tooltip?article_id=8858&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8858' title='Colonel James Morgan'&gt;Col Morgan&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt; I send you No 2, of "Truth," and&lt;br/&gt;
+ as it is interlined so much, I hope&lt;br/&gt;
+ you will have it &lt;u&gt;copied&lt;/u&gt;, &lt;u&gt;corrected&lt;/u&gt;&lt;br/&gt;
+ and if you can, hand it to &lt;a data-tooltip='/article/tooltip?article_id=8996&amp;amp;collection_id=utsa-james-morgan-papers' href='/nlthomas/utsa-james-morgan-papers/article/8996' title='Joseph Baker,known as Don Jose&amp;apos;'&gt;Baker&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;"
+      }
+    }
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#tei-snippet"></a>TEI Snippet</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>[Proposed but not implemented]</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>    {
+      "@type": "oa:Annotation",
+      "motivation": "TODO",
+      "on": "https://fromthepage.com/iiif/99/canvas/4532",
+      "resource": {
+        "@id": "plaintext_export_for_4532",
+        "@type": "cnt:ContentAsXml",
+        "format": "application/xml+tei",
+        "chars": "&lt;pb xml:id="F4532" n="1" facs="/home/fromthepage/fromthepage/releases/20130808013424/public/images/working/95/txsau_ms00278_00098.jpg"/&gt;&lt;div xml:id="OTP4532"&gt;&lt;fw type="pageNum"&gt;Page 1&lt;/fw&gt;&lt;p corresp="TTP4532P0" xml:id="OTP4532P0"&gt;&lt;rs ref="#S8881"&gt;Cedar Point&lt;/rs&gt;&lt;lb/&gt;
+ 30th July 1841&lt;lb/&gt;&lt;/p&gt;&lt;p corresp="TTP4532P1" xml:id="OTP4532P1"&gt; My dear &lt;rs ref="#S8858"&gt;Colonel&lt;/rs&gt;&lt;lb/&gt;&lt;/p&gt;&lt;p corresp="TTP4532P2" xml:id="OTP4532P2"&gt; We felt the most painful&lt;lb/&gt;
+ anxiety for &lt;rs ref="#S8935"&gt;Mrs Lee&lt;/rs&gt; on your voyage&lt;lb/&gt;
+ up yesterday, aware as we were of&lt;lb/&gt;
+ her great timidity on water.  I thought&lt;lb/&gt;&lt;rs ref="#S8936"&gt;Mother&lt;/rs&gt; and &lt;rs ref="#S8937"&gt;Mrs Houston&lt;/rs&gt; would have&lt;lb/&gt;
+ gone into fits to see the Boat top and&lt;lb/&gt;
+ dive in the breakers.  Of course you&lt;lb/&gt;
+ reached home safe with your preci&lt;lb/&gt;
+ -ous charge.  Don't let it deter the&lt;lb/&gt;
+ Madam from coming to see us in&lt;lb/&gt;
+ future.  The Ladies salute &lt;rs ref="#S8935"&gt;Mrs Lee&lt;/rs&gt;&lt;lb/&gt;
+ and the dear little &lt;rs ref="#S8938"&gt;Lee&lt;/rs&gt;, with their&lt;lb/&gt;
+ best respects, to &lt;rs ref="#S8858"&gt;Col Morgan&lt;/rs&gt;!&lt;lb/&gt;&lt;/p&gt;&lt;p corresp="TTP4532P3" xml:id="OTP4532P3"&gt; I send you No 2, of "Truth," and&lt;lb/&gt;
+ as it is interlined so much, I hope&lt;lb/&gt;
+ you will have it &lt;hi rend="underline"&gt;copied&lt;/hi&gt;, &lt;hi rend="underline"&gt;corrected&lt;/hi&gt;&lt;lb/&gt;
+ and if you can, hand it to &lt;rs ref="#S8996"&gt;Baker&lt;/rs&gt;&lt;/p&gt;&lt;note resp="#U93"&gt;Sam Houston urges Colonel Morgan to have Joseph Baker publish a book, titled "Truth."  Baker known as Don Jose' was the man who established the "Telegraph and Texas Register," in Oct, of 1835, and fought at the Battle of San Jacinto, on April 21, 1836. &lt;/note&gt;&lt;/div&gt;"
+      }
+    }
+</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#translations"></a>Translations</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A page translation is presented as an AnnotationList targeting the canvas.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading"><a href="https://github.com/benwbrum/fromthepage/wiki/FromThePage-Support-for-the-IIIF-Presentation-API-and-Web-Annotations#notes"></a>Notes</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Page notes are rendered as an AnnotationList targeting the canvas</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "https://fromthepage.com/iiif/4532/notes",
+  "@type": "sc:AnnotationList",
+  "resources": &#91;
+    {
+      "@id": "https://fromthepage.com/iiif/4532/note/1",
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "on": "https://fromthepage.com/iiif/99/canvas/4532#xywh=0,0,2397,2997",
+      "resource": {
+        "@id": "note_1_for_4532",
+        "@type": "cnt:ContentAsText",
+        "format": "text/plain",
+        "chars": "Sam Houston urges Colonel Morgan to have Joseph Baker publish a book, titled \"Truth.\"  Baker known as Don Jose' was the man who established the \"Telegraph and Texas Register,\" in Oct, of 1835, and fought at the Battle of San Jacinto, on April 21, 1836. "
+      }
+    }
+  ]
+}</code></pre>
+<p><!-- /wp:code --></p>
